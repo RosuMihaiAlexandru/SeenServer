@@ -8,11 +8,9 @@ const Hapi=require('hapi');
 
 // Create a server with a host and port
 const server=new Hapi.Server();
-server.connection({ port: process.env.PORT || 3000 });
+server.connection(cfg.server);
 
-// Connect with the database
 server.app.db = database;
-
 
 // Add the routes
 server.route(routes);

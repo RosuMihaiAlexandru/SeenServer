@@ -7,8 +7,8 @@ module.exports={
     },
     //not sure we need this
     server:{
-        port: 8888,
-        host: 'localhost',
+        port: 8000,
+        host: '0.0.0.0',
     },
     collections:{
         Users: 'Users',
