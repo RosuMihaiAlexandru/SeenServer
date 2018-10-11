@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const databaseConfig = require ('../config');
 
-const database = mongoose.connect(databaseConfig.databaseUri, { dbName: 'SeenDatabase' });
+const database = mongoose.connect(databaseConfig.databaseUri, { dbName: 'SeenDatabase',  useNewUrlParser: true });
 
 // database.on('error', (error) => {
 //     throw error;

@@ -10,7 +10,6 @@ const Hapi=require('hapi');
 const server=new Hapi.Server();
 server.connection(cfg.server);
 
-server.app.db = database;
 
 // Add the routes
 server.route(routes);
