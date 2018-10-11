@@ -7,7 +7,7 @@ module.exports={
     },
     //not sure we need this
     server:{
-        port: 8888,
+        port: 5000,
         host: 'localhost',
     },
     collections:{
