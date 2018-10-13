@@ -1,8 +1,9 @@
 'use strict';
-
+const hapiAuthJwt2 = require('hapi-auth-jwt2');
 const routes = require('./routes/routes');
 const database = require('./db/database');
-const cfg=require('./config');
+const cfg = require('./config');
+const User = require('./models/User');
 
 const Hapi=require('hapi');
 
@@ -10,10 +11,55 @@ const Hapi=require('hapi');
 const server=new Hapi.Server();
 server.connection(cfg.server);
 
+const sockets = {};
+const socketIo = require('socket.io')(server.listener, {
+    pingTimeout: 5000,
+});
+
+socketIo.on('connection', (socket) => {
+    socket.on('init', (userId) => {
+      sockets[userId.senderId] = socket;
+    });
+    socket.on('disconnect', (userId) => {
+        delete sockets[userId.senderId];
+    });
+});
+
+//connect server with database
 server.app.db = database;
 
-// Add the routes
-server.route(routes);
+const validate = (decoded, request, callback) => {
+    User.findOne({ email: decoded.email }).then(
+      (user) => {
+        if (!user) {
+          return callback(null, false);
+        }
+        return callback(null, true);
+      },
+    );
+};
+
+//register authentication mode for server
+server.register(hapiAuthJwt2, (err) => {
+    if (err) {
+      console.log(err);
+    }
+
+    //we can define multiple authentication strategies if needed
+    server.auth.strategy('jwt', 'jwt', {
+        key: cfg.jwt.secret,
+        validateFunc: validate,
+        verifyOptions: {
+          algorithms: ['HS256'],
+        },
+    });
+
+    // Add the routes
+    server.route(routes);
+
+    server.auth.default('jwt');
+});
+
 
 // Start the server
 async function start() {

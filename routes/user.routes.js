@@ -15,6 +15,9 @@ module.exports = [
               }
               reply(user);
           });
+      },
+      config:{
+        auth: false,//'jwt'
       }
   },
   {
