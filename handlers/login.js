@@ -20,7 +20,7 @@ module.exports= function login({
         return reply(Boom.notFound('Wrong email or password'));
       }
 
-      const passwordMatch = bcrypt.compareSync(password, user.password);
+      const passwordMatch = bcrypt.compareSync(password, user.userPassword);
       if (!passwordMatch) {
         return reply(Boom.unauthorized('Wrong email or password'));
       }
