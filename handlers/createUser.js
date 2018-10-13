@@ -1,10 +1,11 @@
-import bcrypt from 'bcrypt';
-import Boom from 'boom';
-import JWT from 'jsonwebtoken';
+const bcrypt=require('bcrypt');
+const Boom=require('boom');
+const JWT=require('jsonwebtoken');
 
-import User from '../db/models/user';
-import config from '../config/config';
-import sanitizeUser from '../helpers/sanitizeUser';
+
+const  User=require('../models/User');
+const config=require('../config');
+const sanitizeUser=require('../helpers/sanitizeUser');
 
 const secret = config.jwt.secret;
 const expiresIn = config.jwt.expiresIn;
@@ -15,14 +16,14 @@ const getHashedPassword = (password) => {
   return hash;
 };
 
-export default async function (request, reply) {
+module.exports= async function (request, reply) {
   let newUser;
   await User.findOne({ email: request.payload.email }).then(
     (user) => {
       if (!user) {
         const hashedPassword = getHashedPassword(request.payload.password);
         newUser = new User({
-          fullName: request.payload.fullName,
+          userName: request.payload.userName,
           email: request.payload.email,
           password: hashedPassword,
         });
