@@ -25,7 +25,7 @@ module.exports= async function (request, reply) {
         newUser = new User({
           userName: request.payload.userName,
           email: request.payload.email,
-          password: hashedPassword,
+          userPassword: hashedPassword,
         });
         newUser.save((err) => { console.log(err); });
         const token = JWT.sign({ email: newUser.email }, secret, { expiresIn });
