@@ -11,6 +11,9 @@ module.exports = [
               }
               reply(venues);
           });
+      },
+      config: {
+          auth: false,
       }
   }
 ];

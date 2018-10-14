@@ -25,7 +25,26 @@ module.exports= async function (request, reply) {
         newUser = new User({
           userName: request.payload.userName,
           email: request.payload.email,
-          password: hashedPassword,
+          userPassword: hashedPassword,
+          gender: request.payload.gender,
+          birthDate: '',
+          city: '',
+          height: '',
+          ethnicity: '',
+          religion: '',
+          occupation: '',
+          education: '',
+          about: '',
+          weakness: '',
+          enjoys: '',
+          profileImage: {
+            contentType: 'image/jpg',
+            media: ''
+          },
+          coverImage: {
+            contentType: 'image/jpg',
+            media: ''
+          }
         });
         newUser.save((err) => { console.log(err); });
         const token = JWT.sign({ email: newUser.email }, secret, { expiresIn });
