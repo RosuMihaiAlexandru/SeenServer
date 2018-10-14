@@ -12,14 +12,8 @@ module.exports = [
               reply(venues);
           });
       },
-<<<<<<< HEAD
       config:{
           auth: false,
        }
-=======
-      config: {
-          auth: false,
-      }
->>>>>>> florin
   }
 ];
