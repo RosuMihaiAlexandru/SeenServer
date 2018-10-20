@@ -3,27 +3,6 @@ const MembersChat = require('../models/MembersChat');
 const handlers=require('../handlers/modules');
 const Joi=require('joi');
 
-//handler for getting a conversation by username
-//TODO
-var getByUserName= async function(request, reply){
-    await Conversation.findById(request.params.membersChatId).then(
-        (conversation) => {
-          if (conversation) {
-            reply({
-                 id: conversation._id,
-                 members: conversation.members,
-                 messages: conversation.messages,
-                 matchDate: conversation.matchDate,
-                 user1LastSeenDate: conversation.user1LastSeenDate,
-                 user2LastSeenDate: conversation.user2LastSeenDate
-                });
-          } else {
-            reply(Boom.notFound('Cannot find conversations'));
-          }
-        },
-      );
-}
-
 module.exports = [
   {
       //get all conversations from db
@@ -39,19 +18,13 @@ module.exports = [
       }
   },
   {
-      //get a conversation by id
+      //get a conversation by members array
       method: 'GET',
-      path: '/api/conversation/{membersChatId}',
+      path: '/api/conversation',
       handler: handlers.loadConversation,
       config:{
-          //auth: 'jwt',
+          auth: false,
       }
-  },
-  {
-      //get a conversation by userName
-      method: 'GET',
-      path: '/api/conversationBy/{userName}',
-      handler: getByUserName
   },
 //   {
 //       method: 'POST',
