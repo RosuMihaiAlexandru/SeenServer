@@ -1,8 +1,13 @@
 const Boom=require('boom');
 const Conversation=require ('../models/MembersChat');
 
+var id1='5bc25f985284a0186c6bff6b',
+    id2='5bbd17cf23d76f2974697db8';
+
 module.exports= async function (request, reply) {
-  await Conversation.findById(request.params.membersChatId).then(
+  //console.log(request.params.members);
+  console.log(request.query);
+  await Conversation.findOne(request.query).then(
     (conversation) => {
       if (conversation) {
         reply({

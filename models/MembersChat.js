@@ -16,4 +16,4 @@ const ConversationSchema=new mongoose.Schema({
     user2LastSeenDate: Date
 });
 
-module.exports=mongoose.model('MembersChat',ConversationSchema);
+module.exports=mongoose.model('MembersChat',ConversationSchema,'MembersChat');
