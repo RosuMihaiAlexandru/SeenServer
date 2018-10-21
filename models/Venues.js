@@ -19,8 +19,8 @@ const VenuesSchema=new mongoose.Schema({
     street: String,
     postcode: String,
     location: {
-        type: pointSchema,
-        required: true
+        type: {type: String},
+        coordinates: []
       },
     profileImages:[
         {
@@ -30,4 +30,6 @@ const VenuesSchema=new mongoose.Schema({
     ]
 });
 
+    // define the index
+    VenuesSchema.index({"location": '2dsphere'});
 module.exports=mongoose.model('Venues', VenuesSchema,'Venues');
