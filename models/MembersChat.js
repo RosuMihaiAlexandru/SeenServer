@@ -6,9 +6,12 @@ const ConversationSchema=new mongoose.Schema({
     ],
     messages:[
         {
-            author: String,
-            body: String,
-            sendDate: Date
+            text: String,
+            createdAt: Date,
+            user:{
+                _id: String,
+                name: String
+            }
         }
     ],
     matchDate: Date,
