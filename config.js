@@ -9,8 +9,8 @@ module.exports={
     server:{
         port: 5000,
         //host: 'localhost',
-        //host: '167.99.200.101',
-        host: '192.168.0.171',
+        host: '167.99.200.101',
+        //host: '192.168.0.171',
     },
     collections:{
         Users: 'Users',
