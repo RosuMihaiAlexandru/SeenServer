@@ -26,18 +26,5 @@ module.exports = [
           auth: false,
       }
   },
-//   {
-//       method: 'POST',
-//       path: '/api/newConversation',
-//       handler: handlers.createConversation,
-//       config: {
-//           auth: 'jwt',
-//           validate: {
-//               payload: {
-//               secondUserId: Joi.string().required(),
-//         },
-//       },
-//     },
-//   }
 ];
 

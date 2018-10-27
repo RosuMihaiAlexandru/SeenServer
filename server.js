@@ -4,6 +4,7 @@ const routes = require('./routes/routes');
 const database = require('./db/database');
 const cfg = require('./config');
 const User = require('./models/User');
+const createMessage = require('./handlers/createMessage');
 
 const Hapi=require('hapi');
 
@@ -20,6 +21,14 @@ socketIo.on('connection', (socket) => {
     socket.on('init', (userId) => {
       sockets[userId.senderId] = socket;
     });
+    
+    socket.on('message', (messageRequest)=>  {
+        if (sockets[messageRequest.receiverId]) {
+          sockets[messageRequest.receiverId].emit('message', message);
+        }
+        createMessage(messageRequest);
+      });
+
     socket.on('disconnect', (userId) => {
         delete sockets[userId.senderId];
     });
