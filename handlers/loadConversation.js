@@ -6,8 +6,10 @@ var id1='5bc25f985284a0186c6bff6b',
 
 module.exports= async function (request, reply) {
   //console.log(request.params.members);
+  var memb1=request.query.members[0];
+  var memb2=request.query.members[1];
   console.log(request.query);
-  await Conversation.findOne(request.query).then(
+  await Conversation.findOne({members:{ $all: [ memb2, memb1 ]}}).then(
     (conversation) => {
       if (conversation) {
         reply({
