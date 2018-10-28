@@ -1,5 +1,15 @@
 const mongoose = require('mongoose');
 
+const pointSchema = new mongoose.Schema({
+    location: {
+        type: { type: String },
+        coordinates: []
+    }
+});
+
+// define the index
+pointSchema.index({ location: '2dsphere' });
+
 const UserSchema = new mongoose.Schema({
     userName: String,
     userPassword: String,
@@ -16,23 +26,10 @@ const UserSchema = new mongoose.Schema({
     weakness: String,
     enjoys: String,
     location: {
-        //type:'Point',
-        coordinates: [
-            {
-                type: Number,
-                default: 0
-            }
-        ]
+        type: { type: String },
+        coordinates: []
     },
-    favouriteLocation: {
-        //type:'Point',
-        coordinates: [
-            {
-                type: Number,
-                default: 0
-            }
-        ]
-    },
+    favouriteLocation: String,
     userImages: [
         {
             contentType: String,
@@ -48,5 +45,6 @@ const UserSchema = new mongoose.Schema({
         media: String
     }
 });
+UserSchema.index({ "location": '2dsphere' });
 
 module.exports = mongoose.model('User', UserSchema, 'User');
