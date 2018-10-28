@@ -24,7 +24,7 @@ socketIo.on('connection', (socket) => {
     
     socket.on('message', (messageRequest)=>  {
         if (sockets[messageRequest.receiverId]) {
-          sockets[messageRequest.receiverId].emit('message', message);
+          sockets[messageRequest.receiverId].emit('message', messageRequest);
         }
         createMessage(messageRequest);
       });
