@@ -5,10 +5,9 @@ var id1 = "5bc25f985284a0186c6bff6b",
     id2 = "5bbd17cf23d76f2974697db8";
 
 module.exports = async function (request, reply) {
-    var member1 = request.query.members[0];
-    var member2 = request.query.members[1];
-    var userLiked = (request.query.userLiked == "true");
-    console.log(request.query);
+    var member1 = request.payload.members[0];
+    var member2 = request.payload.members[1];
+    var userLiked = (request.payload.userLiked == "true");
 
     await Match.findOne({ members: { $all: [member1, member2] } }).then(match => {
         if (match) {
