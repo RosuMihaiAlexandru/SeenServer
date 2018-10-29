@@ -7,7 +7,7 @@ var id1 = "5bc25f985284a0186c6bff6b",
 module.exports = async function (request, reply) {
     var member1 = request.payload.member1;
     var member2 = request.payload.member2;
-    var userLiked = (request.payload.userLiked == "true");
+    var userLiked = request.payload.userLiked;
 
     await Match.findOne({ members: { $all: [member1, member2] } }).then(match => {
         if (match) {
