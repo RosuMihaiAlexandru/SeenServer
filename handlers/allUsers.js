@@ -3,6 +3,10 @@ const User = require("../models/User");
 const mongoose = require("mongoose");
 
 module.exports = async function (request, reply) {
+    var currentUserId = request.params.currentUserId.toString();
+    var longitude = parseFloat(request.params.long);
+    var latitude = parseFloat(request.params.lat);
+    
     await User.aggregate([
         {
             "$geoNear": {
