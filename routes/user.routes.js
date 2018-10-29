@@ -1,60 +1,30 @@
 // routes.js
-const User = require('../models/User');
-const handlers = require('../handlers/modules');
-const Joi = require('joi');
+const User = require("../models/User");
+const handlers = require("../handlers/modules");
+const Joi = require("joi");
 
 module.exports = [
   {
     //get all users from db
-    method: 'GET',
-    path: '/api/users',
-    handler: function (request, reply) {
-      User.find(function (error, user) {
-        if (error) {
-          console.error(error);
-        }
-        reply(user);
-      });
-    },
+    method: "GET",
+    path: "/users/{currentUserId}&{long}&{lat}",
+    handler: handlers.allUsers,
     config: {
-      auth: false,//'jwt'
+      auth: false //'jwt'
     }
   },
   {
     //get all users from db
-    method: 'GET',
-    path: '/api/users/{long}&{lat}',
-    handler: function (request, reply) {
-
-      var lat = request.params.lat;
-      var long = request.params.long;
-
-      var latitude = parseFloat(request.params.lat);
-    var longitude = parseFloat(request.params.long);
-    User.aggregate(
-        [
-            { "$geoNear": {
-                "near": {
-                    "type": "Point",
-                    "coordinates": [longitude, latitude]
-                },
-                "distanceField": "dist",
-                "maxDistance": 20,
-                "spherical": true
-            }}
-        ],
-        function(err,results) {
-          reply(results);
-        }
-    );
-    },
+    method: "GET",
+    path: "/usersInLocation/{currentUserId}&{long}&{lat}",
+    handler: handlers.usersInLocation,
     config: {
-      auth: false,//'jwt'
+      auth: false //'jwt'
     }
   },
   {
-    method: 'POST',
-    path: '/api/register',
+    method: "POST",
+    path: "/register",
     handler: handlers.createUser,
     config: {
       auth: false,
@@ -63,23 +33,23 @@ module.exports = [
           userName: Joi.string().required(),
           email: Joi.string().required(),
           password: Joi.string().required(),
-          gender: Joi.string().required(),
+          gender: Joi.string().required()
         }
       }
     }
   },
   {
-    method: 'POST',
-    path: '/login',
+    method: "POST",
+    path: "/login",
     handler: handlers.login,
     config: {
       auth: false,
       validate: {
         payload: {
           email: Joi.string().required(),
-          password: Joi.string().required(),
-        },
-      },
-    },
+          password: Joi.string().required()
+        }
+      }
+    }
   }
 ];

@@ -7,7 +7,7 @@ module.exports = [
   {
       //get all conversations from db
       method: 'GET',
-      path: '/api/membersChats',
+      path: '/membersChats',
       handler: function (request, reply) {
         MembersChat.find(function(error, chats) {
               if (error) {
@@ -20,11 +20,20 @@ module.exports = [
   {
       //get a conversation by members array
       method: 'GET',
-      path: '/api/conversation',
+      path: '/conversation',
       handler: handlers.loadConversation,
       config:{
           auth: false,
       }
   },
+  {
+    //updates or create a match between 2 users
+    method: 'GET',
+    path: '/createOrUpdateMatch',
+    handler: handlers.createOrUpdateMatch,
+    config:{
+        auth: false,
+    }
+},
 ];
 
