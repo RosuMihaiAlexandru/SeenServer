@@ -26,5 +26,14 @@ module.exports = [
           auth: false,
       }
   },
+  {
+    //updates or create a match between 2 users
+    method: 'GET',
+    path: '/api/createOrUpdateMatch',
+    handler: handlers.createOrUpdateMatch,
+    config:{
+        auth: false,
+    }
+},
 ];
 

@@ -19,7 +19,9 @@ module.exports = (messageRequest)=>{
             ],
             matchDate: null,
             user1LastSeenDate: null,
-            user2LastSeenDate: null
+            user2LastSeenDate: null,
+            user1Liked: null,
+            user2Liked: null
           });
           newConversation.messages.push(textMessage);
           newConversation.save();
