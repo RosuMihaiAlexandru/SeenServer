@@ -3,10 +3,10 @@ const User = require("../models/User");
 const mongoose = require("mongoose");
 
 module.exports = async function (request, reply) {
-    var currentUserId = request.params.currentUserId.toString();
+    var loggedInUserId = request.params.loggedInUserId.toString();
     var longitude = parseFloat(request.params.long);
     var latitude = parseFloat(request.params.lat);
-    
+
     await User.aggregate([
         {
             "$geoNear": {
@@ -22,7 +22,7 @@ module.exports = async function (request, reply) {
         {
             $match: {
                 _id: {
-                    $ne: mongoose.Types.ObjectId(currentUserId),
+                    $ne: mongoose.Types.ObjectId(loggedInUserId),
                 }
             }
         },
@@ -35,7 +35,7 @@ module.exports = async function (request, reply) {
                     {
                         "$match": { "$expr": { "$in": ["$$id", "$members"] } }
                     },
-                    { "$match": { "$expr": { "$in": [mongoose.Types.ObjectId("5bcce825f291852dbc0bb850"), "$members"] } } }
+                    { "$match": { "$expr": { "$in": [mongoose.Types.ObjectId(loggedInUserId), "$members"] } } }
                 ],
                 as: "Likes"
             }

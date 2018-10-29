@@ -5,18 +5,18 @@ const Joi = require("joi");
 
 module.exports = [
   {
-    //get all users from db
+    //get all users from area(ex: 10 km range)
     method: "GET",
-    path: "/users/{currentUserId}&{long}&{lat}",
+    path: "/users/{loggedInUserId}&{long}&{lat}",
     handler: handlers.allUsers,
     config: {
       auth: false //'jwt'
     }
   },
   {
-    //get all users from db
+    //get users in specific locations
     method: "GET",
-    path: "/usersInLocation/{currentUserId}&{long}&{lat}",
+    path: "/usersInLocation/{loggedInUserId}&{long}&{lat}",
     handler: handlers.usersInLocation,
     config: {
       auth: false //'jwt'

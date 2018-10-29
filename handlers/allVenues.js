@@ -1,5 +1,5 @@
 const Boom = require("boom");
-const User = require("../models/User");
+const Venues = require("../models/Venues");
 const mongoose = require("mongoose");
 
 module.exports = function (request, reply) {

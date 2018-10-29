@@ -11,7 +11,7 @@ module.exports = [
         }
     },
     {
-        //get all users from db
+        //get venues from logged in user area range(ex: 10 km range)
         method: "GET",
         path: "/venuesInArea/{long}&{lat}",
         handler: handlers.venuesInArea,
