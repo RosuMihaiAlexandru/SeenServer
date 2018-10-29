@@ -28,7 +28,7 @@ module.exports = [
   },
   {
     //updates or create a match between 2 users
-    method: 'GET',
+    method: 'PUT',
     path: '/createOrUpdateMatch',
     handler: handlers.createOrUpdateMatch,
     config:{

@@ -34,7 +34,7 @@ module.exports = async function (request, reply) {
                 matchDate: match.matchDate,
                 user1Liked: match.user1Liked,
                 user2Liked: match.user2Liked
-            });
+            }).code(200);
         } else {
             var newMatch = {
                 members: [member1, member2],
@@ -52,7 +52,7 @@ module.exports = async function (request, reply) {
                 matchDate: newMatch.matchDate,
                 user1Liked: newMatch.user1Liked,
                 user2Liked: newMatch.user2Liked
-            });
+            }).code(201);
         }
     });
 };
