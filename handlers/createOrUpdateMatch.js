@@ -7,14 +7,14 @@ var id1 = "5bc25f985284a0186c6bff6b",
 module.exports = async function (request, reply) {
     var member1 = request.query.members[0];
     var member2 = request.query.members[1];
-    var userLiked = request.query.userLiked;
+    var userLiked = (request.query.userLiked == "true");
     console.log(request.query);
 
     await Match.findOne({ members: { $all: [member1, member2] } }).then(match => {
         if (match) {
-            if (match.members[0] === member1) {
+            if (match.members[0]._id.toString() === member1) {
                 match.user1Liked = userLiked;
-            } else if (match.members[1] === member1) {
+            } else if (match.members[1]._id.toString() === member1) {
                 match.user2Liked = userLiked;
             }
 
