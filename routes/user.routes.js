@@ -14,6 +14,15 @@ module.exports = [
     }
   },
   {
+    //get all users from area(ex: 10 km range)
+    method: "GET",
+    path: "/userMatchesWithChats/{loggedInUserId}",
+    handler: handlers.userMatchesWithChats,
+    config: {
+      auth: false //'jwt'
+    }
+  },
+  {
     //get users in specific locations
     method: "GET",
     path: "/usersInLocation/{loggedInUserId}&{long}&{lat}",

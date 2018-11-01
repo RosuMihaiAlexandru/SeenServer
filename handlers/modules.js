@@ -5,6 +5,7 @@ module.exports = {
     createOrUpdateMatch: require('./createOrUpdateMatch'),
     usersInLocation: require('./usersInLocation'),
     allUsers: require('./allUsers'),
+    userMatchesWithChats: require('./userMatchesWithChats'),
     allVenues: require('./allUsers'),
     venuesInArea: require('./allVenues')
 }
