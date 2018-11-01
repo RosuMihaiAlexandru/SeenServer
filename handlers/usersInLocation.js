@@ -37,7 +37,7 @@ module.exports = async function (request, reply) {
                         },
                         { "$match": { "$expr": { "$in": [mongoose.Types.ObjectId(loggedInUserId), "$members"] } } }
                     ],
-                    as: "Likes"
+                    as: "Chat"
                 }
             }
         ],
