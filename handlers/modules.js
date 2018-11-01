@@ -7,5 +7,6 @@ module.exports = {
     allUsers: require('./allUsers'),
     userMatchesWithChats: require('./userMatchesWithChats'),
     allVenues: require('./allUsers'),
-    venuesInArea: require('./allVenues')
+    venuesInArea: require('./allVenues'),
+    loadConversations: require('./loadConversations'),
 }

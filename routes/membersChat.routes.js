@@ -34,6 +34,15 @@ module.exports = [
     config:{
         auth: false,
     }
-},
+ },
+ {
+    //get conversations with matches
+    method: 'GET',
+    path: '/conversations/{loggedInUserId}',
+    handler: handlers.loadConversations,
+    config:{
+        auth: false,
+    }
+ }
 ];
 
