@@ -6,5 +6,6 @@ module.exports = {
     usersInLocation: require('./usersInLocation'),
     allUsers: require('./allUsers'),
     allVenues: require('./allUsers'),
-    venuesInArea: require('./allVenues')
+    venuesInArea: require('./allVenues'),
+    loadConversations: require('./loadConversations'),
 }
