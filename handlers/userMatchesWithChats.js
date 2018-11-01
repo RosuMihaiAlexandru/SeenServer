@@ -7,26 +7,56 @@ module.exports = async function (request, reply) {
 
     await User.aggregate([
         {
+            $match: {
+                _id: {
+                    $ne: mongoose.Types.ObjectId(loggedInUserId),
+                }
+            }
+        },
+        {
 
             $lookup: {
                 from: "MembersChat",
                 localField: "_id",
                 foreignField: "members",
-                as: "Chats"
+                as: "Chat"
             }
+        
         },
         {
-            $unwind: "$Chats"
+            $unwind: "$Chat"
           },
         {
             $match: {
-                _id: {
-                    $ne: mongoose.Types.ObjectId(loggedInUserId),
-                },
-                  "$expr": { "$in": [mongoose.Types.ObjectId(loggedInUserId), "$Chats.members"] } 
+                $expr: {
+                    $and: [
+                       {
+                          $eq: [
+                             "$Chat.user1Liked",
+                             true
+                          ]
+                       },
+                       {
+                          $eq: [
+                             "$Chat.user2Liked",
+                             true
+                          ]
+                       },
+                       {
+                        $in: [
+                            mongoose.Types.ObjectId(loggedInUserId),
+                            "$Chat.members"
+                        ]
+                     }
+                    ]
+                 }
             }
-        }
-    ]).then(users => {
+        },
+        
+    ], function(err, users){
+
+        console.log(err);
+    }).then(users => {
         if (users) {
             reply(users);
         } else {
