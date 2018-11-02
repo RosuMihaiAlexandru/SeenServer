@@ -1,6 +1,8 @@
 const Boom = require("boom");
 const Match = require("../models/MembersChat");
-const  sendNotification = require("../notifications/ExpoNotifications");
+
+var id1 = "5bc25f985284a0186c6bff6b",
+    id2 = "5bbd17cf23d76f2974697db8";
 
 module.exports = async function (request, reply) {
     var member1 = request.payload.member1;
@@ -35,7 +37,12 @@ module.exports = async function (request, reply) {
         } else {
             var newMatch = {
                 members: [member1, member2],
-                user1Liked: userLiked
+                messages: null,
+                matchDate: null,
+                user1LastSeenDate: null,
+                user2LastSeenDate: null,
+                user1Liked: userLiked,
+                user2Liked: null
             };
             Match.create(newMatch);
 
