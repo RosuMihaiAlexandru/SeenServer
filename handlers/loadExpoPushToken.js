@@ -8,9 +8,9 @@ module.exports = async function (request, reply) {
         if (user.expoPushToken !== undefined) {
             reply({
                 expoPushToken: user.expoPushToken
-            }).code(200);
+            });
         } else {
-            reply('NotFound').code(404);
+            reply("NotFound");
         }
     });
 };
