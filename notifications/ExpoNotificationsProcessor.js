@@ -1,4 +1,4 @@
-const Expo =  require('expo-server-sdk');
+const { Expo } =  require('expo-server-sdk');
 
 module.exports = {
     pushNotificationsQueue: [],
