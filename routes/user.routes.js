@@ -32,6 +32,24 @@ module.exports = [
     }
   },
   {
+    //get users in specific locations
+    method: "PUT",
+    path: "/saveExpoPushToken",
+    handler: handlers.saveExpoPushToken,
+    config: {
+      auth: false //'jwt'
+    }
+  },
+  {
+    //get users in specific locations
+    method: "GET",
+    path: "/loadExpoPushToken/{loggedInUserId}",
+    handler: handlers.loadExpoPushToken,
+    config: {
+      auth: false //'jwt'
+    }
+  },
+  {
     method: "POST",
     path: "/register",
     handler: handlers.createUser,

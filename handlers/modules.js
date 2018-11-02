@@ -9,4 +9,7 @@ module.exports = {
     allVenues: require('./allUsers'),
     venuesInArea: require('./allVenues'),
     loadConversations: require('./loadConversations'),
+    saveExpoPushToken: require('./saveExpoPushToken'),
+    loadExpoPushToken: require('./loadExpoPushToken'),
+    matchWithNotifications: require('./notifications/matchWithNotifications')
 }

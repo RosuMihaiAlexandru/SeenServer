@@ -9338,3 +9338,9 @@ node_modules/yeast/index.js
 node_modules/yeast/LICENSE
 node_modules/yeast/package.json
 node_modules/yeast/README.md
+node_modules/expo-server-sdk/src/ExpoClient.ts
+node_modules/expo-server-sdk/src/__tests__/ExpoClient-test.ts
+node_modules/expo-server-sdk/README.md
+node_modules/expo-server-sdk/package.json
+node_modules/expo-server-sdk/LICENSE
+node_modules/expo-server-sdk/build/ExpoClient.js

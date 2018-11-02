@@ -1,7 +1,6 @@
 // routes.js
 const MembersChat = require('../models/MembersChat');
 const handlers=require('../handlers/modules');
-const Joi=require('joi');
 
 module.exports = [
   {
@@ -30,7 +29,7 @@ module.exports = [
     //updates or create a match between 2 users
     method: 'PUT',
     path: '/createOrUpdateMatch',
-    handler: handlers.createOrUpdateMatch,
+    handler: handlers.matchWithNotifications,
     config:{
         auth: false,
     }
