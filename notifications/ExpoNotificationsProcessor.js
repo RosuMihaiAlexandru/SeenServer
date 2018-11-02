@@ -17,7 +17,7 @@ module.exports = {
                  await self.sendNotification(self.pushNotificationsQueue);
                  self.hasStartedProcessingBatch = false;
                  self.pushNotificationsQueue = [];
-            }, 10000);
+            }, 1000);
         }
     },
 
