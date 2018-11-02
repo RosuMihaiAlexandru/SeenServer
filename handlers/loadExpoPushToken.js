@@ -10,9 +10,7 @@ module.exports = async function (request, reply) {
                 expoPushToken: user.expoPushToken
             }).code(200);
         } else {
-            reply({
-                expoPushToken: 'NotFound'
-            }).code(404);
+            reply('NotFound').code(404);
         }
     });
 };
