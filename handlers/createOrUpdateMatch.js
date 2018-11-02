@@ -37,12 +37,7 @@ module.exports = async function (request, reply) {
         } else {
             var newMatch = {
                 members: [member1, member2],
-                messages: null,
-                matchDate: null,
-                user1LastSeenDate: null,
-                user2LastSeenDate: null,
                 user1Liked: userLiked,
-                user2Liked: null
             };
             Match.create(newMatch);
 
