@@ -5,6 +5,7 @@ const database = require('./db/database');
 const cfg = require('./config');
 const User = require('./models/User');
 const createMessage = require('./handlers/createMessage');
+const chatWithNotification = require('./handlers/notifications/chatWithNotifications');
 
 const Hapi=require('hapi');
 
@@ -26,7 +27,7 @@ socketIo.on('connection', (socket) => {
         if (sockets[messageRequest.receiverId]) {
           sockets[messageRequest.receiverId].emit('message', messageRequest);
         }
-        createMessage(messageRequest);
+        chatWithNotification(messageRequest);
       });
 
     socket.on('disconnect', (userId) => {
