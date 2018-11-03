@@ -5,13 +5,13 @@ module.exports = async function (request, reply) {
     var loggedInUserId = request.params.loggedInUserId.toString();
 
     await User.findOne({ _id: loggedInUserId }).then(user => {
-        if (user.expoPushToken !== undefined) {
+        if (user.expoPushTokens !== undefined) {
             reply({
-                expoPushToken: user.expoPushToken
+                expoPushTokens: user.expoPushToken
             });
         } else {
             reply({
-                expoPushToken: 'NotFound'
+                expoPushTokens: 'NotFound'
             });
         }
     });

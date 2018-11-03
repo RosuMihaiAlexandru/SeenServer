@@ -11,7 +11,7 @@ const pointSchema = new mongoose.Schema({
 pointSchema.index({ location: '2dsphere' });
 
 const UserSchema = new mongoose.Schema({
-    expoPushToken: String,
+    expoPushTokens: [],
     userName: String,
     userPassword: String,
     gender: String,

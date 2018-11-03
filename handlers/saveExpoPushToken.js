@@ -8,7 +8,7 @@ module.exports = async function (request, reply) {
 
     await User.findOne({ _id: loggedInUserId}).then(user => {
         if (user) {
-            user.expoPushToken = expoPushToken;
+            user.expoPushTokens.push(expoPushToken);
             user.save(function (err) {
                 if (err) {
                     reply(Boom.notFound("Error updating the User")).code(500);
@@ -16,7 +16,7 @@ module.exports = async function (request, reply) {
             });
 
             reply({
-                expoPushToken: user.expoPushToken
+                expoPushTokens: user.expoPushTokens
             }).code(200);
         }
     });
