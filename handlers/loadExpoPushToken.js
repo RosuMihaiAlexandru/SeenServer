@@ -7,7 +7,7 @@ module.exports = async function (request, reply) {
     await User.findOne({ _id: loggedInUserId }).then(user => {
         if (user.expoPushTokens !== undefined) {
             reply({
-                expoPushTokens: user.expoPushToken
+                expoPushTokens: user.expoPushTokens
             });
         } else {
             reply({
