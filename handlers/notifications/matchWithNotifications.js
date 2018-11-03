@@ -5,8 +5,8 @@ const PushMessage = require("../../models/PushMessage")
 module.exports = async function (request, reply) {
     const match = await createOrUpdateMatch(request, reply);
     if (match.user1Liked && match.user2Liked) {
-        var member1ExpoPushTokens = JSON.parse(request.payload.member1ExpoPushTokens);
-        var member2ExpoPushTokens = JSON.parse(request.payload.member2ExpoPushTokens);
+        var member1ExpoPushTokens = request.payload.member1ExpoPushTokens;
+        var member2ExpoPushTokens = request.payload.member2ExpoPushTokens;
         var member1Name = request.payload.member1Name;
         var member2Name = request.payload.member2Name;
 
