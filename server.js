@@ -27,8 +27,20 @@ socketIo.on('connection', (socket) => {
         if (sockets[messageRequest.receiverId]) {
           sockets[messageRequest.receiverId].emit('message', messageRequest);
         }
-        chatWithNotification(messageRequest);
+        createMessage(messageRequest);
       });
+
+    socket.on('userIsTyping', (users) =>{
+        if(sockets[users.receiverId]){
+            sockets[users.receiverId].emit('userIsTyping', '')
+        }
+    });  
+
+    socket.on('userStoppedTyping',(users) =>{
+        if(sockets[users.receiverId]){
+            sockets[users.receiverId].emit('userStoppedTyping', '')
+        }
+    });    
 
     socket.on('disconnect', (userId) => {
         delete sockets[userId.senderId];
