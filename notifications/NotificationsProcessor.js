@@ -1,4 +1,3 @@
-const { Expo } =  require('expo-server-sdk');
 
 module.exports = {
 
