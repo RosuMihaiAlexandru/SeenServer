@@ -1,5 +1,5 @@
 const createOrUpdateMatch=require('../createOrUpdateMatch');
-const ExpoNotificationsProcessor = require("../../notifications/ExpoNotificationsProcessor")
+const NotificationsProcessor = require("../../notifications/NotificationsProcessor")
 const PushMessage = require("../../models/PushMessage")
 
 module.exports = async function (request, reply) {
@@ -11,7 +11,7 @@ module.exports = async function (request, reply) {
         var member2Name = request.payload.member2Name;
 
         for (var i = 0, len = member1ExpoPushTokens.length; i < len; i++) {
-            ExpoNotificationsProcessor.process(new PushMessage({
+            NotificationsProcessor.process(new PushMessage({
                 to: member1ExpoPushTokens[i],
                 sound: 'default',
                 body: member2Name + ' likes you too!',
@@ -20,7 +20,7 @@ module.exports = async function (request, reply) {
           }
 
           for (var i = 0, len = member2ExpoPushTokens.length; i < len; i++) {
-            ExpoNotificationsProcessor.process(new PushMessage({
+            NotificationsProcessor.process(new PushMessage({
                 to: member2ExpoPushTokens[i],
                 sound: 'default',
                 body: member1Name + ' likes you too!',
