@@ -3,21 +3,20 @@ const NotificationsProcessor = require("../../notifications/NotificationsProcess
 const PushMessage = require("../../models/PushMessage")
 
 module.exports = async function (messageRequest, reply) {
-    const newMessage = await createMessage(messageRequest);
-        var senderExpoPushTokens = messageRequest.senderExpoPushTokens;
-        var receiverExpoPushTokens = messageRequest.receiverExpoPushTokens;;
+        await createMessage(messageRequest);
+        var receiverPlayerIds = messageRequest.receiverPlayerIds;
         var senderName = messageRequest.message.user.name;
         var receiverName = messageRequest.receiverName;
         var messageBody = messageRequest.message.text;
 
-        for (var i = 0, len = receiverExpoPushTokens.length; i < len; i++) {
-            NotificationsProcessor.process(new PushMessage({
-                to: receiverExpoPushTokens[i],
-                sound: 'default',
-                title: senderName,
-                body:  messageBody,
-                data: messageRequest.message,
-            }));
-          }
-
+        var message = { 
+            app_id: "e8d3a93c-398c-407d-9219-8131322767a0",
+            contents: {"en": senderName + ' sent you a message!' },
+            "data":{
+                "foo": "bar",
+                "your": "custom metadata"
+              },
+            include_player_ids: receiverPlayerIds
+          };
+          NotificationsProcessor.process(message);
 }
