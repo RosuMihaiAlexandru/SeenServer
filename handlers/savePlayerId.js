@@ -4,11 +4,11 @@ const User = require("../models/User");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
-    var expoPushToken = request.payload.expoPushToken;
+    var playerId = request.payload.playerId;
 
     await User.findOne({ _id: loggedInUserId}).then(user => {
         if (user) {
-            user.expoPushTokens.push(expoPushToken);
+            user.playerIds.push(playerId);
             user.save(function (err) {
                 if (err) {
                     reply(Boom.notFound("Error updating the User")).code(500);
@@ -16,7 +16,7 @@ module.exports = async function (request, reply) {
             });
 
             reply({
-                expoPushTokens: user.expoPushTokens
+                playerIds: user.playerIds
             }).code(200);
         }
     });

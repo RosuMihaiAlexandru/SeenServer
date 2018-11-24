@@ -1,5 +1,5 @@
 const createMessage=require('../createMessage');
-const ExpoNotificationsProcessor = require("../../notifications/ExpoNotificationsProcessor")
+const NotificationsProcessor = require("../../notifications/NotificationsProcessor")
 const PushMessage = require("../../models/PushMessage")
 
 module.exports = async function (messageRequest, reply) {
@@ -11,7 +11,7 @@ module.exports = async function (messageRequest, reply) {
         var messageBody = messageRequest.message.text;
 
         for (var i = 0, len = receiverExpoPushTokens.length; i < len; i++) {
-            ExpoNotificationsProcessor.process(new PushMessage({
+            NotificationsProcessor.process(new PushMessage({
                 to: receiverExpoPushTokens[i],
                 sound: 'default',
                 title: senderName,
