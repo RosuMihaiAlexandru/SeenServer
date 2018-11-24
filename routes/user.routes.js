@@ -34,8 +34,8 @@ module.exports = [
   {
     //get users in specific locations
     method: "PUT",
-    path: "/saveExpoPushToken",
-    handler: handlers.saveExpoPushToken,
+    path: "/savePlayerId",
+    handler: handlers.savePlayerId,
     config: {
       auth: false //'jwt'
     }
@@ -43,8 +43,8 @@ module.exports = [
   {
     //get users in specific locations
     method: "GET",
-    path: "/loadExpoPushToken/{loggedInUserId}",
-    handler: handlers.loadExpoPushToken,
+    path: "/loadPlayerIds/{loggedInUserId}",
+    handler: handlers.loadPlayerIds,
     config: {
       auth: false //'jwt'
     }
