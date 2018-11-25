@@ -26,6 +26,6 @@ module.exports= function login({
       }
 
       const token = JWT.sign({ email: user.email }, secret, { expiresIn });
-      return reply({ token, user: sanitizeUser(user) });  
+      return reply({ token, user: user });  
     });
 }
