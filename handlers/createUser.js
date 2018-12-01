@@ -23,6 +23,14 @@ module.exports= async function (request, reply) {
       if (!user) {
         const hashedPassword = getHashedPassword(request.payload.password);
         newUser = new User({
+          location: {
+            type: 'Point',
+            coordinates:[
+              51.5194657,
+              -0.102699
+            ]
+          },
+          favouriteLocation: '',
           userName: request.payload.userName,
           email: request.payload.email,
           userPassword: hashedPassword,
@@ -37,6 +45,7 @@ module.exports= async function (request, reply) {
           about: '',
           weakness: '',
           enjoys: '',
+          userImages: [],
           profileImage: {
             contentType: 'image/jpg',
             media: ''

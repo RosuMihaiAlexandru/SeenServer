@@ -11,5 +11,6 @@ module.exports = {
     loadConversations: require('./loadConversations'),
     savePlayerId: require('./savePlayerId'),
     loadPlayerIds: require('./loadPlayerIds'),
-    matchWithNotifications: require('./notifications/matchWithNotifications')
+    matchWithNotifications: require('./notifications/matchWithNotifications'),
+    facebookLogin: require('./facebookLogin')
 }

@@ -78,5 +78,20 @@ module.exports = [
         }
       }
     }
+  },
+  {
+    method: "POST",
+    path: "/facebookLogin",
+    handler: handlers.facebookLogin,
+    config: {
+      auth: false,
+      validate: {
+        payload: {
+          email: Joi.string().required(),
+          name: Joi.string().required(),
+          profileImage: Joi.string().required()
+        }
+      }
+    }
   }
 ];
