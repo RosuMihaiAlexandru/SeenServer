@@ -50,10 +50,10 @@ module.exports= function login({
           });
           newUser.save((err) => { console.log(err); });
           const token = JWT.sign({ email: newUser.email }, secret, { expiresIn });
-          return reply({ token, user: sanitizeUser(newUser) }); 
+          return reply({ token, user: newUser }); 
       }else {
       const token = JWT.sign({ email: user.email }, secret, { expiresIn });
-      return reply({ token, user: sanitizeUser(user) });
+      return reply({ token, user: user });
       }  
     });
 }
