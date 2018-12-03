@@ -1,12 +1,12 @@
 const createMessage=require('../createMessage');
 const NotificationsProcessor = require("../../notifications/NotificationsProcessor")
-const userSenderWithChat = require("../userSenderWithChat")
+const getMessageSenderWithChat = require("../../handlers/getMessageSenderWithChat");
 const PushMessage = require("../../models/PushMessage")
 
 module.exports = async function (messageRequest, reply) {
         await createMessage(messageRequest);
 
-         var sender = await(userSenderWithChat(messageRequest.message.user._id, messageRequest.receiverId));
+         var sender = await(getMessageSenderWithChat(messageRequest.message.user._id, messageRequest.receiverId));
         var receiverPlayerIds = messageRequest.receiverPlayerIds;
         var senderName = messageRequest.message.user.name;
         var receiverName = messageRequest.receiverName;
