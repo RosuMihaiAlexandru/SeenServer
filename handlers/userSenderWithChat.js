@@ -2,10 +2,10 @@ const Boom = require("boom");
 const User = require("../models/User");
 const mongoose = require("mongoose");
 
-module.exports = async function (userSenderId, userReceiverId) {
-
-
-    return User.aggregate([
+module.exports = async function (request, reply) {
+    var userSenderId = request.params.userSenderId.toString();
+    var userReceiverId = request.params.userReceiverId.toString();
+    await User.aggregate([
         {
             $match: {
                 _id: {
@@ -52,7 +52,7 @@ module.exports = async function (userSenderId, userReceiverId) {
         console.log(err);
     }).then(users => {
         if (users) {
-            return users[0];
+            reply(users[0]);
         } else {
         }
     });

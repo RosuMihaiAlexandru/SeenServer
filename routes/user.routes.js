@@ -14,6 +14,15 @@ module.exports = [
     }
   },
   {
+    //get the sender required for opening a message notification
+    method: "GET",
+    path: "/userSenderWithChat/{userSenderId}&{userReceiverId}",
+    handler: handlers.userSenderWithChat,
+    config: {
+      auth: false //'jwt'
+    }
+  },
+  {
     //get all users from area(ex: 10 km range)
     method: "GET",
     path: "/userMatchesWithChats/{loggedInUserId}",
