@@ -15,8 +15,7 @@ module.exports = async function (messageRequest, reply) {
             headings: {"en": senderName },
             contents: {"en": messageBody },
             "data":{
-                "foo": "bar",
-                "your": "custom metadata"
+                "sender": messageRequest.message.user,
               },
             include_player_ids: receiverPlayerIds,
             large_icon: senderAvatar
