@@ -9,7 +9,7 @@ module.exports = async function (userSenderId, userReceiverId) {
         {
             $match: {
                 _id: {
-                    $ne: mongoose.Types.ObjectId(userSenderId),
+                    $ne: mongoose.Types.ObjectId(userReceiverId),
                 }
             }
         },

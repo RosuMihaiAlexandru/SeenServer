@@ -6,7 +6,7 @@ const PushMessage = require("../../models/PushMessage")
 module.exports = async function (messageRequest, reply) {
         await createMessage(messageRequest);
 
-        var sender = await(userSenderWithChat(messageRequest.message.user.name._id, messageRequest.receiverId));
+         var sender = await(userSenderWithChat(messageRequest.message.user._id, messageRequest.receiverId));
         var receiverPlayerIds = messageRequest.receiverPlayerIds;
         var senderName = messageRequest.message.user.name;
         var receiverName = messageRequest.receiverName;
