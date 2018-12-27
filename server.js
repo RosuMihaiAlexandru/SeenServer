@@ -6,6 +6,7 @@ const cfg = require('./config');
 const User = require('./models/User');
 const createMessage = require('./handlers/createMessage');
 const chatWithNotification = require('./handlers/notifications/chatWithNotifications');
+const removeFromUnreadConversations = require('./handlers/removeFromUnreadConversations');
 
 const Hapi=require('hapi');
 
@@ -21,6 +22,10 @@ const socketIo = require('socket.io')(server.listener, {
 socketIo.on('connection', (socket) => {
     socket.on('init', (userId) => {
       sockets[userId.senderId] = socket;
+      removeFromUnreadConversations(userId.senderId, userId.receiverId);
+      if(sockets[userId.receiverId]){
+        sockets[userId.receiverId].emit('userIsOnChat', '');
+      }
     });
     
     socket.on('message', (messageRequest)=>  {
@@ -44,6 +49,9 @@ socketIo.on('connection', (socket) => {
 
     socket.on('disconnect', (userId) => {
         delete sockets[userId.senderId];
+        if(sockets[userId.receiverId]){
+            sockets[userId.receiverId].emit('userLeftChat', '');
+        }
     });
 });
 

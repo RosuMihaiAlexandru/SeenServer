@@ -11,6 +11,7 @@ const pointSchema = new mongoose.Schema({
 pointSchema.index({ location: '2dsphere' });
 
 const UserSchema = new mongoose.Schema({
+    unreadConversations: [],
     playerIds: [],
     userName: String,
     userPassword: String,

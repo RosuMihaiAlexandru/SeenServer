@@ -1,6 +1,7 @@
 const Conversation = require('../models/MembersChat');
 const Message = require('../models/Message');
 const MembersChat = require('../models/MembersChat');
+const addUnreadConversation = require('./addUnreadConversation');
 
 module.exports = (messageRequest)=>{
   const senderId = messageRequest.message.user._id;
@@ -38,4 +39,8 @@ module.exports = (messageRequest)=>{
       }
       }
   )
+  
+  if(!messageRequest.receiverIsOnChat){
+    addUnreadConversation(receiverId, senderId);
+  }
 };

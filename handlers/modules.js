@@ -12,5 +12,6 @@ module.exports = {
     savePlayerId: require('./savePlayerId'),
     loadPlayerIds: require('./loadPlayerIds'),
     matchWithNotifications: require('./notifications/matchWithNotifications'),
-    facebookLogin: require('./facebookLogin')
+    facebookLogin: require('./facebookLogin'),
+    getUnreadConversationsCount: require('./getUnreadConversationsCount')
 }

@@ -23,6 +23,8 @@ module.exports= function login({
                   -0.102699
                 ]
             },
+            unreadConversations: [],
+            playerIds: [],
             favouriteLocation: '',
             userName: name,
             email: email,

@@ -50,6 +50,15 @@ module.exports = [
     }
   },
   {
+    //get user unread conversations count
+    method: "GET",
+    path: "/getUnreadConversationsCount/{loggedInUserId}",
+    handler: handlers.getUnreadConversationsCount,
+    config: {
+      auth: false //'jwt'
+    }
+  },
+  {
     method: "POST",
     path: "/register",
     handler: handlers.createUser,

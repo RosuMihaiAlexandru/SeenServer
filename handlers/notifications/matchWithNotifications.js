@@ -14,8 +14,7 @@ module.exports = async function (request, reply) {
             app_id: "e8d3a93c-398c-407d-9219-8131322767a0",
             contents: {"en": member2Name + ' likes you too!'},
             "data":{
-                "foo": "bar",
-                "your": "custom metadata"
+                "notificationType": "match",
               },
             include_player_ids: member1PlayerIds
           };
@@ -24,8 +23,7 @@ module.exports = async function (request, reply) {
             app_id: "e8d3a93c-398c-407d-9219-8131322767a0",
             contents: {"en": member1Name + ' likes you too!'},
             "data":{
-                "foo": "bar",
-                "your": "custom metadata"
+                "notificationType": "match",
               },
             include_player_ids: member2PlayerIds
           };

@@ -30,6 +30,8 @@ module.exports= async function (request, reply) {
               -0.102699
             ]
           },
+          unreadConversations: [],
+          playerIds: [],
           favouriteLocation: '',
           userName: request.payload.userName,
           email: request.payload.email,
