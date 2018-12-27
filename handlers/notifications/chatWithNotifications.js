@@ -1,9 +1,12 @@
 const createMessage=require('../createMessage');
 const NotificationsProcessor = require("../../notifications/NotificationsProcessor")
+const getMessageSenderWithChat = require("../../handlers/getMessageSenderWithChat");
 const PushMessage = require("../../models/PushMessage")
 
 module.exports = async function (messageRequest, reply) {
         await createMessage(messageRequest);
+
+         var sender = await(getMessageSenderWithChat(messageRequest.message.user._id, messageRequest.receiverId));
         var receiverPlayerIds = messageRequest.receiverPlayerIds;
         var senderName = messageRequest.message.user.name;
         var receiverName = messageRequest.receiverName;
@@ -16,6 +19,7 @@ module.exports = async function (messageRequest, reply) {
             contents: {"en": messageBody },
             "data":{
                 "notificationType": "message",
+                "senderId": sender._id,
               },
             include_player_ids: receiverPlayerIds,
             large_icon: senderAvatar
