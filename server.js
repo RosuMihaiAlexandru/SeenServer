@@ -21,11 +21,17 @@ const socketIo = require('socket.io')(server.listener, {
 
 socketIo.on('connection', (socket) => {
     socket.on('init', (userId) => {
-      sockets[userId.senderId] = socket;
-      removeFromUnreadConversations(userId.senderId, userId.receiverId);
-      if(sockets[userId.receiverId]){
-        sockets[userId.receiverId].emit('userIsOnChat', '');
-      }
+        sockets[userId.senderId] = socket;
+        removeFromUnreadConversations(userId.senderId, userId.receiverId).then(
+            (result) => {
+                if (result) {
+                    sockets[userId.senderId].emit('unreadConversationCleared', '');
+                }
+            }
+        );
+        if (sockets[userId.receiverId]) {
+            sockets[userId.receiverId].emit('userIsOnChat', '');
+        }
     });
     
     socket.on('message', (messageRequest)=>  {
