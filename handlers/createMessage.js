@@ -41,6 +41,6 @@ module.exports = (messageRequest)=>{
   )
   
   if(!messageRequest.receiverIsOnChat){
-    addUnreadConversation(receiverId, senderId);
+    return addUnreadConversation(receiverId, senderId);
   }
 };
