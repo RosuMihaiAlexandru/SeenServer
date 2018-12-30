@@ -4,9 +4,9 @@ const MembersChat = require('../models/MembersChat');
 const addUnreadConversation = require('./addUnreadConversation');
 
 module.exports = (messageRequest)=>{
-  const senderId = messageRequest.message.user._id;
+  const senderId = messageRequest.message.fromUser.userId;
   const receiverId = messageRequest.receiverId;
-  const senderName = messageRequest.message.user.name;
+  const senderName = messageRequest.message.fromUser.displayName;
 
   const textMessage = new Message({
     text: messageRequest.message.text,

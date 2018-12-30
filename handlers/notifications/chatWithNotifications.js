@@ -11,11 +11,11 @@ module.exports = async function(messageRequest, reply) {
     }
   });
   var sender = await getMessageSenderWithChat(
-    messageRequest.message.user._id,
+    messageRequest.message.fromUser.userId,
     messageRequest.receiverId
   );
   var receiverPlayerIds = messageRequest.receiverPlayerIds;
-  var senderName = messageRequest.message.user.name;
+  var senderName = messageRequest.message.fromUser.displayName;
   var receiverName = messageRequest.receiverName;
   var messageBody = messageRequest.message.text;
   var senderAvatar = messageRequest.senderAvatar;
