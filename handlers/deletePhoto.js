@@ -29,15 +29,15 @@ module.exports = async function (request, reply) {
                             reply({ error: error });
                         }
 
-                        else {
-                            user.userImages.splice(photoIndex, 1);
+                        // else {
+                        //     user.userImages.splice(photoIndex, 1);
 
-                            user.save(function (err) {
-                                if (err) {
-                                    reply(Boom.notFound("Error updating the User")).code(500);
-                                }
-                            });
-                        }
+                        //     user.save(function (err) {
+                        //         if (err) {
+                        //             reply(Boom.notFound("Error updating the User")).code(500);
+                        //         }
+                        //     });
+                        // }
 
                     });
                 } else {
