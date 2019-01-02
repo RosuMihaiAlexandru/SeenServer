@@ -1,4 +1,4 @@
-const bcrypt=require('bcrypt');
+const bcrypt=require('bcryptjs');
 const Boom=require('boom');
 const JWT=require('jsonwebtoken');
 
@@ -11,7 +11,7 @@ const secret = config.jwt.secret;
 const expiresIn = config.jwt.expiresIn;
 
 const getHashedPassword = (password) => {
-  const saltRounds = 10;
+  var saltRounds = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(password, saltRounds);
   return hash;
 };

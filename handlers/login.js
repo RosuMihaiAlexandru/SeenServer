@@ -1,6 +1,6 @@
 const JWT=require('jsonwebtoken');
 const Boom=require('boom');
-const bcrypt=require('bcrypt');
+const bcrypt=require('bcryptjs');
 const User=require('../models/User');
 const config=require('../config');
 const sanitizeUser=require('../helpers/sanitizeUser');
