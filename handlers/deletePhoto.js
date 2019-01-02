@@ -10,7 +10,7 @@ module.exports = async function (request, reply) {
     await User.findOne({ _id: loggedInUserId}).then(user => {
         if (user) {
 
-            const filePath = './mnt/seenblockstorage/fI1.jpg';
+            const filePath = '../../../mnt/seenblockstorage/fI1.jpg';
             fs.access(filePath, error => {
                 if (!error) {
                     fs.unlink(filePath,function(error){
