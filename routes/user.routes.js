@@ -50,6 +50,24 @@ module.exports = [
     }
   },
   {
+    //update cover or profile photo
+    method: "PUT",
+    path: "/updateProfileOrCoverPhoto",
+    handler: handlers.updateProfileOrCoverPhoto,
+    config: {
+      auth: false //'jwt'
+    }
+  },
+  {
+    //delete photos of an user
+    method: "PUT",
+    path: "/deletePhoto",
+    handler: handlers.deletePhoto,
+    config: {
+      auth: false //'jwt'
+    }
+  },
+  {
     //get users in specific locations
     method: "GET",
     path: "/loadPlayerIds/{loggedInUserId}",

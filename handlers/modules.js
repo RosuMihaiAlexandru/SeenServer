@@ -14,5 +14,7 @@ module.exports = {
     loadPlayerIds: require('./loadPlayerIds'),
     matchWithNotifications: require('./notifications/matchWithNotifications'),
     facebookLogin: require('./facebookLogin'),
-    getUnreadConversationsCount: require('./getUnreadConversationsCount')
+    getUnreadConversationsCount: require('./getUnreadConversationsCount'),
+    updateProfileOrCoverPhoto: require('./updateProfileOrCoverPhoto'),
+    deletePhoto: require('./deletePhoto')
 }
