@@ -10,6 +10,7 @@ module.exports = async function (request, reply) {
 
     await User.findOne({ _id: loggedInUserId}).then(user => {
         if (user) {
+            try {
             var bitmap = new Buffer(base64PhotoString, 'base64');
             var objToReturn = {};
             var userDirectory = "../../../mnt/seenblockStorage/" + user.email;
@@ -17,7 +18,7 @@ module.exports = async function (request, reply) {
                 fs.mkdirSync(userDirectory);
             }
 
-            try {
+
                 if(type === "profile"){
                     fs.writeFileSync(userDirectory + "/profile.jpg", bitmap);
     
