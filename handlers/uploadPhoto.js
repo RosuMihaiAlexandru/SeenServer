@@ -20,9 +20,10 @@ module.exports = async function (request, reply) {
 
 
                 if (type === "profile") {
-                    fs.writeFileSync(userDirectory + "/profile.jpg", imageBuffer);
+                    var fileName = generateRandomNumber() + ".jpg" ;
+                    fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
 
-                    user.profileImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/profile.jpg";
+                    user.profileImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/" + fileName;
                     objToReturn = user.profileImage;
                 }
 
@@ -37,8 +38,9 @@ module.exports = async function (request, reply) {
                 }
 
                 else if (type === "cover") {
-                    fs.writeFileSync(userDirectory + "/cover.jpg", imageBuffer);
-                    user.coverImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/cover.jpg";
+                    var fileName = generateRandomNumber() + ".jpg" ;
+                    fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
+                    user.coverImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/" + fileName;
                     objToReturn = user.coverImage;
                 }
 
@@ -59,7 +61,7 @@ module.exports = async function (request, reply) {
 };
 
 function generateRandomNumber() {
-    return Math.round(Math.random() * 1000000)
+    return Math.round(Math.random() * 10000000)
   }
 
 
