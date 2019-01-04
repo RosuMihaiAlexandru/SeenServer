@@ -1,6 +1,7 @@
 const Boom = require("boom");
 const User = require("../models/User");
 
+const fs = require('fs');
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
