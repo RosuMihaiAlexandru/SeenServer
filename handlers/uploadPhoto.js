@@ -27,11 +27,11 @@ module.exports = async function (request, reply) {
                 }
 
                 else if (type === "normal") {
-
-                    fs.writeFileSync(userDirectory + '/' + user.userImages.length.toString() + ".jpg", imageBuffer);
+                    var fileName = generateRandomNumber() + ".jpg" ;
+                    fs.writeFileSync(userDirectory + '/' + fileName, imageBuffer);
                     user.userImages.push({
                         'contentType': "image/jpg",
-                        'media': 'http://167.99.200.101/seenblockstorage/' + user.email + '/' + user.userImages.length.toString() + ".jpg"
+                        'media': 'http://167.99.200.101/seenblockstorage/' + user.email + '/' + fileName
                     });
                     objToReturn = user.userImages[user.userImages.length - 1];
                 }
@@ -57,6 +57,10 @@ module.exports = async function (request, reply) {
         }
     });
 };
+
+function generateRandomNumber() {
+    return Math.round(Math.random() * 1000000)
+  }
 
 
 function decodeBase64Image(dataString) {
