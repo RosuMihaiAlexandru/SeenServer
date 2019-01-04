@@ -59,6 +59,15 @@ module.exports = [
     }
   },
   {
+    //update cover or profile photo
+    method: "POST",
+    path: "/uploadPhoto",
+    handler: handlers.uploadPhoto,
+    config: {
+      auth: false //'jwt'
+    }
+  },
+  {
     //delete photos of an user
     method: "PUT",
     path: "/deletePhoto",
