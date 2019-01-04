@@ -33,7 +33,7 @@ module.exports = async function (request, reply) {
                         'contentType': "image/jpg",
                         'media': 'http://167.99.200.101/seenblockstorage/' + user.email + '/' + user.userImages.length.toString() + ".jpg"
                     });
-                    objToReturn = user.userImages;
+                    objToReturn = user.userImages[user.userImages.length - 1];
                 }
 
                 else if (type === "cover") {
