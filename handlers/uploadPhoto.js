@@ -11,7 +11,7 @@ module.exports = async function (request, reply) {
     await User.findOne({ _id: loggedInUserId }).then(user => {
         if (user) {
             try {
-                var imageBuffer = decodeBase64Image(base64PhotoString);
+                var imageBuffer = new Buffer(base64PhotoString, 'base64');
                 var objToReturn = {};
                 var userDirectory = "../../../mnt/seenblockstorage/" + user.email;
                 if (!fs.existsSync(userDirectory)) {
