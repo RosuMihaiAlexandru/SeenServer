@@ -13,7 +13,7 @@ module.exports = async function (request, reply) {
             try {
             var bitmap = new Buffer(base64PhotoString, 'base64');
             var objToReturn = {};
-            var userDirectory = "../../../mnt/seenblockStorage/" + user.email;
+            var userDirectory = "../../../mnt/seenblockstorage/" + user.email;
             if (!fs.existsSync(userDirectory)){
                 fs.mkdirSync(userDirectory);
             }
