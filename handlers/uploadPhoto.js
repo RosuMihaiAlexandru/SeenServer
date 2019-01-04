@@ -20,7 +20,7 @@ module.exports = async function (request, reply) {
 
 
                 if (type === "profile") {
-                    fs.writeFileSync(userDirectory + "/profile.jpg", imageBuffer.data);
+                    fs.writeFileSync(userDirectory + "/profile.jpg", imageBuffer);
 
                     user.profileImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/profile.jpg";
                     objToReturn = user.profileImage;
@@ -28,7 +28,7 @@ module.exports = async function (request, reply) {
 
                 else if (type === "normal") {
 
-                    fs.writeFileSync(userDirectory + '/' + user.userImages.length.toString() + ".jpg", imageBuffer.data);
+                    fs.writeFileSync(userDirectory + '/' + user.userImages.length.toString() + ".jpg", imageBuffer);
                     user.userImages.push({
                         'contentType': "image/jpg",
                         'media': 'http://167.99.200.101/seenblockstorage/' + user.email + '/' + user.userImages.length.toString() + ".jpg"
@@ -37,7 +37,7 @@ module.exports = async function (request, reply) {
                 }
 
                 else if (type === "cover") {
-                    fs.writeFileSync(userDirectory + "/cover.jpg", imageBuffer.data);
+                    fs.writeFileSync(userDirectory + "/cover.jpg", imageBuffer);
                     user.coverImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/cover.jpg";
                     objToReturn = user.coverImage;
                 }
