@@ -8,38 +8,40 @@ module.exports = async function (request, reply) {
     var base64PhotoString = request.payload.base64PhotoString;
     var type = request.payload.type;
 
-    await User.findOne({ _id: loggedInUserId}).then(user => {
+    await User.findOne({ _id: loggedInUserId }).then(user => {
         if (user) {
             try {
-            var bitmap = new Buffer(base64PhotoString, 'base64');
-            var objToReturn = {};
-            var userDirectory = "../../../mnt/seenblockstorage/" + user.email;
-            if (!fs.existsSync(userDirectory)){
-                fs.mkdirSync(userDirectory);
-            }
+                var imageBuffer = decodeBase64Image(base64PhotoString);
+                var objToReturn = {};
+                var userDirectory = "../../../mnt/seenblockstorage/" + user.email;
+                if (!fs.existsSync(userDirectory)) {
+                    fs.mkdirSync(userDirectory);
+                }
 
 
-                if(type === "profile"){
-                    fs.writeFileSync(userDirectory + "/profile.jpg", bitmap);
-    
-                    user.profileImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/profile.jpg";       
-                    objToReturn = user.profileImage;    
+                if (type === "profile") {
+                    fs.writeFileSync(userDirectory + "/profile.jpg", imageBuffer.data);
+
+                    user.profileImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/profile.jpg";
+                    objToReturn = user.profileImage;
                 }
-    
-                else if(type === "normal"){
-    
-                    fs.writeFileSync(userDirectory +  '/' + user.userImages.length.toString() + ".jpg", bitmap);
-                    user.userImages.push({'contentType' : "image/jpg",  
-                                            'media' : 'http://167.99.200.101/seenblockstorage/' + user.email +  '/' + user.userImages.length.toString() + ".jpg" });  
-                    objToReturn = user.userImages;   
+
+                else if (type === "normal") {
+
+                    fs.writeFileSync(userDirectory + '/' + user.userImages.length.toString() + ".jpg", imageBuffer.data);
+                    user.userImages.push({
+                        'contentType': "image/jpg",
+                        'media': 'http://167.99.200.101/seenblockstorage/' + user.email + '/' + user.userImages.length.toString() + ".jpg"
+                    });
+                    objToReturn = user.userImages;
                 }
-    
-                else if(type === "cover"){
-                    fs.writeFileSync(userDirectory + "/cover.jpg", bitmap);
-                    user.coverImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/cover.jpg" ;
-                    objToReturn = user.coverImage;     
+
+                else if (type === "cover") {
+                    fs.writeFileSync(userDirectory + "/cover.jpg", imageBuffer.data);
+                    user.coverImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/cover.jpg";
+                    objToReturn = user.coverImage;
                 }
-    
+
             } catch (error) {
                 reply({ error: error });
                 return;
@@ -55,3 +57,18 @@ module.exports = async function (request, reply) {
         }
     });
 };
+
+
+function decodeBase64Image(dataString) {
+    var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+        response = {};
+
+    if (matches.length !== 3) {
+        return new Error('Invalid input string');
+    }
+
+    response.type = matches[1];
+    response.data = new Buffer(matches[2], 'base64');
+
+    return response;
+}
