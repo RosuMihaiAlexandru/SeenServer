@@ -16,27 +16,32 @@ module.exports = async function (request, reply) {
                 fs.mkdirSync(userDirectory);
             }
 
-            if(type === "profile"){
-                fs.writeFileSync(userDirectory + "/profile.jpg", bitmap);
-
-                user.profileImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/profile.jpg";       
-                objToReturn = user.profileImage;    
+            try {
+                if(type === "profile"){
+                    fs.writeFileSync(userDirectory + "/profile.jpg", bitmap);
+    
+                    user.profileImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/profile.jpg";       
+                    objToReturn = user.profileImage;    
+                }
+    
+                else if(type === "normal"){
+    
+                    fs.writeFileSync(userDirectory +  '/' + user.userImages.length.toString() + ".jpg", bitmap);
+                    user.userImages.push({'contentType' : "image/jpg",  
+                                            'media' : 'http://167.99.200.101/seenblockstorage/' + user.email +  '/' + user.userImages.length.toString() + ".jpg" });  
+                    objToReturn = user.userImages;   
+                }
+    
+                else if(type === "cover"){
+                    fs.writeFileSync(userDirectory + "/cover.jpg", bitmap);
+                    user.coverImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/cover.jpg" ;
+                    objToReturn = user.coverImage;     
+                }
+    
+            } catch (error) {
+                reply({ error: error });
+                return;
             }
-
-            else if(type === "normal"){
-
-                fs.writeFileSync(userDirectory +  '/' + user.userImages.length.toString() + ".jpg", bitmap);
-                user.userImages.push({'contentType' : "image/jpg",  
-                                        'media' : 'http://167.99.200.101/seenblockstorage/' + user.email +  '/' + user.userImages.length.toString() + ".jpg" });  
-                objToReturn = user.userImages;   
-            }
-
-            else if(type === "cover"){
-                fs.writeFileSync(userDirectory + "/cover.jpg", bitmap);
-                user.coverImage.media = 'http://167.99.200.101/seenblockstorage/' + user.email + "/cover.jpg" ;
-                objToReturn = user.coverImage;     
-            }
-
 
             user.save(function (err) {
                 if (err) {
