@@ -32,5 +32,5 @@ module.exports = async function(messageRequest, reply) {
     include_player_ids: receiverPlayerIds,
     large_icon: senderAvatar
   };
-  NotificationsProcessor.process(message);
+  return NotificationsProcessor.process(message);
 };
