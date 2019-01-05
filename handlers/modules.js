@@ -16,5 +16,6 @@ module.exports = {
     facebookLogin: require('./facebookLogin'),
     getUnreadConversationsCount: require('./getUnreadConversationsCount'),
     updateProfileOrCoverPhoto: require('./updateProfileOrCoverPhoto'),
-    deletePhoto: require('./deletePhoto')
+    deletePhoto: require('./deletePhoto'),
+    uploadPhoto: require('./uploadPhoto')
 }

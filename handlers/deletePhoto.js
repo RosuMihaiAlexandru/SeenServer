@@ -16,11 +16,20 @@ module.exports = async function (request, reply) {
 
             var match = imageToBeDeleted.substring(21, imageToBeDeleted.length);
             if (match.length > 1) {
-                filePath = "../../../mnt" + match;
-            }
+                filePath = "../../../mnt" + match;       
+                }
             else {
                 // Not found
             }
+
+            user.userImages.splice(photoIndex, 1);
+
+            user.save(function (err) {
+                if (err) {
+                    reply(Boom.notFound("Error updating the User")).code(500);
+                }
+            });
+        
 
             fs.access(filePath, error => {
                 if (!error) {
@@ -29,25 +38,12 @@ module.exports = async function (request, reply) {
                             reply({ error: error });
                         }
 
-                        else {
-                            user.userImages.splice(photoIndex, 1);
-
-                            user.save(function (err) {
-                                if (err) {
-                                    reply(Boom.notFound("Error updating the User")).code(500);
-                                }
-                            });
-                        }
-
                     });
                 } else {
                     reply({ error: error });
                 }
             });
 
-            reply({
-                deleted: 'successfull'
-            }).code(200);
         }
     });
 };
