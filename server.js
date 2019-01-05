@@ -38,7 +38,11 @@ socketIo.on('connection', (socket) => {
         if (sockets[messageRequest.receiverId]) {
           sockets[messageRequest.receiverId].emit('message', messageRequest);
         }
-        chatWithNotification(messageRequest);
+        chatWithNotification(messageRequest).then(
+            (result) =>{
+                sockets[messageRequest.message.fromUser.userId].emit('messageSent', messageRequest.message);
+            }
+        );
       });
 
     socket.on('userIsTyping', (users) =>{
