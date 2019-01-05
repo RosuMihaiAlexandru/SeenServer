@@ -6,8 +6,14 @@ const ConversationSchema = new mongoose.Schema({
     ],
     messages: [
         {
+            msgType: String,
+            createdAt: {
+                type: Date,
+                default: Date.now,
+            },
             text: String,
-            createdAt: Date,
+            mediaPath: String,
+            duration: String,
             user: {
                 _id: String,
                 name: String

@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 
 const messageSchema = new mongoose.Schema({
-  text: String,
+  msgType: String,
   createdAt: {
     type: Date,
     default: Date.now,
   },
+  text: String,
+  mediaPath: String,
+  duration: String,
   user: {
       _id: String,
       name: String
