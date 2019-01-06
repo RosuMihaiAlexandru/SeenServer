@@ -60,6 +60,15 @@ module.exports = [
   },
   {
     //update cover or profile photo
+    method: "PUT",
+    path: "/updateProfileBio",
+    handler: handlers.updateProfileBio,
+    config: {
+      auth: false //'jwt'
+    }
+  },
+  {
+    //update cover or profile photo
     method: "POST",
     path: "/uploadPhoto",
     handler: handlers.uploadPhoto,
