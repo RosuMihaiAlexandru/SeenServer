@@ -17,7 +17,7 @@ module.exports = async function(messageRequest, reply) {
   var receiverPlayerIds = messageRequest.receiverPlayerIds;
   var senderName = messageRequest.message.fromUser.displayName;
   var receiverName = messageRequest.receiverName;
-  var messageBody = messageRequest.message.text;
+  var messageBody = messageRequest.message.text ? messageRequest.message.text : 'Sent you an image';
   var senderAvatar = messageRequest.senderAvatar;
 
   var message = {
