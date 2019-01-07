@@ -51,13 +51,19 @@ module.exports = async function (request, reply) {
                     ]
                  }
             }
-        },
+        }
         
     ], function(err, users){
 
         console.log(err);
     }).then(users => {
+
         if (users) {
+            for(var i=0, len = users.length; i < len; i++){
+                if(users[i].Chat.messages.length > 20){
+                    users[i].Chat.messages.splice(0, users[i].Chat.messages.length - 21); 
+                }
+            }
             reply(users);
         } else {
         }

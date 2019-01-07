@@ -50,6 +50,9 @@ module.exports = async function (userSenderId, userReceiverId) {
         console.log(err);
     }).then(users => {
         if (users) {
+            if(users[0].Chat.messages.length > 20){
+                users[0].Chat.messages.splice(0, users[0].Chat.messages.length - 21);
+            }
             return users[0];
         } else {
         }

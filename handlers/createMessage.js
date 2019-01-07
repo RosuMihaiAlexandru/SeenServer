@@ -64,9 +64,8 @@ module.exports = messageRequest => {
     }
   );
 
-  if (!messageRequest.receiverIsOnChat) {
-    return addUnreadConversation(receiverId, senderId);
-  }
+  return addUnreadConversation(receiverId, senderId, messageRequest.receiverIsOnChat);
+
 };
 
 function getFormattedDate() {
