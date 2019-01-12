@@ -144,7 +144,7 @@ module.exports = [
           email: Joi.string().required(),
           name: Joi.string().required(),
           profileImage: Joi.string().required(),
-          birthDate: Joi.date().required()
+          birthDate: Joi.string().required()
         }
       }
     }
