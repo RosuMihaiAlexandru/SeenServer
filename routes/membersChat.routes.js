@@ -25,6 +25,15 @@ module.exports = [
           auth: false,
       }
   },
+    {
+        //get a conversation by members array
+        method: 'GET',
+        path: '/loadMoreMessages',
+        handler: handlers.loadMoreMessages,
+        config: {
+            auth: false,
+        }
+    },
   {
     //updates or create a match between 2 users
     method: 'PUT',

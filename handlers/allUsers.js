@@ -45,7 +45,7 @@ module.exports = async function (request, reply) {
             for(var i=0, len = users.length; i < len; i++){
                 if(users[i].Chat.length > 0){
                     if(users[i].Chat[0].messages.length > 20){
-                       users[i].Chat[0].messages.splice(0,users[i].Chat[0].messages.length-21); 
+                       users[i].Chat[0].messages.splice(0,users[i].Chat[0].messages.length-20); 
                     }
                 }
             }
