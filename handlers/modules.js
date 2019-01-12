@@ -18,5 +18,6 @@ module.exports = {
   updateProfileOrCoverPhoto: require("./updateProfileOrCoverPhoto"),
   deletePhoto: require("./deletePhoto"),
   uploadPhoto: require("./uploadPhoto"),
-  updateProfileBio: require("./updateProfileBio")
+  updateProfileBio: require("./updateProfileBio"),
+  loadMoreMessages: require("./loadMoreMessages")
 };

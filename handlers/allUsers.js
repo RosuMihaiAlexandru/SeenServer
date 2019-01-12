@@ -42,6 +42,13 @@ module.exports = async function (request, reply) {
         }
     ]).then(users => {
         if (users) {
+            for(var i=0, len = users.length; i < len; i++){
+                if(users[i].Chat.length > 0){
+                    if(users[i].Chat[0].messages.length > 20){
+                       users[i].Chat[0].messages.splice(0,users[i].Chat[0].messages.length-20); 
+                    }
+                }
+            }
             reply(users);
         } else {
         }
