@@ -143,7 +143,8 @@ module.exports = [
         payload: {
           email: Joi.string().required(),
           name: Joi.string().required(),
-          profileImage: Joi.string().required()
+          profileImage: Joi.string().required(),
+          birthDate: Joi.date().required()
         }
       }
     }
