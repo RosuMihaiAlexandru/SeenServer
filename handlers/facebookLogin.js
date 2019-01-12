@@ -9,7 +9,7 @@ const expiresIn = config.jwt.expiresIn;
 
 module.exports= function login({
   headers,
-  payload: { email, name, profileImage },
+  payload: { email, name, profileImage, birthDate },
   }, 
   reply) {
   User.findOne({ email }).then(
@@ -30,7 +30,7 @@ module.exports= function login({
             email: email,
             userPassword: '',
             gender: '',
-            birthDate: '',
+            birthDate: birthDate,
             city: '',
             height: '',
             ethnicity: '',
