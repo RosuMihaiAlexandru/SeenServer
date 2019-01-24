@@ -40,8 +40,8 @@ socketIo.on('connection', (socket) => {
     socket.on("message", messageRequest => {
       if (messageRequest.message.msgType == "image") {
         uploadChatMedia(messageRequest.message.base64String, messageRequest.conversationId)
-          .then(result => {
-            messageRequest.message.mediaPath = result;
+          .then( (result) => {
+            messageRequest.message.mediaPath = result.path;
             if (sockets[messageRequest.receiverId]) {
               sockets[messageRequest.receiverId].emit("message", messageRequest);
             }
