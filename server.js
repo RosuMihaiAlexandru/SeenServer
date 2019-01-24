@@ -7,6 +7,7 @@ const User = require('./models/User');
 const createMessage = require('./handlers/createMessage');
 const chatWithNotification = require('./handlers/notifications/chatWithNotifications');
 const removeFromUnreadConversations = require('./handlers/removeFromUnreadConversations');
+const uploadChatMedia = require("./handlers/uploadChatMedia");
 
 const Hapi=require('hapi');
 
@@ -36,16 +37,38 @@ socketIo.on('connection', (socket) => {
         }
     });
     
-    socket.on('message', (messageRequest)=>  {
-        if (sockets[messageRequest.receiverId]) {
-          sockets[messageRequest.receiverId].emit('message', messageRequest);
-        }
-        chatWithNotification(messageRequest).then(
-            (result) =>{
-                sockets[messageRequest.message.fromUser.userId].emit('messageSent', messageRequest.message);
+    socket.on("message", messageRequest => {
+      if (messageRequest.message.msgType == "image") {
+        uploadChatMedia(messageRequest.message.base64String, messageRequest.conversationId)
+          .then(result => {
+            messageRequest.message.mediaPath = result;
+            if (sockets[messageRequest.receiverId]) {
+              sockets[messageRequest.receiverId].emit("message", messageRequest);
             }
-        );
-      });
+            chatWithNotification(messageRequest).then(result => {
+              messageRequest.message.status = "send_succeed";
+              sockets[messageRequest.message.fromUser.userId].emit("messageSent", messageRequest.message);
+            });
+          })
+          .catch(err => {
+            messageRequest.message.status = "send_failed";
+            sockets[messageRequest.message.fromUser.userId].emit("messageSent", messageRequest.message);
+          });
+      } else if (messageRequest.message.msgType == "text") {
+        if (sockets[messageRequest.receiverId]) {
+          sockets[messageRequest.receiverId].emit("message", messageRequest);
+        }
+        chatWithNotification(messageRequest)
+          .then(result => {
+            messageRequest.message.status = "send_succeed";
+            sockets[messageRequest.message.fromUser.userId].emit("messageSent", messageRequest.message);
+          })
+          .catch(err => {
+            messageRequest.message.status = "send_failed";
+            sockets[messageRequest.message.fromUser.userId].emit("messageSent", messageRequest.message);
+          });
+      }
+    });
 
     socket.on('userDisconnected', (userId) => {
         delete sockets[userId.senderId];
