@@ -26,7 +26,7 @@ module.exports = messageRequest => {
     }
   });
 
-  return Conversation.findOne({ members: { $all: [senderId, receiverId] } }).then(
+  return Conversation.findOne({ _id: messageRequest.conversationId }).then(
     conversation => {
       if (!conversation) {
         const newConversation = new MembersChat({
