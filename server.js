@@ -51,6 +51,7 @@ socketIo.on('connection', (socket) => {
             });
           })
           .catch(err => {
+            messageRequest.message.errorFromServer = err;
             messageRequest.message.status = "send_failed";
             sockets[messageRequest.message.fromUser.userId].emit("messageSent", messageRequest.message);
           });
