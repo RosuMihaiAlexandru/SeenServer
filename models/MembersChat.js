@@ -23,8 +23,22 @@ const ConversationSchema = new mongoose.Schema({
     matchDate: Date,
     user1LastSeenDate: Date,
     user2LastSeenDate: Date,
-    user1Liked: Boolean,
-    user2Liked: Boolean
+    user1Liked: {
+        type: Boolean,
+        default: false
+    },
+    user2Liked: {
+        type: Boolean,
+        default: false
+    },
+    user1Blocked: {
+        type: Boolean,
+        default: false
+    },
+    user2Blocked: {
+        type: Boolean,
+        default: false
+    }
 });
 
 module.exports = mongoose.model('MembersChat', ConversationSchema, 'MembersChat');

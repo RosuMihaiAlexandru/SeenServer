@@ -16,7 +16,9 @@ server.connection(cfg.server);
 
 const sockets = {};
 const socketIo = require('socket.io')(server.listener, {
-    pingTimeout: 5000,
+    pingInterval: 15000,
+    pingTimeout: 10000,
+    cookie: false
 });
 
 socketIo.on('connection', (socket) => {
@@ -45,24 +47,17 @@ socketIo.on('connection', (socket) => {
         );
       });
 
-    socket.on('userIsTyping', (users) =>{
-        if(sockets[users.receiverId]){
-            sockets[users.receiverId].emit('userIsTyping', '')
-        }
-    });  
-
-    socket.on('userStoppedTyping',(users) =>{
-        if(sockets[users.receiverId]){
-            sockets[users.receiverId].emit('userStoppedTyping', '')
-        }
-    });    
-
-    socket.on('disconnect', (userId) => {
+    socket.on('userDisconnected', (userId) => {
         delete sockets[userId.senderId];
         if(sockets[userId.receiverId]){
             sockets[userId.receiverId].emit('userLeftChat', '');
         }
+        socket.disconnect(true);
     });
+
+    socket.on('disconnect', (reason) => {
+        console.log(reason);
+      });
 });
 
 //connect server with database

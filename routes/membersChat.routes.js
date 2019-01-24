@@ -51,6 +51,15 @@ module.exports = [
     config:{
         auth: false,
     }
- }
+ },
+ {
+    //updates or create a match between 2 users
+    method: 'PUT',
+    path: '/blockConversation',
+    handler: handlers.blockConversation,
+    config:{
+        auth: false,
+    }
+ },
 ];
 
