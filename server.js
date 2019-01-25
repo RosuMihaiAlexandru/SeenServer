@@ -24,57 +24,54 @@ const socketIo = require('socket.io')(server.listener, {
 
 socketIo.on('connection', (socket) => {
     socket.on('init', (userId) => {
-        sockets[userId.senderId] = socket;
+        sockets[userId.senderSocketId] = socket;
         removeFromUnreadConversations(userId.senderId, userId.receiverId).then(
             (result) => {
                 if (result) {
-                    sockets[userId.senderId].emit('unreadConversationCleared', '');
+                    sockets[userId.senderSocketId].emit('unreadConversationCleared', '');
                 }
             }
         );
-        if (sockets[userId.receiverId]) {
-            sockets[userId.receiverId].emit('userIsOnChat', '');
-        }
     });
     
     socket.on("message", messageRequest => {
+      messageRequest.receiverIsOnChat = false;
       if (messageRequest.message.msgType == "image") {
         uploadChatMedia(messageRequest.message.base64String, messageRequest.conversationId)
           .then( (result) => {
             messageRequest.message.mediaPath = result;
-            if (sockets[messageRequest.receiverId]) {
-              sockets[messageRequest.receiverId].emit("message", messageRequest);
+            if (sockets[messageRequest.receiverSocketId] && sockets[messageRequest.receiverSocketId].connected) {
+              sockets[messageRequest.receiverSocketId].emit("message", messageRequest);
+              messageRequest.receiverIsOnChat = true;
             }
             chatWithNotification(messageRequest).then(result => {
               messageRequest.message.status = "send_succeed";
-              sockets[messageRequest.message.fromUser.userId].emit("messageSent", messageRequest.message);
+              sockets[messageRequest.senderSocketId].emit("messageSent", messageRequest.message);
             });
           })
           .catch(err => {
             messageRequest.message.status = "send_failed";
-            sockets[messageRequest.message.fromUser.userId].emit("messageSent", messageRequest.message);
+            sockets[messageRequest.senderSocketId].emit("messageSent", messageRequest.message);
           });
       } else if (messageRequest.message.msgType == "text") {
-        if (sockets[messageRequest.receiverId]) {
-          sockets[messageRequest.receiverId].emit("message", messageRequest);
+        if (sockets[messageRequest.receiverSocketId] && sockets[messageRequest.receiverSocketId].connected) {
+          sockets[messageRequest.receiverSocketId].emit("message", messageRequest);
+          messageRequest.receiverIsOnChat = true;
         }
         chatWithNotification(messageRequest)
           .then(result => {
             messageRequest.message.status = "send_succeed";
-            sockets[messageRequest.message.fromUser.userId].emit("messageSent", messageRequest.message);
+            sockets[messageRequest.senderSocketId].emit("messageSent", messageRequest.message);
           })
           .catch(err => {
             messageRequest.message.status = "send_failed";
-            sockets[messageRequest.message.fromUser.userId].emit("messageSent", messageRequest.message);
+            sockets[messageRequest.senderSocketId].emit("messageSent", messageRequest.message);
           });
       }
     });
 
     socket.on('userDisconnected', (userId) => {
-        delete sockets[userId.senderId];
-        if(sockets[userId.receiverId]){
-            sockets[userId.receiverId].emit('userLeftChat', '');
-        }
+        delete sockets[userId.senderSocketId];
         socket.disconnect(true);
     });
 
