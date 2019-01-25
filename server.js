@@ -41,7 +41,7 @@ socketIo.on('connection', (socket) => {
       if (messageRequest.message.msgType == "image") {
         uploadChatMedia(messageRequest.message.base64String, messageRequest.conversationId)
           .then( (result) => {
-            messageRequest.message.mediaPath = result.path;
+            messageRequest.message.mediaPath = result;
             if (sockets[messageRequest.receiverId]) {
               sockets[messageRequest.receiverId].emit("message", messageRequest);
             }
@@ -51,7 +51,6 @@ socketIo.on('connection', (socket) => {
             });
           })
           .catch(err => {
-            messageRequest.message.errorFromServer = err;
             messageRequest.message.status = "send_failed";
             sockets[messageRequest.message.fromUser.userId].emit("messageSent", messageRequest.message);
           });
