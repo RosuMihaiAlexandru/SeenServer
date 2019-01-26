@@ -148,5 +148,13 @@ module.exports = [
         }
       }
     }
+  },
+  {
+    method: "POST",
+    path: "/sendReportMail",
+    handler: handlers.sendReportMail,
+    config: {
+      auth: false
+    }
   }
 ];

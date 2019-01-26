@@ -20,5 +20,6 @@ module.exports = {
   uploadPhoto: require("./uploadPhoto"),
   updateProfileBio: require("./updateProfileBio"),
   loadMoreMessages: require("./loadMoreMessages"),
-  blockConversation: require("./blockConversation")
+  blockConversation: require("./blockConversation"),
+  sendReportMail: require("./sendReportMail")
 };
