@@ -21,5 +21,6 @@ module.exports = {
   updateProfileBio: require("./updateProfileBio"),
   loadMoreMessages: require("./loadMoreMessages"),
   blockConversation: require("./blockConversation"),
-  sendReportMail: require("./sendReportMail")
+  sendReportMail: require("./sendReportMail"),
+  getChatMedia: require("./getChatMedia")
 };

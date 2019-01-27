@@ -61,5 +61,14 @@ module.exports = [
         auth: false,
     }
  },
+ {
+    //get media images for conversation
+    method: 'GET',
+    path: '/getChatMedia/{conversationId}',
+    handler: handlers.getChatMedia,
+    config: {
+        auth: false,
+    }
+},
 ];
 
