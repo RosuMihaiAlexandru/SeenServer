@@ -6,6 +6,40 @@ module.exports = async function (request, reply) {
     var loggedInUserId = request.params.loggedInUserId.toString();
     var longitude = parseFloat(request.params.long);
     var latitude = parseFloat(request.params.lat);
+    var isShowMen = request.params.isShowMen === "true";
+    var isShowWomen = request.params.isShowWomen === "true";
+
+    var ageRangeStart = parseInt(request.params.ageRangeStart);
+    var ageRangeStop = parseInt(request.params.ageRangeStop);
+    var locationRangeStop = parseInt(request.params.locationRangeStop);
+    var showGenderExpr = undefined;
+
+    var dateRangeStart = new Date(moment().subtract(ageRangeStart, 'years').calendar());
+    var dateRangeStop = new Date(moment().subtract(ageRangeStop, 'years').calendar());
+
+    
+    if (isShowMen && isShowWomen) {
+        showGenderExpr = {
+            $or: [{
+                gender: { "$eq": "male" }
+            },
+            {
+                gender: { "$eq": "female" }
+            }]
+        }
+    }
+
+    if (isShowMen && !isShowWomen) {
+        showGenderExpr = {
+            gender: { "$eq": "male" }
+        }
+    }
+
+    if (!isShowMen && isShowWomen) {
+        showGenderExpr = {
+            gender: { "$eq": "female" }
+        }
+    }
 
     await User.aggregate([
         {
@@ -21,10 +55,19 @@ module.exports = async function (request, reply) {
         },
         {
             $match: {
-                _id: {
-                    $ne: mongoose.Types.ObjectId(loggedInUserId),
+                    $and: [{
+                        birthDate: {
+                            "$lte": dateRangeStart,
+                            "$gte": dateRangeStop,
+                        }
+                    },
+                        showGenderExpr,
+                    {
+                        _id: {
+                            $ne: mongoose.Types.ObjectId(loggedInUserId),
+                        }
+                    }]
                 }
-            }
         },
         {
 
