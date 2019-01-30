@@ -1,7 +1,6 @@
 const Boom = require("boom");
 const User = require("../models/User");
 const mongoose = require("mongoose");
-var moment = require('moment');
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.params.loggedInUserId.toString();
@@ -14,10 +13,6 @@ module.exports = async function (request, reply) {
     var ageRangeStop = parseInt(request.params.ageRangeStop);
     var locationRangeStop = parseInt(request.params.locationRangeStop);
     var showGenderExpr = undefined;
-
-    var dateRangeStart = new Date(moment().subtract(ageRangeStart, 'years').calendar());
-    var dateRangeStop = new Date(moment().subtract(ageRangeStop, 'years').calendar());
-
     
     if (isShowMen && isShowWomen) {
         showGenderExpr = {
@@ -54,24 +49,59 @@ module.exports = async function (request, reply) {
                 "spherical": true
             }
         },
+
         {
-            $match: {
-                    $and: [{
-                        birthDate: {
-                            "$lte": dateRangeStart,
-                            "$gte": dateRangeStop,
+            $project: { 
+                date: "$birthDate", 
+                age: { 
+                    $floor:{
+                        $divide: [{$subtract: [ new Date(), "$birthDate" ] }, 
+                                (365 * 24*60*60*1000)]
                         }
-                    },
-                        showGenderExpr,
-                    {
-                        _id: {
-                            $ne: mongoose.Types.ObjectId(loggedInUserId),
-                        }
-                    }]
-                }
+                },
+                _id: 1,
+                userName: 1,
+                userPassword: 1,
+                gender: 1,
+                email: 1,
+                birthDate: 1,
+                city: 1,
+                height: 1,
+                ethnicity: 1,
+                religion: 1,
+                occupation: 1,
+                education: 1,
+                about: 1,
+                weakness: 1,
+                enjoys: 1,
+                location: 1,
+                favouriteLocation: 1,
+                userImages: 1,
+                profileImage: 1,
+                coverImage: 1,
+                __v: 1,
+                playerIds: 1,
+                unreadConversations: 1,
+                dist: 1,                  
+            }
         },
         {
-
+            $match: {
+                $and: [{
+                    age : {
+                        "$lte": ageRangeStop,
+                        "$gte": ageRangeStart,
+                    }
+                },
+                    showGenderExpr,
+                {
+                    _id: {
+                        $ne: mongoose.Types.ObjectId(loggedInUserId),
+                    }
+                }]
+            }
+        },
+        {
             $lookup: {
                 from: "MembersChat",
                 let: { id: "$_id" },
