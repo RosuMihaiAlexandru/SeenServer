@@ -35,6 +35,7 @@ module.exports = async function (request, reply) {
     } else {
       var newSettingsAndPreferences = {
         isShowMen: isShowMen,
+        memberId: loggedInUserId,
         isShowWomen: isShowWomen,
         ageRange: [ageRangeStart, ageRangeStop],
         locationRange: [0, locationRangeStop]
