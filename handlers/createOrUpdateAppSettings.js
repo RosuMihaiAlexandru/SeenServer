@@ -6,8 +6,8 @@ const SettingsAndPreferences = require("../models/SettingsAndPreferences");
 
 module.exports = async function (request, reply) {
   var loggedInUserId = mongoose.Types.ObjectId(request.payload.loggedInUserId.toString());
-  var isShowMen = (request.payload.isShowMen === "true");
-  var isShowWomen = (request.payload.isShowWomen === "true");
+  var isShowMen = request.payload.isShowMen;
+  var isShowWomen = request.payload.isShowWomen;
   var ageRangeStart = parseInt(request.payload.ageRangeStart);
   var ageRangeStop = parseInt(request.payload.ageRangeStop);
   var locationRangeStop = parseInt(request.payload.locationRangeStop);
