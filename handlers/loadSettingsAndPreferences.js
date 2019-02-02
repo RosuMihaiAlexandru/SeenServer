@@ -4,7 +4,7 @@ const SettingsAndPreferences = require("../models/SettingsAndPreferences");
 module.exports = async function (request, reply) {
     var loggedInUserId = mongoose.Types.ObjectId(request.params.loggedInUserId.toString());
 
-    return SettingsAndPreferences.findOne({ memberId: loggedInUserId }), function (err, settingsAndPreferences) {
+    return SettingsAndPreferences.findOne({ memberId: loggedInUserId }, function (err, settingsAndPreferences) {
         if (err) {
             reply(err);
         }
@@ -20,5 +20,5 @@ module.exports = async function (request, reply) {
             });
         }
     }
-
+    )
 };
