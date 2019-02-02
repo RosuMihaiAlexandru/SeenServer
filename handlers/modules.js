@@ -24,4 +24,5 @@ module.exports = {
   sendReportMail: require("./sendReportMail"),
   getChatMedia: require("./getChatMedia"),
   createOrUpdateAppSettings: require("./createOrUpdateAppSettings"),
+  loadSettingsAndPreferences: require("./loadSettingsAndPreferences")
 };
