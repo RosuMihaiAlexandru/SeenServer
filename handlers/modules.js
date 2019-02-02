@@ -22,5 +22,6 @@ module.exports = {
   loadMoreMessages: require("./loadMoreMessages"),
   blockConversation: require("./blockConversation"),
   sendReportMail: require("./sendReportMail"),
-  getChatMedia: require("./getChatMedia")
+  getChatMedia: require("./getChatMedia"),
+  createOrUpdateAppSettings: require("./createOrUpdateAppSettings"),
 };

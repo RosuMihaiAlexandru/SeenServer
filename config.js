@@ -15,7 +15,8 @@ module.exports={
     collections:{
         Users: 'Users',
         MembersChat: 'MembersChat',
-        Venues: 'Venues'
+        Venues: 'Venues',
+        SettingsAndPreferences: 'SettingsAndPreferences'
     },
     //secret token used for hapi auth
     jwt:{
