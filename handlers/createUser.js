@@ -26,8 +26,8 @@ module.exports= async function (request, reply) {
           location: {
             type: 'Point',
             coordinates:[
-              51.5194657,
-              -0.102699
+              request.payload.location.latitude,
+              request.payload.location.longitude
             ]
           },
           unreadConversations: [],
@@ -37,7 +37,7 @@ module.exports= async function (request, reply) {
           email: request.payload.email,
           userPassword: hashedPassword,
           gender: request.payload.gender,
-          birthDate: '',
+          birthDate: request.payload.birthDate,
           city: '',
           height: '',
           ethnicity: '',
@@ -57,10 +57,14 @@ module.exports= async function (request, reply) {
             media: ''
           }
         });
-        newUser.save((err) => { console.log(err); });
+        newUser.save((err, user) => {
+          console.log(err);
+        });
         const token = JWT.sign({ email: newUser.email }, secret, { expiresIn });
-        reply({ token, user: sanitizeUser(newUser) });
+        reply({ token, user: newUser });
       }
-      reply(Boom.conflict('User already exists'));
+      else if(user){
+        reply(Boom.conflict('User already exists'));
+      }
     });
 }
