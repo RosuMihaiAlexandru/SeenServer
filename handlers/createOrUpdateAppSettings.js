@@ -21,7 +21,7 @@ module.exports = async function (request, reply) {
       settingsAndPreferences.isShowMen = isShowMen;
       settingsAndPreferences.isShowWomen = isShowWomen;
       settingsAndPreferences.ageRange = [ageRangeStart, ageRangeStop];
-      settingsAndPreferences.locationRange = [0, locationRangeStop];
+      settingsAndPreferences.locationRange = [locationRangeStop];
 
       settingsAndPreferences.save(function (err) {
         if (err) {
@@ -38,7 +38,7 @@ module.exports = async function (request, reply) {
         memberId: loggedInUserId,
         isShowWomen: isShowWomen,
         ageRange: [ageRangeStart, ageRangeStop],
-        locationRange: [0, locationRangeStop]
+        locationRange: [locationRangeStop]
       };
       SettingsAndPreferences.create(newSettingsAndPreferences);
     }
