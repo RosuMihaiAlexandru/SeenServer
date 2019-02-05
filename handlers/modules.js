@@ -1,4 +1,5 @@
 module.exports = {
+  changePassword: require("./changePassword"),
   createUser: require("./createUser"),
   loadConversation: require("./loadConversation"),
   login: require("./login"),

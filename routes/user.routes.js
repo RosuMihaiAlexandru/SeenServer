@@ -123,6 +123,20 @@ module.exports = [
   },
   {
     method: "POST",
+    path: "/changePassword",
+    handler: handlers.changePassword,
+    config: {
+      auth: false,
+      validate: {
+        payload: {
+          loggedInUserId: Joi.string().required(),
+          password: Joi.string().required()
+        }
+      }
+    }
+  },
+  {
+    method: "POST",
     path: "/login",
     handler: handlers.login,
     config: {
