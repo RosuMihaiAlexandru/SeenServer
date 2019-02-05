@@ -17,7 +17,7 @@ module.exports= async function (request, reply) {
     (user) => {
       if (user) {
         const hashedPassword = getHashedPassword(request.payload.password);
-        user.password = hashedPassword;
+        user.userPassword = hashedPassword;
         user.save((err, user) => {
           console.log(err);
         });
