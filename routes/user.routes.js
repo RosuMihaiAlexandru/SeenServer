@@ -172,5 +172,13 @@ module.exports = [
     config: {
       auth: false
     }
+  },
+  {
+    method: "POST",
+    path: "/contactUs",
+    handler: handlers.contactUs,
+    config: {
+      auth: false
+    }
   }
 ];
