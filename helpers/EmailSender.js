@@ -2,7 +2,7 @@
 module.exports = {
 
     async submit(body, senderName, subject) {
-        var status = '';
+        var status = {};
         var nodemailer = require("nodemailer");
         var body = body;
         var senderName = senderName;
@@ -22,15 +22,16 @@ module.exports = {
             text: body
         };
 
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-                status = { status: "failed" }
-            } else {
-                console.log('Email sent: ' + info.response);
+         await transporter.sendMail(mailOptions).then(result=>{
+             if(result.rejected.length == 0 && result.accepted.length > 0)
+             {
                 status = { status: "success" };
-            }
-        });
-        return status;
+             }
+             else{
+                status = { status: "failed" };
+             }
+         })
+         
+         return status;
     }
 }
