@@ -38,7 +38,14 @@ module.exports = async function (request, reply) {
         memberId: loggedInUserId,
         isShowWomen: isShowWomen,
         ageRange: [ageRangeStart, ageRangeStop],
-        locationRange: [locationRangeStop]
+        locationRange: [locationRangeStop],
+        emailSettings:{
+          isReceiveNewMessages: true,
+          isReceiveNewLikes: true,
+          isReceiveNewMatches: true,
+          isReceiveSeenPromotions: true,
+          isVerifiedEmail: false
+      }
       };
       SettingsAndPreferences.create(newSettingsAndPreferences);
     }

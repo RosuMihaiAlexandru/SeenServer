@@ -14,6 +14,15 @@ module.exports = [
       }
     },
     {
+      //get all users from area(ex: 10 km range)
+      method: "POST",
+      path: "/createOrUpdateEmailSettings",
+      handler: handlers.createOrUpdateEmailSettings,
+      config: {
+        auth: false //'jwt'
+      }
+    },
+    {
         //get all users from area(ex: 10 km range)
         method: "GET",
         path: "/loadSettingsAndPreferences/{loggedInUserId}",
