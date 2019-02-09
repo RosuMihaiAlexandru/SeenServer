@@ -35,11 +35,10 @@ module.exports = {
          return status;
     },
 
-    async submitWithHtml(body, html, senderName, subject, sendTo) {
+    async submitWithHtml(body, html, subject, sendTo) {
         var status = {};
         var nodemailer = require("nodemailer");
         var body = body;
-        var senderName = senderName;
 
         var transporter = nodemailer.createTransport({
             service: "gmail",
