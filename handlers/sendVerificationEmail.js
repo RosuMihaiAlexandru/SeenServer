@@ -1,7 +1,7 @@
 var EmailSender = require('../helpers/EmailSender');
 module.exports = async function (request, reply) {
     var body = 'Hello from Mihai';
-    var sendTo = request.payload.email;
+    var sendTo = request.payload.sendTo;
     var subject = "Verify Your Email";
     var html = '<!DOCTYPE html>'+
     '<html><head><title>Please verify your email to secure your acount</title>'+
