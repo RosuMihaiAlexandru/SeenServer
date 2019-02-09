@@ -3,7 +3,7 @@ module.exports = async function (request, reply) {
     var body = request.payload.body;
     var senderName = request.payload.senderName;
     var subject = "Report from " + senderName;
-
-    var sentStatus = await EmailSender.submit(body, senderName, subject);
+    var sendTo = "seen.reportservice@gmail.com";
+    var sentStatus = await EmailSender.submit(body, senderName, subject, sendTo);
     reply(sentStatus);
 };

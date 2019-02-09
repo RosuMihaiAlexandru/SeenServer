@@ -9,6 +9,7 @@ module.exports = async function (request, reply) {
   var isReceiveNewLikes = request.payload.isReceiveNewLikes;
   var isReceiveNewMatches = request.payload.isReceiveNewMatches;
   var isReceiveSeenPromotions = request.payload.isReceiveSeenPromotions;
+  var email = request.payload.email;
 
   return SettingsAndPreferences.findOne({ memberId: loggedInUserId }, function (err, settingsAndPreferences) {
     if (err) {
