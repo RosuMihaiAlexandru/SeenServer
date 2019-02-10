@@ -43,7 +43,7 @@ module.exports = async function (request, reply) {
             isReceiveNewLikes: isReceiveNewLikes,
             isReceiveNewMatches: isReceiveNewMatches,
             isReceiveSeenPromotions: isReceiveSeenPromotions,
-            isVerifiedEmail: false
+            emailVerificationStatus: 'NotVerified'
         }
       };
       SettingsAndPreferences.create(newSettingsAndPreferences);

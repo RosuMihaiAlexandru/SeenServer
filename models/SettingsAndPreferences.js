@@ -36,9 +36,9 @@ const SettingsAndPreferencesSchema = new mongoose.Schema({
             type: Boolean,
             default: true
         },
-        isVerifiedEmail: {
-            type: Boolean,
-            default: false
+        emailVerificationStatus: {
+            type: String,
+            default: 'NotVerified'
         }
     }
 });
