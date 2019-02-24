@@ -6,7 +6,7 @@ module.exports = async function (request, reply) {
     var html = '<!DOCTYPE html>'+
     '<html><head><title>Please verify your email to secure your acount</title>'+
     '</head><body><div>'+
-    '<a href="https://theseenapp.com/verifyEmail">Verify Email</a>'+
+    '<a href="https://theseenapp.com/confirm-email">Verify Email</a>'+
     '</div></body></html>'
     var sentStatus = await EmailSender.submitWithHtml(body, html, subject, sendTo);
     reply(sentStatus);
