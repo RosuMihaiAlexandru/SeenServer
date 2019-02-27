@@ -2,6 +2,7 @@ module.exports = {
   changePassword: require("./changePassword"),
   contactUs: require("./contactUs"),
   sendVerificationEmail: require("./sendVerificationEmail"),
+  verifyEmail: require("./verifyEmail"),
   createUser: require("./createUser"),
   loadConversation: require("./loadConversation"),
   login: require("./login"),

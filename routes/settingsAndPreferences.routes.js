@@ -39,5 +39,14 @@ module.exports = [
         config: {
           auth: false //'jwt'
         }
+      },
+      {
+        //get all users from area(ex: 10 km range)
+        method: "POST",
+        path: "/verifyEmail",
+        handler: handlers.verifyEmail,
+        config: {
+          auth: false //'jwt'
+        }
       }
 ]
