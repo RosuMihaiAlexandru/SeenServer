@@ -11,7 +11,7 @@ module.exports = async function (request, reply) {
         }
 
         if (settingsAndPreferences) {
-            settingsAndPreferences.emailSettings.emailVerificationStatus = 'EmailVerificationSent';
+            settingsAndPreferences.emailSettings.emailVerificationStatus = 'VerifiedEmail';
         }
 
         settingsAndPreferences.save(function (err) {
@@ -19,7 +19,7 @@ module.exports = async function (request, reply) {
                 //reply(Boom.notFound("Error updating the SettingsAndPreferences"));
             }
             else {
-                reply({ "status": "Success" });
+                reply({ "status": "success" });
             }
         });
     })
