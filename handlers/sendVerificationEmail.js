@@ -6,7 +6,7 @@ const User = require('../models/User');
 module.exports = async function (request, reply) {
   var body = 'Hello from Mihai';
   var sendTo = request.payload.sendTo;
-  var loggedInUserId = mongoose.Types.ObjectId(request.payload.loggedInUserId.toString());
+  var loggedInUserId = request.payload.loggedInUserId;
   var subject = "Verify Your Email";
   var html = '<!DOCTYPE html>' +
     '<html><head><title>Please verify your email to secure your acount</title>' +
@@ -20,7 +20,7 @@ module.exports = async function (request, reply) {
   var sent = await EmailSender.submitWithHtml(body, html, subject, sendTo);
   if (sent.status === 'success') {
 
-    User.findOne({ _id: loggedInUserId }, function (err, user) {
+    return User.findOne({ _id: loggedInUserId }, function (err, user) {
       if (err) {
         reply(err);
       }
@@ -34,29 +34,27 @@ module.exports = async function (request, reply) {
           //reply(Boom.notFound("Error updating the SettingsAndPreferences"));
         }
         else {
-          //reply({ "status": "Success" });
+          SettingsAndPreferences.findOne({ memberId: loggedInUserId }, function (err, settingsAndPreferences) {
+            if (err) {
+              reply(err);
+            }
+
+            if (settingsAndPreferences) {
+              settingsAndPreferences.emailSettings.emailVerificationStatus = 'EmailVerificationSent';
+            }
+
+            settingsAndPreferences.save(function (err) {
+              if (err) {
+                reply({ "status": "fail" });
+              }
+              else {
+                reply({ "status": "success" });
+              }
+            });
+          })
         }
       });
     });
-
-    return SettingsAndPreferences.findOne({ memberId: loggedInUserId }, function (err, settingsAndPreferences) {
-      if (err) {
-        reply(err);
-      }
-
-      if (settingsAndPreferences) {
-        settingsAndPreferences.emailSettings.emailVerificationStatus = 'EmailVerificationSent';
-      }
-
-      settingsAndPreferences.save(function (err) {
-        if (err) {
-          //reply(Boom.notFound("Error updating the SettingsAndPreferences"));
-        }
-        else {
-          //reply({ "status": "Success" });
-        }
-      });
-    })
   }
   reply(sent);
 };
