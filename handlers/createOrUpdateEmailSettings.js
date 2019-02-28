@@ -25,7 +25,7 @@ module.exports = async function (request, reply) {
           reply(Boom.notFound("Error updating the SettingsAndPreferences"));
         }
         else {
-          reply({ "status": "Success" });
+          reply({ "status": "success" });
         }
       });
 
