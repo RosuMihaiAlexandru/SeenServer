@@ -23,6 +23,15 @@ module.exports = [
       }
     },
     {
+      //get all users from area(ex: 10 km range)
+      method: "POST",
+      path: "/createOrUpdatePushNotificationsSettings",
+      handler: handlers.createOrUpdatePushNotificationsSettings,
+      config: {
+        auth: false //'jwt'
+      }
+    },
+    {
         //get all users from area(ex: 10 km range)
         method: "GET",
         path: "/loadSettingsAndPreferences/{loggedInUserId}",

@@ -40,6 +40,20 @@ const SettingsAndPreferencesSchema = new mongoose.Schema({
             type: String,
             default: 'NotVerified'
         }
+    },
+    pushNotificationsSettings: {
+        isReceiveNewMessages: {
+            type: Boolean,
+            default: true
+        },
+        isReceiveNewLikes: {
+            type: Boolean,
+            default: true
+        },
+        isReceiveNewMatches: {
+            type: Boolean,
+            default: true
+        }
     }
 });
 

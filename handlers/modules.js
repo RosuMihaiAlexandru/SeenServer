@@ -29,5 +29,6 @@ module.exports = {
   getChatMedia: require("./getChatMedia"),
   createOrUpdateAppSettings: require("./createOrUpdateAppSettings"),
   loadSettingsAndPreferences: require("./loadSettingsAndPreferences"),
-  createOrUpdateEmailSettings: require("./createOrUpdateEmailSettings")
+  createOrUpdateEmailSettings: require("./createOrUpdateEmailSettings"),
+  createOrUpdatePushNotificationsSettings: require("./createOrUpdatePushNotificationsSettings")
 };
