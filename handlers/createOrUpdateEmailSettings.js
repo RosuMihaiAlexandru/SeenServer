@@ -1,10 +1,9 @@
 
 const Boom = require('boom');
-const mongoose = require('mongoose');
 const SettingsAndPreferences = require("../models/SettingsAndPreferences");
 
 module.exports = async function (request, reply) {
-  var loggedInUserId = mongoose.Types.ObjectId(request.payload.loggedInUserId.toString());
+  var loggedInUserId = request.payload.loggedInUserId;
   var isReceiveNewMessages = request.payload.isReceiveNewMessages;
   var isReceiveNewLikes = request.payload.isReceiveNewLikes;
   var isReceiveNewMatches = request.payload.isReceiveNewMatches;
