@@ -36,6 +36,7 @@ module.exports= async function (request, reply) {
           userName: request.payload.userName,
           email: request.payload.email,
           userPassword: hashedPassword,
+          accountIsHidden: false,
           gender: request.payload.gender,
           birthDate: request.payload.birthDate,
           city: '',
