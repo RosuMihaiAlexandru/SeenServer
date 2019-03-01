@@ -180,5 +180,13 @@ module.exports = [
     config: {
       auth: false
     }
+  },
+  {
+    method: "POST",
+    path: "/toggleHideAccount",
+    handler: handlers.toggleHideAccount,
+    config: {
+      auth: false
+    }
   }
 ];

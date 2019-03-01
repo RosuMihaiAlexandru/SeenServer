@@ -15,6 +15,7 @@ const UserSchema = new mongoose.Schema({
     playerIds: [],
     userName: String,
     userPassword: String,
+    accountIsHidden: Boolean,
     gender: String,
     email: String,
     birthDate: Date,

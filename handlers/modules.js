@@ -30,5 +30,6 @@ module.exports = {
   createOrUpdateAppSettings: require("./createOrUpdateAppSettings"),
   loadSettingsAndPreferences: require("./loadSettingsAndPreferences"),
   createOrUpdateEmailSettings: require("./createOrUpdateEmailSettings"),
-  createOrUpdatePushNotificationsSettings: require("./createOrUpdatePushNotificationsSettings")
+  createOrUpdatePushNotificationsSettings: require("./createOrUpdatePushNotificationsSettings"),
+  toggleHideAccount: require("./toggleHideAccount")
 };
