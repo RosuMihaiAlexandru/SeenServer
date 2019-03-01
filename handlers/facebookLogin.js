@@ -28,6 +28,7 @@ module.exports= function login({
             favouriteLocation: '',
             userName: name,
             email: email,
+            accountIsHidden: false,
             userPassword: '',
             gender: '',
             birthDate: birthDate,
