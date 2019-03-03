@@ -31,5 +31,7 @@ module.exports = {
   loadSettingsAndPreferences: require("./loadSettingsAndPreferences"),
   createOrUpdateEmailSettings: require("./createOrUpdateEmailSettings"),
   createOrUpdatePushNotificationsSettings: require("./createOrUpdatePushNotificationsSettings"),
-  toggleHideAccount: require("./toggleHideAccount")
+  toggleHideAccount: require("./toggleHideAccount"),
+  sendRecoverPasswordEmail: require("./sendRecoverPasswordEmail"),
+  resetPassword: require("./resetPassword")
 };
