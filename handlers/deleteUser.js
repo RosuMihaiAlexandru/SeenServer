@@ -15,11 +15,11 @@ module.exports = async function (request, reply) {
         }
 
         if (user) {
+            user.userImages.forEach(function(userImage){
 
-            for (var photoIndex = 0; photoIndex < user.userImages.length; ++photoIndex) {
                 var filePath = '';
 
-                var imageToBeDeleted = user.userImages[photoIndex].media;
+                var imageToBeDeleted = userImage.media;
 
                 var match = imageToBeDeleted.substring(21, imageToBeDeleted.length);
                 if (match.length > 1) {
@@ -28,8 +28,6 @@ module.exports = async function (request, reply) {
                 else {
                     // Not found
                 }
-
-                // user.userImages.splice(photoIndex, 1);
 
 
                 fs.access(filePath, error => {
@@ -46,7 +44,7 @@ module.exports = async function (request, reply) {
                         reply({ error: error, status: "failure" });
                     }
                 });
-            }
+            })
         }
     });
 
