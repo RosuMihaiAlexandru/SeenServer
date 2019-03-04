@@ -6,7 +6,7 @@ const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
-    var deleteReasonList = JSON.parse(request.payload.deleteReasonList);
+    var deleteReasonList = ["crashTooMuch","hehe"];
 
     await User.findOne({ _id: loggedInUserId }, function (err, user) {
         if (err) {
