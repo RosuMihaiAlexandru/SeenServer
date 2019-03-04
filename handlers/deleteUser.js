@@ -29,7 +29,7 @@ module.exports = async function (request, reply) {
                     // Not found
                 }
 
-                user.userImages.splice(photoIndex, 1);
+                //user.userImages.splice(photoIndex, 1);
 
 
                 fs.access(filePath, error => {
