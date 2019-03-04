@@ -34,5 +34,6 @@ module.exports = {
   toggleHideAccount: require("./toggleHideAccount"),
   logFeedback: require("./logFeedback"),
   sendRecoverPasswordEmail: require("./sendRecoverPasswordEmail"),
-  resetPassword: require("./resetPassword")
+  resetPassword: require("./resetPassword"),
+  deleteUser: require("./deleteUser")
 };

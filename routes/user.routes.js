@@ -205,4 +205,12 @@ module.exports = [
       auth: false
     }
   },
+  {
+    method: "POST",
+    path: "/deleteUser",
+    handler: handlers.deleteUser,
+    config: {
+      auth: false
+    }
+  }
 ];
