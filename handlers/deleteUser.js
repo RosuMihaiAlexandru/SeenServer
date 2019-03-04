@@ -16,7 +16,7 @@ module.exports = async function (request, reply) {
 
         if (user) {
 
-            for (var photoIndex = 0; photoIndex < user.userImages.length; photoIndex++) {
+            for (var photoIndex = 0; photoIndex < user.userImages.length; ++photoIndex) {
                 var filePath = '';
 
                 var imageToBeDeleted = user.userImages[photoIndex].media;
@@ -29,7 +29,7 @@ module.exports = async function (request, reply) {
                     // Not found
                 }
 
-                //user.userImages.splice(photoIndex, 1);
+                // user.userImages.splice(photoIndex, 1);
 
 
                 fs.access(filePath, error => {
