@@ -188,5 +188,21 @@ module.exports = [
     config: {
       auth: false
     }
-  }
+  },
+  {
+    method: "POST",
+    path: "/sendRecoverPasswordEmail",
+    handler: handlers.sendRecoverPasswordEmail,
+    config: {
+      auth: false
+    }
+  },
+  {
+    method: "POST",
+    path: "/resetPassword",
+    handler: handlers.resetPassword,
+    config: {
+      auth: false
+    }
+  },
 ];

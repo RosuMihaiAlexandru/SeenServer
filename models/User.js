@@ -28,6 +28,8 @@ const UserSchema = new mongoose.Schema({
     about: String,
     weakness: String,
     enjoys: String,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
     location: {
         type: { type: String },
         coordinates: []
