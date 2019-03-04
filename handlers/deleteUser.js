@@ -37,13 +37,13 @@ module.exports = async function (request, reply) {
                         fs.unlink(filePath, function (error) {
                             if (error) {
                                 Logger.logErrorAndWarning(error);
-                                //reply({ error: error });
+                                reply({ error: error, status: "failure" });
                             }
 
                         });
                     } else {
                         Logger.logErrorAndWarning(error);
-                        //reply({ error: error, status });
+                        reply({ error: error, status: "failure" });
                     }
                 });
             }
