@@ -63,6 +63,7 @@ module.exports = async function (request, reply) {
                     _id: 1,
                     userName: 1,
                     userPassword: 1,
+                    accountIsHidden: 1,
                     gender: 1,
                     email: 1,
                     birthDate: 1,
@@ -95,6 +96,11 @@ module.exports = async function (request, reply) {
                         }
                     },
                         showGenderExpr,
+                    {
+                        accountIsHidden: {
+                            $eq: false,
+                        }
+                    },
                     {
                         _id: {
                             $ne: mongoose.Types.ObjectId(loggedInUserId),
