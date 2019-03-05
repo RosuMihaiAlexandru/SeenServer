@@ -50,7 +50,7 @@ module.exports = async function (request, reply) {
 
     return await User.deleteOne({ _id: loggedInUserId }, function (err) {
 
-        Match.deleteMany({ memberId: loggedInUserId }, function (err) {
+        Match.deleteMany({ members: loggedInUserId }, function (err) {
             if (err) {
                 Logger.logErrorAndWarning(err);
                 reply({ status: "failure" });
