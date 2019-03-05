@@ -20,7 +20,8 @@ const LogInfoSchema = new mongoose.Schema({
                 type: Date,
                 default: Date.now,
             },
-            feedbackList: []
+            feedbackLikeList: [],
+            feedbackDislikeList: []
         }
     ],
     deleteLog: [

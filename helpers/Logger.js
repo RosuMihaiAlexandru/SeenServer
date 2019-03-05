@@ -73,16 +73,17 @@ module.exports = {
         })
     },
 
-    async logDeleteReason(loggedInUserId, logDeleteReason) {
+    async logFeedback(loggedInUserId, feedbackLikeList, feedbackDislikeList) {
         return LogInfo.findOne({ memberId: loggedInUserId }, function (err, logInfo) {
             if (err) {
                 reply(err);
             }
 
             if (logInfo) {
-                logInfo.deleteLog.push({
-                    deleteReasonList: logDeleteReason,
-                    deleteTime: Date.now()
+                logInfo.feedbackLog.push({
+                    feedbackLikeList: feedbackLikeList,
+                    feedbackDislikeList: feedbackDislikeList,
+                    feedbackTime: Date.now()
                 })
 
                 logInfo.save(function (err) {
@@ -97,12 +98,13 @@ module.exports = {
             } else {
                 var newLogInfo = {
                     memberId: loggedInUserId,
-                    feedbackLog: [],
+                    feedbackLog: [{
+                        feedbackLikeList: feedbackLikeList,
+                        feedbackDislikeList: feedbackDislikeList,
+                        feedbackTime: Date.now()
+                    }],
                     errorAndWarningsLog: [],
-                    deleteLog: [{
-                        deleteReasonList: logDeleteReason,
-                        deleteTime: Date.now()
-                    }]
+                    deleteLog: []
                 }
             };
             LogInfo.create(newLogInfo);

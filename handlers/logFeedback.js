@@ -1,26 +1,10 @@
 
-const LogInfo = require("../models/LogInfo");
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.params.loggedInUserId;
+    var likeList = JSON.parse(request.payload.likeList);
+    var dislikeList = JSON.parse(request.payload.dislikeList);
 
-    return LogInfo.findOne({ memberId: loggedInUserId }, function (err, logInfo) {
-        if (err) {
-            reply(err);
-        }
-
-        if (logInfo) {
-            reply({
-                settingsAndPreferences: logInfo,
-                status: "Success"
-            });
-        } else {
-        
-            var logInfo = 
-            reply({
-                status: "NotFound"
-            });
-        }
-    }
-    )
+    return Logger.logFeedback(loggedInUserId, likeList, dislikeList);
 };
