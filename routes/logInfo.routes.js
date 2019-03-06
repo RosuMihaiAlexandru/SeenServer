@@ -5,7 +5,7 @@ module.exports = [
     {
         //creates a feedback element inside feedback array from LogInfo document
         method: 'POST',
-        path: '/',
+        path: '/logFeedback',
         handler: handlers.logFeedback,
         config: {
             auth: false,

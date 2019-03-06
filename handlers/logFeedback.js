@@ -6,5 +6,5 @@ module.exports = async function (request, reply) {
     var likeList = request.payload.likeList === null || request.payload.likeList === undefined ? [] : JSON.parse(request.payload.likeList);
     var dislikeList = request.payload.dislikeList === null || request.payload.dislikeList === undefined ? [] : JSON.parse(request.payload.dislikeList);
 
-    return Logger.logFeedback(loggedInUserId, likeList, dislikeList);
+    reply(Logger.logFeedback(loggedInUserId, likeList, dislikeList));
 };

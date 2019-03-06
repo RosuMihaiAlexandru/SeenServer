@@ -2,9 +2,10 @@ const LogInfo = require("../models/LogInfo");
 
 module.exports = {
     async logErrorAndWarning(loggedInUserId, errorMessage) {
-        return LogInfo.findOne({ memberId: loggedInUserId }, function (err, logInfo) {
+        var status = {};
+        await LogInfo.findOne({ memberId: loggedInUserId }, function (err, logInfo) {
             if (err) {
-                reply(err);
+                status = { status: "failure", error: err };
             }
 
             if (logInfo) {
@@ -15,10 +16,10 @@ module.exports = {
 
                 logInfo.save(function (err) {
                     if (err) {
-                        reply(Boom.notFound("Error updating the LogInfo"));
+                        status = { status: "failure", error: err };
                     }
                     else {
-                        reply({ "status": "Success" });
+                        status = { status: "success" };
                     }
                 });
 
@@ -34,13 +35,16 @@ module.exports = {
                 }
             };
             LogInfo.create(newLogInfo);
+            status = { status: "success" };
         })
+        return status;
     },
 
     async logDeleteReason(loggedInUserId, deleteReasonList) {
-        return LogInfo.findOne({ memberId: loggedInUserId }, function (err, logInfo) {
+        var status = {};
+        await LogInfo.findOne({ memberId: loggedInUserId }, function (err, logInfo) {
             if (err) {
-                reply(err);
+                status = { status: "failure", error: err };
             }
 
             if (logInfo) {
@@ -51,10 +55,10 @@ module.exports = {
 
                 logInfo.save(function (err) {
                     if (err) {
-                        reply(Boom.notFound("Error updating the LogInfo"));
+                        status = { status: "failure", error: err };
                     }
                     else {
-                        reply({ "status": "Success" });
+                        status = { status: "success" };
                     }
                 });
 
@@ -70,13 +74,16 @@ module.exports = {
                 }
             };
             LogInfo.create(newLogInfo);
+            status = { status: "success" };
         })
+        return status;
     },
 
     async logFeedback(loggedInUserId, feedbackLikeList, feedbackDislikeList) {
-        return LogInfo.findOne({ memberId: loggedInUserId }, function (err, logInfo) {
+        var status = {};
+        await LogInfo.findOne({ memberId: loggedInUserId }, function (err, logInfo) {
             if (err) {
-                reply(err);
+                status = { status: "failure", error: err };
             }
 
             if (logInfo) {
@@ -88,10 +95,10 @@ module.exports = {
 
                 logInfo.save(function (err) {
                     if (err) {
-                        reply(Boom.notFound("Error updating the LogInfo"));
+                        status = { status: "failure", error: err };
                     }
                     else {
-                        reply({ "status": "Success" });
+                        status = { "status": "success" };
                     }
                 });
 
@@ -108,6 +115,8 @@ module.exports = {
                 }
             };
             LogInfo.create(newLogInfo);
+            status = { "status": "success" };
         })
+        return status;
     }
 }
