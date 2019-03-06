@@ -7,6 +7,7 @@ module.exports = async function (request, reply) {
   var body = 'Hello from Mihai';
   var sendTo = request.payload.sendTo;
   var loggedInUserId = request.payload.loggedInUserId;
+
   var subject = "Verify Your Email";
   var html = '<!DOCTYPE html>' +
     '<html><head><title>Please verify your email to secure your acount</title>' +
@@ -41,16 +42,16 @@ module.exports = async function (request, reply) {
 
             if (settingsAndPreferences) {
               settingsAndPreferences.emailSettings.emailVerificationStatus = 'EmailVerificationSent';
+              settingsAndPreferences.save(function (err) {
+                if (err) {
+                  reply({ "status": "fail" });
+                }
+                else {
+                  reply({ "status": "success" });
+                }
+              });
             }
 
-            settingsAndPreferences.save(function (err) {
-              if (err) {
-                reply({ "status": "fail" });
-              }
-              else {
-                reply({ "status": "success" });
-              }
-            });
           })
         }
       });

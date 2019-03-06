@@ -38,7 +38,8 @@ module.exports = async function (request, reply) {
                     isReceiveNewMessages: isReceiveNewMessages,
                     isReceiveNewLikes: isReceiveNewLikes,
                     isReceiveNewMatches: isReceiveNewMatches
-                }
+                },
+                hasCreatedSettingsOnServer: true
             };
             SettingsAndPreferences.create(newSettingsAndPreferences);
         }

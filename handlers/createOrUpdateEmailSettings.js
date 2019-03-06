@@ -42,7 +42,8 @@ module.exports = async function (request, reply) {
             isReceiveNewMatches: isReceiveNewMatches,
             isReceiveSeenPromotions: isReceiveSeenPromotions,
             emailVerificationStatus: 'NotVerified'
-        }
+        },
+        hasCreatedSettingsOnServer: true
       };
       SettingsAndPreferences.create(newSettingsAndPreferences);
     }

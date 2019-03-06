@@ -54,6 +54,10 @@ const SettingsAndPreferencesSchema = new mongoose.Schema({
             type: Boolean,
             default: true
         }
+    },
+    hasCreatedSettingsOnServer: {
+        type: Boolean,
+        default: false
     }
 });
 

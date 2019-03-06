@@ -64,7 +64,8 @@ module.exports = async function (request, reply) {
           isReceiveNewMatches: true,
           isReceiveSeenPromotions: true,
           emailVerificationStatus: 'NotVerified'
-        }
+        },
+        hasCreatedSettingsOnServer: true
       };
       SettingsAndPreferences.create(newSettingsAndPreferences);
     }
