@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Match = require("../models/MembersChat");
 const fs = require('fs');
 const Logger = require("../helpers/Logger");
+const SettingsAndPreferences = require("../models/SettingsAndPreferences");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
@@ -55,6 +56,13 @@ module.exports = async function (request, reply) {
                 Logger.logErrorAndWarning(err);
                 reply({ status: "failure" });
             }
+        })
+
+        SettingsAndPreferences.deleteMany({ memberId: loggedInUserId }, function (err) {
+            if (err) {
+                Logger.logErrorAndWarning(err);
+                reply({ status: "failure" });
+            }              
         })
 
         if (err) {
