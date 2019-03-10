@@ -20,7 +20,7 @@ module.exports = async function(request, reply) {
             var newPassword = generatePassword(8);
             var newPasswordHashed = getHashedPassword(newPassword);
             user.resetPasswordToken = "";
-            user.password = newPasswordHashed;
+            user.userPassword = newPasswordHashed;
             user.save(function(err){
                 if(err){
                     reply({
