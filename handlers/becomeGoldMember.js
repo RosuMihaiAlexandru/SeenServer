@@ -4,7 +4,7 @@ const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
-    var receipt = request.payload.receipt;
+    var receipt = JSON.parse(request.payload.receipt);
 
     return User.findOne({ _id: loggedInUserId }, function (err, user) {
         if (err) {
