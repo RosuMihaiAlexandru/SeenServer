@@ -37,6 +37,10 @@ module.exports= async function (request, reply) {
           email: request.payload.email,
           userPassword: hashedPassword,
           accountIsHidden: false,
+          isGoldMember: false,
+          paymentInfo:{
+            receipts: []
+          },
           gender: request.payload.gender,
           birthDate: request.payload.birthDate,
           city: '',
