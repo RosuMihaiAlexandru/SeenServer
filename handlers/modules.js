@@ -35,5 +35,6 @@ module.exports = {
   logFeedback: require("./logFeedback"),
   sendRecoverPasswordEmail: require("./sendRecoverPasswordEmail"),
   resetPassword: require("./resetPassword"),
-  deleteUser: require("./deleteUser")
+  deleteUser: require("./deleteUser"),
+  becomeGoldMember: require("./becomeGoldMember")
 };

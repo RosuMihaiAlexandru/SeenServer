@@ -16,6 +16,10 @@ const UserSchema = new mongoose.Schema({
     userName: String,
     userPassword: String,
     accountIsHidden: Boolean,
+    isGoldMember: Boolean,
+    paymentInfo:{
+        receipts:[] 
+    },
     gender: String,
     email: String,
     birthDate: Date,
