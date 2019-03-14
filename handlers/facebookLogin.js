@@ -15,8 +15,8 @@ module.exports = function login({
   reply) {
   User.findOne({ email }).then(
     (user) => {
+      let newSettingsAndPreferences;
       if (!user) {
-        let newSettingsAndPreferences;
         let newUser = new User({
           location: {
             type: 'Point',
@@ -86,7 +86,7 @@ module.exports = function login({
         return reply({ token, user: newUser, appSettings: newSettingsAndPreferences });
       } else {
         const token = JWT.sign({ email: user.email }, secret, { expiresIn });
-        return reply({ token, user: user });
+        return reply({ token, user: user, appSettings: newSettingsAndPreferences });
       }
     });
 }
