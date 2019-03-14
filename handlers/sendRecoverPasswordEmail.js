@@ -30,7 +30,7 @@ module.exports = async function (request, reply) {
                     user.save(function (err) {
                         if (err) {
                             reply({
-                                status: 'failed',
+                                status: 'failure',
                                 reason: err
                             });
                         }
@@ -45,7 +45,7 @@ module.exports = async function (request, reply) {
         }
         else{
             reply({
-                status: 'failed',
+                status: 'failure',
                 reason: 'This email is not registered'
             })
         }

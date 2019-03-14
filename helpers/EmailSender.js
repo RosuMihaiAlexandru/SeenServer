@@ -28,7 +28,7 @@ module.exports = {
                 status = { status: "success" };
              }
              else{
-                status = { status: "failed" };
+                status = { status: "failure" };
              }
          })
          
@@ -62,7 +62,7 @@ module.exports = {
                 status = { status: "success" };
              }
              else{
-                status = { status: "failed" };
+                status = { status: "failure" };
              }
          })
          

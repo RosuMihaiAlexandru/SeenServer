@@ -18,7 +18,7 @@ module.exports = async function (request, reply) {
 
             match.save(function (err) {
                 if (err) {
-                    reply({status: 'failed'});
+                    reply({status: 'failure'});
                 }
                 else
                 reply({status: 'confirmed'})

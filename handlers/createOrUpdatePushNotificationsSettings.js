@@ -27,21 +27,6 @@ module.exports = async function (request, reply) {
                 }
             });
 
-        } else {
-            var newSettingsAndPreferences = {
-                isShowMen: true,
-                memberId: loggedInUserId,
-                isShowWomen: true,
-                ageRange: [16, 50],
-                locationRange: [100],
-                pushNotificationsSettings: {
-                    isReceiveNewMessages: isReceiveNewMessages,
-                    isReceiveNewLikes: isReceiveNewLikes,
-                    isReceiveNewMatches: isReceiveNewMatches
-                },
-                hasCreatedSettingsOnServer: true
-            };
-            SettingsAndPreferences.create(newSettingsAndPreferences);
         }
     }
     );

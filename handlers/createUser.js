@@ -1,11 +1,13 @@
-const bcrypt=require('bcryptjs');
-const Boom=require('boom');
-const JWT=require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const Boom = require('boom');
+const JWT = require('jsonwebtoken');
 
 
-const  User=require('../models/User');
-const config=require('../config');
-const sanitizeUser=require('../helpers/sanitizeUser');
+const User = require('../models/User');
+const config = require('../config');
+const sanitizeUser = require('../helpers/sanitizeUser');
+const Logger = require("../helpers/Logger");
+const SettingsAndPreferences = require("../models/SettingsAndPreferences");
 
 const secret = config.jwt.secret;
 const expiresIn = config.jwt.expiresIn;
@@ -16,16 +18,16 @@ const getHashedPassword = (password) => {
   return hash;
 };
 
-module.exports= async function (request, reply) {
-  let newUser;
-  await User.findOne({ email: request.payload.email }).then(
+module.exports = async function (request, reply) {
+  let newUser, newSettingsAndPreferences;
+  await User.findOne({ email: request.payload.email }, function (err, user) {
     (user) => {
       if (!user) {
         const hashedPassword = getHashedPassword(request.payload.password);
         newUser = new User({
           location: {
             type: 'Point',
-            coordinates:[
+            coordinates: [
               request.payload.location.latitude,
               request.payload.location.longitude
             ]
@@ -38,7 +40,7 @@ module.exports= async function (request, reply) {
           userPassword: hashedPassword,
           accountIsHidden: false,
           isGoldMember: false,
-          paymentInfo:{
+          paymentInfo: {
             receipts: []
           },
           gender: request.payload.gender,
@@ -62,14 +64,43 @@ module.exports= async function (request, reply) {
             media: ''
           }
         });
+
         newUser.save((err, user) => {
-          console.log(err);
+          if (!err) {
+             newSettingsAndPreferences = {
+              isShowMen: true,
+              memberId: newUser._id,
+              isShowWomen: true,
+              ageRange: [16, 70],
+              locationRange: [100],
+              emailSettings: {
+                isReceiveNewMessages: true,
+                isReceiveNewLikes: true,
+                isReceiveNewMatches: true,
+                isReceiveSeenPromotions: true,
+                emailVerificationStatus: 'NotVerified'
+              },
+              pushNotificationsSettings: {
+                  isReceiveNewMessages: true,
+                  isReceiveNewLikes: true,
+                  isReceiveNewMatches: true
+              }
+            };
+            SettingsAndPreferences.create(newSettingsAndPreferences);
+          }
+          else {
+            Logger.logErrorAndWarning(err);
+            reply({status: "failure"});
+          }
         });
+
+
         const token = JWT.sign({ email: newUser.email }, secret, { expiresIn });
-        reply({ token, user: newUser });
+        reply({ token, user: newUser, appSettings: newSettingsAndPreferences });
       }
-      else if(user){
+      else if (user) {
         reply(Boom.conflict('User already exists'));
       }
-    });
+    }
+  })
 }

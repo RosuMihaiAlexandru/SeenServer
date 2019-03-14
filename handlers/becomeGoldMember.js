@@ -17,7 +17,7 @@ module.exports = async function (request, reply) {
             user.paymentInfo.receipts.push(receipt);
             user.save(function (err) {
                 if (err) {
-                    reply({ status: "fail" });
+                    reply({ status: "failure" });
                 } else {
                     reply({ status: "success" });
                 }

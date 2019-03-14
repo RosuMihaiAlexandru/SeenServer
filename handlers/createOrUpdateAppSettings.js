@@ -51,23 +51,6 @@ module.exports = async function (request, reply) {
         }
       });
 
-    } else {
-      var newSettingsAndPreferences = {
-        isShowMen: isShowMen,
-        memberId: loggedInUserId,
-        isShowWomen: isShowWomen,
-        ageRange: [ageRangeStart, ageRangeStop],
-        locationRange: [locationRangeStop],
-        emailSettings: {
-          isReceiveNewMessages: true,
-          isReceiveNewLikes: true,
-          isReceiveNewMatches: true,
-          isReceiveSeenPromotions: true,
-          emailVerificationStatus: 'NotVerified'
-        },
-        hasCreatedSettingsOnServer: true
-      };
-      SettingsAndPreferences.create(newSettingsAndPreferences);
     }
   }
   );

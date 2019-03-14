@@ -24,7 +24,7 @@ module.exports = async function(request, reply) {
             user.save(function(err){
                 if(err){
                     reply({
-                        status: 'failed',
+                        status: 'failure',
                         reason: err
                     })
                 }
@@ -46,14 +46,14 @@ module.exports = async function(request, reply) {
         }
         else{
             reply({
-                status: 'failed',
+                status: 'failure',
                 reason: 'Password reset link has expired'
             })
         }
     }
     else {
         reply({
-            status: 'failed',
+            status: 'failure',
             reason: 'Password reset link is invalid'
         }).code(404);
     }
