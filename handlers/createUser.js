@@ -21,7 +21,7 @@ const getHashedPassword = (password) => {
 module.exports = async function (request, reply) {
   let newUser, newSettingsAndPreferences;
   await User.findOne({ email: request.payload.email }, function (err, user) {
-    (user) => {
+    async (user) => {
       if (!user) {
         const hashedPassword = getHashedPassword(request.payload.password);
         newUser = new User({
@@ -65,9 +65,9 @@ module.exports = async function (request, reply) {
           }
         });
 
-        newUser.save((err, user) => {
+        await newUser.save(async (err) => {
           if (!err) {
-             newSettingsAndPreferences = {
+            newSettingsAndPreferences = new SettingsAndPreferences({
               isShowMen: true,
               memberId: newUser._id,
               isShowWomen: true,
@@ -81,22 +81,28 @@ module.exports = async function (request, reply) {
                 emailVerificationStatus: 'NotVerified'
               },
               pushNotificationsSettings: {
-                  isReceiveNewMessages: true,
-                  isReceiveNewLikes: true,
-                  isReceiveNewMatches: true
+                isReceiveNewMessages: true,
+                isReceiveNewLikes: true,
+                isReceiveNewMatches: true
               }
-            };
-            SettingsAndPreferences.create(newSettingsAndPreferences);
+            });
+            await newSettingsAndPreferences.save(async (err) => {
+              if(err){
+                Logger.logErrorAndWarning(err);
+                reply({ status: "failure" });
+              }
+              else{
+                const token = JWT.sign({ email: newUser.email }, secret, { expiresIn });
+                return reply({ token, user: newUser, appSettings: newSettingsAndPreferences });
+              }
+            })
           }
           else {
             Logger.logErrorAndWarning(err);
-            reply({status: "failure"});
+            reply({ status: "failure" });
           }
+
         });
-
-
-        const token = JWT.sign({ email: newUser.email }, secret, { expiresIn });
-        reply({ token, user: newUser, appSettings: newSettingsAndPreferences });
       }
       else if (user) {
         reply(Boom.conflict('User already exists'));

@@ -8,13 +8,13 @@ const SettingsAndPreferences = require("../models/SettingsAndPreferences");
 const secret = config.jwt.secret;
 const expiresIn = config.jwt.expiresIn;
 
-module.exports = function login({
+module.exports = async function login({
   headers,
   payload: { email, name, profileImage, birthDate },
 },
   reply) {
   User.findOne({ email }).then(
-    (user) => {
+    async (user) => {
       let newSettingsAndPreferences;
       if (!user) {
         let newUser = new User({
@@ -53,9 +53,9 @@ module.exports = function login({
             media: ''
           }
         });
-        newUser.save((err) => {
+        await newUser.save(async (err) => {
           if (!err) {
-            newSettingsAndPreferences = {
+            newSettingsAndPreferences = new SettingsAndPreferences({
               isShowMen: true,
               memberId: newUser._id,
               isShowWomen: true,
@@ -73,8 +73,17 @@ module.exports = function login({
                 isReceiveNewLikes: true,
                 isReceiveNewMatches: true
               }
-            };
-            SettingsAndPreferences.create(newSettingsAndPreferences);
+            });
+            await newSettingsAndPreferences.save(async (err) => {
+              if(err){
+                Logger.logErrorAndWarning(err);
+                reply({ status: "failure" });
+              }
+              else{
+                const token = JWT.sign({ email: newUser.email }, secret, { expiresIn });
+                return reply({ token, user: newUser, appSettings: newSettingsAndPreferences });
+              }
+            })
           }
           else {
             Logger.logErrorAndWarning(err);
@@ -82,11 +91,9 @@ module.exports = function login({
           }
 
         });
-        const token = JWT.sign({ email: newUser.email }, secret, { expiresIn });
-        return reply({ token, user: newUser, appSettings: newSettingsAndPreferences });
       } else {
         const token = JWT.sign({ email: user.email }, secret, { expiresIn });
-        return reply({ token, user: user, appSettings: newSettingsAndPreferences });
+        return reply({ token, user: user });
       }
     });
 }
