@@ -75,11 +75,11 @@ module.exports = async function login({
               }
             });
             await newSettingsAndPreferences.save(async (err) => {
-              if(err){
+              if (err) {
                 Logger.logErrorAndWarning(err);
                 reply({ status: "failure" });
               }
-              else{
+              else {
                 const token = JWT.sign({ email: newUser.email }, secret, { expiresIn });
                 return reply({ token, user: newUser, appSettings: newSettingsAndPreferences });
               }
@@ -92,8 +92,16 @@ module.exports = async function login({
 
         });
       } else {
-        const token = JWT.sign({ email: user.email }, secret, { expiresIn });
-        return reply({ token, user: user });
+        SettingsAndPreferences.findOne({ memberId: user._id }, function (err, settingsAndPreferences) {
+          if (!err) {
+            const token = JWT.sign({ email: user.email }, secret, { expiresIn });
+            return reply({ token, user: user, appSettings: settingsAndPreferences });
+          }
+          else {
+            Logger.logErrorAndWarning(err);
+            reply({ status: "failure" });
+          }
+        })
       }
-    });
+    })
 }
