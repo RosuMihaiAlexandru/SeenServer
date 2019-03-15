@@ -21,7 +21,6 @@ const getHashedPassword = (password) => {
 module.exports = async function (request, reply) {
   let newUser, newSettingsAndPreferences;
   await User.findOne({ email: request.payload.email }, function (err, user) {
-    (user) => {
       if (!user) {
         const hashedPassword = getHashedPassword(request.payload.password);
         newUser = new User({
@@ -108,5 +107,5 @@ module.exports = async function (request, reply) {
         reply(Boom.conflict('User already exists'));
       }
     }
-  })
+  )
 }
