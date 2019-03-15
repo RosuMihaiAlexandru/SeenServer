@@ -21,7 +21,7 @@ const getHashedPassword = (password) => {
 module.exports = async function (request, reply) {
   let newUser, newSettingsAndPreferences;
   await User.findOne({ email: request.payload.email }, function (err, user) {
-    async (user) => {
+    (user) => {
       if (!user) {
         const hashedPassword = getHashedPassword(request.payload.password);
         newUser = new User({
@@ -65,7 +65,7 @@ module.exports = async function (request, reply) {
           }
         });
 
-        await newUser.save(async (err) => {
+        newUser.save((err) => {
           if (!err) {
             newSettingsAndPreferences = new SettingsAndPreferences({
               isShowMen: true,
@@ -86,12 +86,12 @@ module.exports = async function (request, reply) {
                 isReceiveNewMatches: true
               }
             });
-            await newSettingsAndPreferences.save(async (err) => {
-              if(err){
+            newSettingsAndPreferences.save((err) => {
+              if (err) {
                 Logger.logErrorAndWarning(err);
                 reply({ status: "failure" });
               }
-              else{
+              else {
                 const token = JWT.sign({ email: newUser.email }, secret, { expiresIn });
                 return reply({ token, user: newUser, appSettings: newSettingsAndPreferences });
               }
