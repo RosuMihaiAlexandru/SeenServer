@@ -212,5 +212,13 @@ module.exports = [
     config: {
       auth: false
     }
+  },
+  {
+    method: "POST",
+    path: "/setContentTypeAppleLink",
+    handler: handlers.setContentTypeAppleLink,
+    config: {
+      auth: false
+    }
   }
 ];
