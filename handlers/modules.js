@@ -36,6 +36,5 @@ module.exports = {
   sendRecoverPasswordEmail: require("./sendRecoverPasswordEmail"),
   resetPassword: require("./resetPassword"),
   deleteUser: require("./deleteUser"),
-  becomeGoldMember: require("./becomeGoldMember"),
-  setContentTypeAppleLink: require("./setContentTypeAppleLink")
+  becomeGoldMember: require("./becomeGoldMember")
 };
