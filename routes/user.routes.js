@@ -32,6 +32,15 @@ module.exports = [
     }
   },
   {
+    //get all users who like the current logged in user
+    method: "GET",
+    path: "/getPeopleWhoLikeMeWithChats/{loggedInUserId}",
+    handler: handlers.getPeopleWhoLikeMeWithChats,
+    config: {
+      auth: false //'jwt'
+    }
+  },
+  {
     //get users in specific locations
     method: "GET",
     path: "/usersInLocation/{loggedInUserId}&{long}&{lat}&{isShowMen}&{isShowWomen}&{ageRangeStart}&{ageRangeStop}&{locationRangeStop}",

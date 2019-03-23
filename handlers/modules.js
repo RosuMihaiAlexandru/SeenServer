@@ -11,6 +11,7 @@ module.exports = {
   allUsers: require("./allUsers"),
   userSenderWithChat: require("./userSenderWithChat"),
   userMatchesWithChats: require("./userMatchesWithChats"),
+  getPeopleWhoLikeMeWithChats: require("./getPeopleWhoLikeMeWithChats"),
   allVenues: require("./allUsers"),
   venuesInArea: require("./allVenues"),
   loadConversations: require("./loadConversations"),
