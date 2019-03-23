@@ -23,7 +23,10 @@ module.exports = async function (messageRequest, reply) {
       data: {
         notificationType: "message",
         senderId: messageRequest.message.fromUser.userId,
-        shouldIncrementBadge: shouldIncrementBadge
+        shouldIncrementBadge: shouldIncrementBadge,
+        senderName: senderName,
+        senderAvatar: senderAvatar,
+        messageBody: messageBody
       },
       include_player_ids: receiverPlayerIds,
       large_icon: senderAvatar
