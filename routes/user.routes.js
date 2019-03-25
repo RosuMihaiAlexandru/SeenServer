@@ -7,7 +7,7 @@ module.exports = [
   {
     //get all users from area(ex: 10 km range)
     method: "GET",
-    path: "/users/{loggedInUserId}&{long}&{lat}&{isShowMen}&{isShowWomen}&{ageRangeStart}&{ageRangeStop}&{locationRangeStop}",
+    path: "/users/{loggedInUserId}&{long}&{lat}&{isShowMen}&{isShowWomen}&{ageRangeStart}&{ageRangeStop}&{locationRangeStop}&{page}",
     handler: handlers.allUsers,
     config: {
       auth: false //'jwt'
