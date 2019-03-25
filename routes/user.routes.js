@@ -215,6 +215,14 @@ module.exports = [
     }
   },
   {
+    method: "POST",
+    path: "/deleteUser",
+    handler: handlers.deleteUser,
+    config: {
+      auth: false
+    }
+  },
+  {
     method: "PUT",
     path: "/becomeGoldMember",
     handler: handlers.becomeGoldMember,
