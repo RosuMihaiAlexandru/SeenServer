@@ -48,7 +48,7 @@ module.exports = async function (request, reply) {
                 "distanceField": "dist",
                 "maxDistance": 120000,
                 "spherical": true,
-                "limit":  page * 100,
+                "limit":  page * 100 + page,
             }
         },
 
