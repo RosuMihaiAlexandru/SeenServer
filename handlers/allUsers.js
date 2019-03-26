@@ -135,6 +135,7 @@ module.exports = async function (request, reply) {
                 reply(users);
             
         } else {
+            reply([]);
         }
     });
 };
