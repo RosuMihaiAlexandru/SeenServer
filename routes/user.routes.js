@@ -229,5 +229,14 @@ module.exports = [
     config: {
       auth: false
     }
-  }
+  },
+  {
+    //delete player device id of an user
+    method: "PUT",
+    path: "/removePlayerId",
+    handler: handlers.removePlayerId,
+    config: {
+      auth: false //'jwt'
+    }
+  },
 ];
