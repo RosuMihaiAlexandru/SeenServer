@@ -9,12 +9,15 @@ module.exports = async function (request, reply) {
         var member2PlayerIds = request.payload.member2PlayerIds;
         var member1Name = request.payload.member1Name;
         var member2Name = request.payload.member2Name;
+        var member1Id = request.payload.member1;
+        var member2Id = request.payload.member2;
          
           var message1 = { 
             app_id: "e8d3a93c-398c-407d-9219-8131322767a0",
             contents: {"en": member2Name + ' likes you too!'},
             "data":{
                 "notificationType": "match",
+                "senderId": member2Id
               },
             include_player_ids: member1PlayerIds
           };
@@ -24,6 +27,7 @@ module.exports = async function (request, reply) {
             contents: {"en": member1Name + ' likes you too!'},
             "data":{
                 "notificationType": "match",
+                "senderId": member1Id
               },
             include_player_ids: member2PlayerIds
           };
