@@ -42,7 +42,7 @@ module.exports = async function (request, reply) {
           paymentInfo: {
             receipts: []
           },
-          gender: request.payload.gender,
+          gender: '',
           birthDate: request.payload.birthDate,
           city: '',
           height: '',
