@@ -38,5 +38,6 @@ module.exports = {
   resetPassword: require("./resetPassword"),
   deleteUser: require("./deleteUser"),
   becomeGoldMember: require("./becomeGoldMember"),
-  removePlayerId: require("./removePlayerId")
+  removePlayerId: require("./removePlayerId"),
+  updateUserRegisterInfo: require("./updateUserRegisterInfo")
 };

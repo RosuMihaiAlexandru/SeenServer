@@ -20,6 +20,7 @@ const UserSchema = new mongoose.Schema({
     paymentInfo:{
         receipts:[] 
     },
+    questions:[],
     gender: String,
     email: String,
     birthDate: Date,
