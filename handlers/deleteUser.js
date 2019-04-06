@@ -49,8 +49,27 @@ module.exports = async function (request, reply) {
         }
     });
 
-    return await User.deleteOne({ _id: loggedInUserId }, function (err) {
+    //remove userId from unreadConversations array for all users
+    await User.find({unreadConversations: loggedInUserId},
+        function (err, users) {
+            if(err){
+                Logger.logErrorAndWarning(err);
+                reply({ status: "failure" });
+            } else if (users){
+                users.forEach(function(user){
+                    user.unreadConversations.splice(user.unreadConversations.indexOf(loggedInUserId), 1);
+                    user.save(function(err){
+                        if(err){
+                            Logger.logErrorAndWarning(err);
+                        }
+                    });
+                })
+            }
+        }
+    )
 
+    return await User.deleteOne({ _id: loggedInUserId }, function (err) {
+        
         Match.deleteMany({ members: loggedInUserId }, function (err) {
             if (err) {
                 Logger.logErrorAndWarning(err);
@@ -71,7 +90,7 @@ module.exports = async function (request, reply) {
         }
         else {
             Logger.logDeleteReason(loggedInUserId, deleteReasonList);
-            reply({ status: "success" });
+            reply({ status: "success" });         
         }
     })
 
