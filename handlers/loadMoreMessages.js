@@ -13,8 +13,11 @@ module.exports = async function (request, reply) {
                 var messages = [];    
                 var idx = 0;
                 var startIndex = count - loadMoreCounter - 20 > 0 ? count - loadMoreCounter - 20 : 0;
+                var isFirstMember = conversation._id == member1;
                 for(var i = startIndex - msgSentWhileMountedCounter; i< count - loadMoreCounter - msgSentWhileMountedCounter; i++){
-                    messages[idx++] = conversation.messages[i];
+                    if(conversation.messages[i].createdAt > (isFirstMember ? conversation.user1DeleteDate : conversation.user2DeleteDate)) {
+                        messages[idx++] = conversation.messages[i];
+                    }
                 }
                 reply(messages);
             } else {

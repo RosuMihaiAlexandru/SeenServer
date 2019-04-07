@@ -69,6 +69,15 @@ module.exports = [
     config: {
         auth: false,
     }
-},
+ },
+ {
+    //updates userDeleteDate
+    method: 'PUT',
+    path: '/logicalDeleteConversation',
+    handler: handlers.logicalDeleteConversation,
+    config:{
+        auth: false,
+    }
+ },
 ];
 

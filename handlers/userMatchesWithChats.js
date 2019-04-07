@@ -59,10 +59,20 @@ module.exports = async function (request, reply) {
     }).then(users => {
 
         if (users) {
+
             for(var i=0, len = users.length; i < len; i++){
+                var msgs = [];
+                var isFirstMember = users[i].Chat.members[0]._id == loggedInUserId;
                 if(users[i].Chat.messages.length > 20){
-                    users[i].Chat.messages.splice(0, users[i].Chat.messages.length - 20); 
+                    users[i].Chat.messages.splice(0, users[i].Chat.messages.length - 20);                  
                 }
+
+                users[i].Chat.messages.forEach(function(message){
+                    if(message.createdAt > (isFirstMember ? users[i].Chat.user1DeleteDate : users[i].Chat.user2DeleteDate)) {
+                        msgs.push(message);
+                    }
+                });
+                users[i].Chat.messages = msgs; 
             }
             reply(users);
         } else {

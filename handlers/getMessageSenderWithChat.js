@@ -50,9 +50,18 @@ module.exports = async function (userSenderId, userReceiverId) {
         console.log(err);
     }).then(users => {
         if (users) {
+            var msgs = [];
+            var isFirstMember = users[0].Chat.members[0]._id == userReceiverId;
             if(users[0].Chat.messages.length > 20){
-                users[0].Chat.messages.splice(0, users[0].Chat.messages.length - 20);
+                users[0].Chat.messages.splice(0, users[0].Chat.messages.length - 20);             
             }
+
+            users[0].Chat.messages.forEach(function(message){
+                if(message.createdAt > (isFirstMember ? users[0].Chat.user1DeleteDate : users[0].Chat.user2DeleteDate)) {
+                    msgs.push(message);
+                }
+            });
+            users[0].Chat.messages = msgs; 
             return users[0];
         } else {
         }

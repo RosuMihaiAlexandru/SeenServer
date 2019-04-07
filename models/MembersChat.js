@@ -38,7 +38,15 @@ const ConversationSchema = new mongoose.Schema({
     user2Blocked: {
         type: Boolean,
         default: false
-    }
+    },
+    user1DeleteDate: {
+        type: Date,
+        default: Date.now,
+    },
+    user2DeleteDate: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 module.exports = mongoose.model('MembersChat', ConversationSchema, 'MembersChat');
