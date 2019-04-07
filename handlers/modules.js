@@ -39,6 +39,6 @@ module.exports = {
   deleteUser: require("./deleteUser"),
   becomeGoldMember: require("./becomeGoldMember"),
   removePlayerId: require("./removePlayerId"),
-  logicalDeleteConversation: require("./logicalDeleteConversation")
+  logicalDeleteConversation: require("./logicalDeleteConversation"),
   updateUserRegisterInfo: require("./updateUserRegisterInfo")
 };
