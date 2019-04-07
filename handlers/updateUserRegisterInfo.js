@@ -28,8 +28,7 @@ module.exports = async function (request, reply) {
                     "/" +
                     fileName;
                 uploadedImage = user.profileImage;
-
-                user.matchingData.questions.concat(questions);
+                Array.prototype.push.apply(user.matchingData.questions, questions);
                 user.matchingData.lastDateAnswered = Date.now();
                 user.save(function (err) {
                     if (err) {
