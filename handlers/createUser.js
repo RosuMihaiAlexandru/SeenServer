@@ -42,6 +42,10 @@ module.exports = async function (request, reply) {
           paymentInfo: {
             receipts: []
           },
+          matchingData:{
+            lastDateAnswered: {},
+            questions: []
+          },
           gender: '',
           birthDate: request.payload.birthDate,
           city: '',

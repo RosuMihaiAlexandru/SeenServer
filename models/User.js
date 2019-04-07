@@ -17,10 +17,18 @@ const UserSchema = new mongoose.Schema({
     userPassword: String,
     accountIsHidden: Boolean,
     isGoldMember: Boolean,
-    paymentInfo:{
-        receipts:[] 
+    paymentInfo: {
+        receipts: []
     },
-    questions:[],
+    matchingData: {
+        lastDateAnswered: Date,
+        questions: [
+            {
+                question: String,
+                answer: String,
+                tag: String
+            }]
+    },
     gender: String,
     email: String,
     birthDate: Date,

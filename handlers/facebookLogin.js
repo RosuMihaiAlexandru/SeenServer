@@ -31,6 +31,14 @@ module.exports = async function login({
           userName: name,
           email: email,
           accountIsHidden: false,
+          isGoldMember: false,
+          paymentInfo: {
+            receipts: []
+          },
+          matchingData:{
+            lastDateAnswered: {},
+            questions: []
+          },
           userPassword: '',
           gender: '',
           birthDate: birthDate,
