@@ -10,7 +10,7 @@ module.exports = async function (request, reply) {
     var sexPreference = JSON.parse(request.payload.sexPreference);
 
     return User.findOne({ _id: loggedInUserId }).then(user => {
-        var uploadedImage = '';
+        var uploadedImage = {};
         if (user) {
             try {
                 var imageBuffer = new Buffer(base64PhotoString, "base64");
