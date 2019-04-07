@@ -9,7 +9,7 @@ module.exports = async function (request, reply) {
     var questions = JSON.parse(request.payload.questions);
     var sexPreference = JSON.parse(request.payload.sexPreference);
 
-    return User.findOne({ _id: loggedInUserId }).then(user => {
+    return User.findOne({ _id: loggedInUserId }).then(async user => {
         var uploadedImage = {};
         if (user) {
             try {
@@ -36,7 +36,7 @@ module.exports = async function (request, reply) {
                     }
                 });
 
-                SettingsAndPreferences.findOne({ memberId: loggedInUserId }, function (err, settingsAndPreferences) {
+                await SettingsAndPreferences.findOne({ memberId: loggedInUserId }, function (err, settingsAndPreferences) {
                     if (err) {
                         reply(err);
                     }
@@ -45,6 +45,12 @@ module.exports = async function (request, reply) {
                         settingsAndPreferences.isShowMen = sexPreference.isShowMen;
                         settingsAndPreferences.isShowWomen = sexPreference.isShowWomen;
                     }
+
+                    settingsAndPreferences.save(function (err) {
+                        if (err) {
+                            reply(Boom.notFound("Error updating the SettingsAndPreferences"));
+                        }
+                    });
                 })
 
 
