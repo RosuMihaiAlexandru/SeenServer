@@ -43,7 +43,7 @@ module.exports = async function (request, reply) {
             receipts: []
           },
           matchingData:{
-            lastDateAnswered: Date.now,
+            lastDateAnswered: Date.now(),
             questions: []
           },
           gender: '',
