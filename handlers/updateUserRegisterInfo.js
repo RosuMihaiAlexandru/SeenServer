@@ -29,8 +29,8 @@ module.exports = async function (request, reply) {
                     fileName;
                 uploadedImage = user.profileImage;
 
-                user.matchingData.questions.concat(questions);
-                user.matchingData.lastDateAnswered = Date.now;
+                user.matchingData.questions = questions;
+                user.matchingData.lastDateAnswered = Date.now();
                 user.save(function (err) {
                     if (err) {
                         reply(Boom.notFound("Error updating the User")).code(500);
