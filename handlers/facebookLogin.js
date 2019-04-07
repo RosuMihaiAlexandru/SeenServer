@@ -36,7 +36,7 @@ module.exports = async function login({
             receipts: []
           },
           matchingData:{
-            lastDateAnswered: {},
+            lastDateAnswered: Date.now(),
             questions: []
           },
           userPassword: '',
