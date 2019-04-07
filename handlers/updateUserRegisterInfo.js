@@ -1,6 +1,6 @@
 const Boom = require("boom");
 const User = require("../models/User");
-
+const SettingsAndPreferences = require("../models/SettingsAndPreferences");
 const fs = require("fs");
 
 module.exports = async function (request, reply) {
@@ -29,7 +29,7 @@ module.exports = async function (request, reply) {
                     fileName;
                 uploadedImage = user.profileImage;
 
-                user.matchingData.questions = questions;
+                user.matchingData.questions.concat(questions);
                 user.matchingData.lastDateAnswered = Date.now();
                 user.save(function (err) {
                     if (err) {
