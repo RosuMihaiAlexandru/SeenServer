@@ -40,4 +40,5 @@ module.exports = {
   becomeGoldMember: require("./becomeGoldMember"),
   removePlayerId: require("./removePlayerId"),
   logicalDeleteConversation: require("./logicalDeleteConversation")
+  updateUserRegisterInfo: require("./updateUserRegisterInfo")
 };
