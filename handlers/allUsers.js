@@ -65,6 +65,7 @@ module.exports = async function (request, reply) {
                 userName: 1,
                 userPassword: 1,
                 accountIsHidden: 1,
+                matchingData: 1,
                 gender: 1,
                 email: 1,
                 birthDate: 1,
