@@ -64,7 +64,7 @@ module.exports = async function (request, reply) {
                 return;
             }
 
-            reply({ uploadedImageUrl: uploadedImage, status: "success" });
+            reply({ matchingData: user.matchingData, uploadedImageUrl: uploadedImage, status: "success" });
         }
     })
 }
