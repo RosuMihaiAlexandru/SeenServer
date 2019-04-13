@@ -20,7 +20,7 @@ module.exports = async function (request, reply) {
                 return;
             }
 
-            reply({ status: "success" });
+            reply({ status: "success", matchingData: user.matchingData });
         }
     })
 }
