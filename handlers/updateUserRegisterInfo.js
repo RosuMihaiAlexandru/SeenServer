@@ -8,6 +8,7 @@ module.exports = async function (request, reply) {
     var questions = JSON.parse(request.payload.questions);
     var sexPreference = JSON.parse(request.payload.sexPreference);
     var isFacebookLogin = request.payload.isFacebookLogin;
+    var gender = request.payload.gender;
 
     return User.findOne({ _id: loggedInUserId }).then(async user => {
         var uploadedImage = {};
@@ -33,6 +34,7 @@ module.exports = async function (request, reply) {
             }
                 Array.prototype.push.apply(user.matchingData.questions, questions);
                 user.matchingData.lastDateAnswered = Date.now();
+                user.gender = gender;
                 user.save(function (err) {
                     if (err) {
                         reply(Boom.notFound("Error updating the User")).code(500);
