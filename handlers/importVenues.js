@@ -8,7 +8,9 @@ const image2base64 = require("image-to-base64");
 const Logger = require("../helpers/Logger");
 
 module.exports = async function(request, reply) {
-  fs.createReadStream("bristolAll.csv")
+    db.collection.remove()
+    try {
+        fs.createReadStream("bristolAll.csv")
     .pipe(csv())
     .on("data", row => {
         image2base64(row.Main_Image_URL) // you can also to use url
@@ -71,8 +73,12 @@ module.exports = async function(request, reply) {
           });
     })
     .on("end", () => {
-      console.log("CSV file successfully processed");
+        reply({ status: "success" });
     });
+    } catch (error) {
+        reply(error);
+    }
+  
 };
 
 function getFormattedDate() {
