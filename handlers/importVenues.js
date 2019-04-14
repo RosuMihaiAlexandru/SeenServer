@@ -8,7 +8,6 @@ const image2base64 = require("image-to-base64");
 const Logger = require("../helpers/Logger");
 
 module.exports = async function(request, reply) {
-    db.collection.remove()
     try {
         fs.createReadStream("bristolAll.csv")
     .pipe(csv())
