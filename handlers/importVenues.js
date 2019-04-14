@@ -8,13 +8,15 @@ const image2base64 = require("image-to-base64");
 const Logger = require("../helpers/Logger");
 
 module.exports = async function(request, reply) {
+    var index = 0;
     try {
         return fs.createReadStream("bristolAll.csv")
     .pipe(csv())
     .on("data", row => {
+        index++;
         var imgUrl = row.Main_Image_URL;
         if(imgUrl.charAt(0) === "/" && imgUrl.charAt(1) === "/" ){
-                imgUrl = imgUrl.substring(2);
+                imgUrl = "https:" + imgUrl;
         }
 
         image2base64(imgUrl) // you can also to use url
@@ -29,7 +31,7 @@ module.exports = async function(request, reply) {
             var fileName = getFormattedDate() + ".jpg";
             fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
             let newVenue;
-            return Venues.findOne({ name: row.Name }, function(err, venue) {
+             Venues.findOne({ name: row.Name }, function(err, venue) {
               if (!venue) {
                 newVenue = new Venues({
                   location: {
@@ -74,7 +76,7 @@ module.exports = async function(request, reply) {
             });
           }).catch(
             (error) => {
-                reply({ status: "failure", error: error });
+                reply({ status: "failure", error: error, index: index });
             }
         )
     })
