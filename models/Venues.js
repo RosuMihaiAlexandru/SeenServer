@@ -13,16 +13,21 @@ const pointSchema = new mongoose.Schema({
 const VenuesSchema=new mongoose.Schema({
     name: String,
     city: String,
+    state: String,
+    website: String,
+    email: String,
+    phone: String,
+    rating: Number,
+    reviews: String,
     locationType: String,
-    description: Date,
     tag: Array,
-    street: String,
-    postcode: String,
+    address: String,
+    uniqueCode : String,
     location: {
         type: {type: String},
         coordinates: []
       },
-    profileImages:[
+    photos:[
         {
             contentType: String,
             media: String

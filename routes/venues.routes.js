@@ -18,5 +18,14 @@ module.exports = [
         config: {
             auth: false //'jwt'
         }
-    }
+    },
+    {
+        //imports venues from csv file
+        method: "POST",
+        path: "/importVenues",
+        handler: handlers.importVenues,
+        config: {
+            auth: false //'jwt'
+        }
+    },  
 ];

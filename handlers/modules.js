@@ -41,5 +41,6 @@ module.exports = {
   removePlayerId: require("./removePlayerId"),
   logicalDeleteConversation: require("./logicalDeleteConversation"),
   updateUserRegisterInfo: require("./updateUserRegisterInfo"),
-  updateAnswers: require("./updateAnswers")
+  updateAnswers: require("./updateAnswers"),
+  importVenues: require("./importVenues"),
 };
