@@ -13,7 +13,7 @@ module.exports = {
   userMatchesWithChats: require("./userMatchesWithChats"),
   getPeopleWhoLikeMeWithChats: require("./getPeopleWhoLikeMeWithChats"),
   allVenues: require("./allUsers"),
-  venuesInArea: require("./allVenues"),
+  venuesInArea: require("./venuesInArea"),
   loadConversations: require("./loadConversations"),
   savePlayerId: require("./savePlayerId"),
   loadPlayerIds: require("./loadPlayerIds"),

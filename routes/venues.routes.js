@@ -13,7 +13,7 @@ module.exports = [
     {
         //get venues from logged in user area range(ex: 10 km range)
         method: "GET",
-        path: "/venuesInArea/{long}&{lat}",
+        path: "/venuesInArea/{long}&{lat}&{page}&{isGoldMember}",
         handler: handlers.venuesInArea,
         config: {
             auth: false //'jwt'

@@ -19,10 +19,10 @@ module.exports = function(request, reply) {
           distanceField: "dist",
           maxDistance: maxDistance,
           spherical: true,
-          "limit":  page * 10 + page
-        }
-      },
-      { $skip : page * 10 - 10 }
+          limit:  page * 10,
+        } },
+        { $skip : page * 10 - 10 }
+      
     ],
     function(err, venues) {
       reply(venues);
