@@ -14,7 +14,7 @@ module.exports = async function(request, reply) {
       index++;
       if (index < 4) {
         image2base64(row.Main_Image_URL) // you can also to use url
-          .then(async response => {
+          .then(response => {
             console.log(response); //cGF0aC90by9maWxlLmpwZw==
 
             var imageBuffer = new Buffer(response, "base64");
@@ -27,7 +27,7 @@ module.exports = async function(request, reply) {
             var fileName = getFormattedDate() + ".jpg";
             fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
 
-            await Venues.findOne({ name: row.Name }, function(err, venue) {
+             Venues.findOne({ name: row.Name }, function(err, venue) {
               if (!venue) {
                 newVenue = new Venues({
                   location: {
