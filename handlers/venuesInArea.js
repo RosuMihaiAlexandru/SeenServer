@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 module.exports = function(request, reply) {
   var latitude = parseFloat(request.params.lat);
   var longitude = parseFloat(request.params.long);
+  var page = parseInt(request.params.page);
+  var isGoldMember = request.params.isGoldMember;
+  var maxDistance = isGoldMember ? 5000 : 1000;
   Venues.aggregate(
     [
       {
@@ -14,10 +17,12 @@ module.exports = function(request, reply) {
             coordinates: [longitude, latitude]
           },
           distanceField: "dist",
-          maxDistance: 1233,
-          spherical: true
+          maxDistance: maxDistance,
+          spherical: true,
+          "limit":  page * 10 + page
         }
-      }
+      },
+      { $skip : page * 10 - 10 }
     ],
     function(err, venues) {
       reply(venues);
