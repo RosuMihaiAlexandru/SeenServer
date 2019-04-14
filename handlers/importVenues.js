@@ -5,34 +5,32 @@ const Venues = require("../models/Venues");
 const csv = require("csv-parser");
 const fs = require("fs");
 const image2base64 = require("image-to-base64");
+const Logger = require("../helpers/Logger");
 
 module.exports = async function(request, reply) {
-  var index = 0;
   fs.createReadStream("bristolAll.csv")
     .pipe(csv())
     .on("data", row => {
-      index++;
-      if (index < 4) {
         image2base64(row.Main_Image_URL) // you can also to use url
           .then(response => {
             console.log(response); //cGF0aC90by9maWxlLmpwZw==
 
             var imageBuffer = new Buffer(response, "base64");
             var userDirectory =
-              "../../../mnt/seenblockstorage/venues/" + row.Plus_Code;
+              "../../../mnt/seenblockstorage/venues/" + row.Plus_Code.replace(/\s/g, "");
             if (!fs.existsSync(userDirectory)) {
               fs.mkdirSync(userDirectory);
             }
 
             var fileName = getFormattedDate() + ".jpg";
             fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
-
-             Venues.findOne({ name: row.Name }, function(err, venue) {
+            let newVenue;
+            return Venues.findOne({ name: row.Name }, function(err, venue) {
               if (!venue) {
                 newVenue = new Venues({
                   location: {
                     type: "Point",
-                    coordinates: [row.Lat, row.Long]
+                    coordinates: [parseFloat(row.Lat), parseFloat(row.Lng)]
                   },
                   name: row.Name,
                   email: row.Email,
@@ -52,7 +50,7 @@ module.exports = async function(request, reply) {
                       contentType: "image/jpg",
                       media:
                         "http://167.99.200.101/seenblockstorage/venues/" +
-                        row.Plus_Code +
+                        row.Plus_Code.replace(/\s/g, "") +
                         "/" +
                         fileName
                     }
@@ -71,7 +69,6 @@ module.exports = async function(request, reply) {
               }
             });
           });
-      }
     })
     .on("end", () => {
       console.log("CSV file successfully processed");
