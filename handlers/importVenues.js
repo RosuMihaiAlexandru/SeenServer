@@ -9,13 +9,16 @@ const Logger = require("../helpers/Logger");
 
 module.exports = async function(request, reply) {
     try {
-        fs.createReadStream("bristolAll.csv")
+        return fs.createReadStream("bristolAll.csv")
     .pipe(csv())
     .on("data", row => {
-        image2base64(row.Main_Image_URL) // you can also to use url
-          .then(response => {
-            console.log(response); //cGF0aC90by9maWxlLmpwZw==
+        var imgUrl = row.Main_Image_URL;
+        if(imgUrl.charAt(0) === "/" && imgUrl.charAt(1) === "/" ){
+                imgUrl = imgUrl.substring(2);
+        }
 
+        image2base64(imgUrl) // you can also to use url
+          .then(response => {
             var imageBuffer = new Buffer(response, "base64");
             var userDirectory =
               "../../../mnt/seenblockstorage/venues/" + row.Plus_Code.replace(/\s/g, "");
@@ -69,7 +72,11 @@ module.exports = async function(request, reply) {
                 reply(Boom.conflict("Venue already exists"));
               }
             });
-          });
+          }).catch(
+            (error) => {
+                reply({ status: "failure", error: error });
+            }
+        )
     })
     .on("end", () => {
         reply({ status: "success" });
