@@ -10,14 +10,14 @@ module.exports = function(request, reply) {
   var searchKeyword = request.params.searchKeyword;
   var maxDistance = isGoldMember ? 50000 : 10000;
 
-  if (filterTag !== "") {
+  if (filterTag !== "" && filterTag !== undefined) {
     var filterTagSynonyms = require("../constants/tagSynonyms");
     var filterTagSynonym = filterTagSynonyms.find(obj => {
       return obj.tag === filterTag;
     });
 
     var tagExpr = undefined;
-    if (searchKeyword !== "") {
+    if (searchKeyword !== "" && searchKeyword !== undefined) {
       var searchRegExp = new RegExp(searchKeyword, "i");
       tagExpr = {
         $match: {
