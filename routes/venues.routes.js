@@ -20,6 +20,24 @@ module.exports = [
         }
     },
     {
+        //get venues from logged in user area range(ex: 10 km range)
+        method: "GET",
+        path: "/venuesInArea/{long}&{lat}&{page}&{isGoldMember}&{filterTag}",
+        handler: handlers.venuesInArea,
+        config: {
+            auth: false //'jwt'
+        }
+    },
+    {
+        //get venues from logged in user area range(ex: 10 km range)
+        method: "GET",
+        path: "/venuesInArea/{long}&{lat}&{page}&{isGoldMember}",
+        handler: handlers.venuesInArea,
+        config: {
+            auth: false //'jwt'
+        }
+    },
+    {
         //imports venues from csv file
         method: "POST",
         path: "/importVenues",
