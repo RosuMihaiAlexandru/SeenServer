@@ -1,4 +1,3 @@
-
 const Venues = require("../models/Venues");
 
 module.exports = function(request, reply) {
@@ -10,29 +9,27 @@ module.exports = function(request, reply) {
   var searchKeyword = request.params.searchKeyword;
   var maxDistance = isGoldMember ? 50000 : 10000;
 
-  if (filterTag !== "" && filterTag !== undefined) {
-    var filterTagSynonyms = require("../constants/tagSynonyms");
-    var filterTagSynonym = filterTagSynonyms.find(obj => {
-      return obj.tag === filterTag;
-    });
-
-    var tagExpr = undefined;
-    if (searchKeyword !== "" && searchKeyword !== undefined) {
-      var searchRegExp = new RegExp(searchKeyword, "i");
-      tagExpr = {
-        $match: {
-          $and: [
-            { name: { $regex: searchRegExp } }
-          ]
-        }
-      };
-    } else {
-      tagExpr = {
-        $match: {
-          locationType: { $in: filterTagSynonym.synonyms }
-        }
-      };
+  if (
+    (filterTag !== "" && filterTag !== undefined) ||
+    (searchKeyword !== "" && searchKeyword !== undefined)
+  ) {
+    var filterTagSynonym = undefined;
+    if (filterTag !== "" && filterTag !== undefined) {
+      var filterTagSynonyms = require("../constants/tagSynonyms");
+      filterTagSynonym = filterTagSynonyms.find(obj => {
+        return obj.tag === filterTag;
+      });
     }
+
+    var searchRegExp = undefined;
+    if (searchKeyword !== "" && searchKeyword !== undefined) {
+      searchRegExp = new RegExp(searchKeyword, "i");
+    }
+
+    var tagExpr = GetMatchExpressionForFilterOrSearchKeyword(
+      searchRegExp,
+      filterTagSynonym
+    );
 
     Venues.aggregate(
       [
@@ -54,12 +51,12 @@ module.exports = function(request, reply) {
       ],
       function(err, venues) {
         var hasNext = false;
-        if(venues.length > 10){
+        if (venues.length > 10) {
           venues.pop();
           hasNext = true;
         }
 
-        reply({ data: venues, hasNext: hasNext});
+        reply({ data: venues, hasNext: hasNext });
       }
     );
   } else {
@@ -81,13 +78,45 @@ module.exports = function(request, reply) {
       ],
       function(err, venues) {
         var hasNext = false;
-        if(venues.length > 10){
+        if (venues.length > 10) {
           venues.pop();
           hasNext = true;
         }
 
-        reply({ data: venues, hasNext: hasNext});
+        reply({ data: venues, hasNext: hasNext });
       }
     );
   }
 };
+
+function GetMatchExpressionForFilterOrSearchKeyword(
+  searchRegExp,
+  filterTagSynonym
+) {
+  var tagExpr = undefined;
+  if (searchRegExp == undefined && filterTagSynonym != undefined) {
+    tagExpr = {
+      $match: {
+        locationType: { $in: filterTagSynonym.synonyms }
+      }
+    };
+  }
+
+  if (searchRegExp != undefined && filterTagSynonym == undefined) {
+    tagExpr = {
+      $match: {
+        $and: [{ name: { $regex: searchRegExp } }]
+      }
+    };
+  } else if (searchRegExp != undefined && filterTagSynonym != undefined) {
+    tagExpr = {
+      $match: {
+        $and: [
+          { locationType: { $in: filterTagSynonym.synonyms } },
+          { name: { $regex: searchRegExp } }
+        ]
+      }
+    };
+  }
+  return tagExpr;
+}
