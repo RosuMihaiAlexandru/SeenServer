@@ -1,20 +1,17 @@
 const Venues = require("../models/Venues");
 
 module.exports = function(request, reply) {
-  var latitude = parseFloat(request.params.lat);
-  var longitude = parseFloat(request.params.long);
-  var page = parseInt(request.params.page);
-  var isGoldMember = request.params.isGoldMember;
-  var filterTag = request.params.filterTag;
-  var searchKeyword = request.params.searchKeyword;
+  var latitude = parseFloat(request.query.lat);
+  var longitude = parseFloat(request.query.long);
+  var page = parseInt(request.query.page);
+  var isGoldMember = request.query.isGoldMember === "true";
+  var filterTag = request.query.filterTag;
+  var searchKeyword = request.query.searchKeyword;
   var maxDistance = isGoldMember ? 50000 : 10000;
 
-  if (
-    (filterTag !== "" && filterTag !== undefined) ||
-    (searchKeyword !== "" && searchKeyword !== undefined)
-  ) {
+  if (filterTag !== "" || searchKeyword !== "") {
     var filterTagSynonym = undefined;
-    if (filterTag !== "" && filterTag !== undefined) {
+    if (filterTag !== "") {
       var filterTagSynonyms = require("../constants/tagSynonyms");
       filterTagSynonym = filterTagSynonyms.find(obj => {
         return obj.tag === filterTag;
@@ -22,7 +19,7 @@ module.exports = function(request, reply) {
     }
 
     var searchRegExp = undefined;
-    if (searchKeyword !== "" && searchKeyword !== undefined) {
+    if (searchKeyword !== "") {
       searchRegExp = new RegExp(searchKeyword, "i");
     }
 
