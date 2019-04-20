@@ -8,6 +8,7 @@ const createMessage = require('./handlers/createMessage');
 const chatWithNotification = require('./handlers/notifications/chatWithNotifications');
 const removeFromUnreadConversations = require('./handlers/removeFromUnreadConversations');
 const uploadChatMedia = require("./handlers/uploadChatMedia");
+const Logger = require("./helpers/Logger");
 
 const Hapi=require('hapi');
 
@@ -52,6 +53,7 @@ socketIo.on('connection', (socket) => {
           .catch(err => {
             messageRequest.message.status = "send_failed";
             sockets[messageRequest.senderSocketId].emit("messageSent", messageRequest.message);
+            Logger.logErrorAndWarning(messageRequest.loggedInUserId, err);
           });
       } else if (messageRequest.message.msgType == "text") {
         if (sockets[messageRequest.receiverSocketId] && sockets[messageRequest.receiverSocketId].connected) {
@@ -66,6 +68,7 @@ socketIo.on('connection', (socket) => {
           .catch(err => {
             messageRequest.message.status = "send_failed";
             sockets[messageRequest.senderSocketId].emit("messageSent", messageRequest.message);
+            Logger.logErrorAndWarning(messageRequest.loggedInUserId, err);
           });
       }
     });

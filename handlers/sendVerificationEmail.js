@@ -2,6 +2,7 @@ var EmailSender = require('../helpers/EmailSender');
 const mongoose = require('mongoose');
 const SettingsAndPreferences = require("../models/SettingsAndPreferences");
 const User = require('../models/User');
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
   var body = 'Hello from Mihai';
@@ -23,6 +24,7 @@ module.exports = async function (request, reply) {
 
     return User.findOne({ _id: loggedInUserId }, function (err, user) {
       if (err) {
+        Logger.logErrorAndWarning(loggedInUserId, err);
         reply(err);
       }
 
@@ -32,11 +34,13 @@ module.exports = async function (request, reply) {
 
       user.save(function (err) {
         if (err) {
+          Logger.logErrorAndWarning(loggedInUserId, err);
           //reply(Boom.notFound("Error updating the SettingsAndPreferences"));
         }
         else {
           SettingsAndPreferences.findOne({ memberId: loggedInUserId }, function (err, settingsAndPreferences) {
             if (err) {
+              Logger.logErrorAndWarning(loggedInUserId, err);
               reply(err);
             }
 
@@ -44,6 +48,7 @@ module.exports = async function (request, reply) {
               settingsAndPreferences.emailSettings.emailVerificationStatus = 'EmailVerificationSent';
               settingsAndPreferences.save(function (err) {
                 if (err) {
+                  Logger.logErrorAndWarning(loggedInUserId, err);
                   reply({ "status": "fail" });
                 }
                 else {

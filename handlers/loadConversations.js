@@ -1,6 +1,7 @@
 const Boom = require("boom");
 const MembersChat = require("../models/MembersChat");
 const mongoose = require("mongoose");
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.params.loggedInUserId.toString();
@@ -46,7 +47,12 @@ module.exports = async function (request, reply) {
                 }
             }
         }
-    ]).then(membersChat => {
+    ],
+    function(error, membersChat) {
+        if (error) {
+            Logger.logErrorAndWarning(loggedInUserId, error);
+        }
+
         if (membersChat) {
             reply(membersChat);
         } else {

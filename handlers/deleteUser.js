@@ -11,7 +11,7 @@ module.exports = async function (request, reply) {
 
     await User.findOne({ _id: loggedInUserId }, function (err, user) {
         if (err) {
-            Logger.logErrorAndWarning(err);
+            Logger.logErrorAndWarning(loggedInUserId, err);
             reply(err);
         }
 
@@ -35,13 +35,13 @@ module.exports = async function (request, reply) {
                     if (!error) {
                         fs.unlink(filePath, function (error) {
                             if (error) {
-                                Logger.logErrorAndWarning(error);
+                                Logger.logErrorAndWarning(loggedInUserId, error);
                                 reply({ error: error, status: "failure" });
                             }
 
                         });
                     } else {
-                        Logger.logErrorAndWarning(error);
+                        Logger.logErrorAndWarning(loggedInUserId, error);
                         reply({ error: error, status: "failure" });
                     }
                 });
@@ -53,14 +53,14 @@ module.exports = async function (request, reply) {
     await User.find({unreadConversations: loggedInUserId},
         function (err, users) {
             if(err){
-                Logger.logErrorAndWarning(err);
+                Logger.logErrorAndWarning(loggedInUserId, err);
                 reply({ status: "failure" });
             } else if (users){
                 users.forEach(function(user){
                     user.unreadConversations.splice(user.unreadConversations.indexOf(loggedInUserId), 1);
                     user.save(function(err){
                         if(err){
-                            Logger.logErrorAndWarning(err);
+                            Logger.logErrorAndWarning(loggedInUserId, err);
                         }
                     });
                 })
@@ -72,20 +72,20 @@ module.exports = async function (request, reply) {
         
         Match.deleteMany({ members: loggedInUserId }, function (err) {
             if (err) {
-                Logger.logErrorAndWarning(err);
+                Logger.logErrorAndWarning(loggedInUserId, err);
                 reply({ status: "failure" });
             }
         })
 
         SettingsAndPreferences.deleteMany({ memberId: loggedInUserId }, function (err) {
             if (err) {
-                Logger.logErrorAndWarning(err);
+                Logger.logErrorAndWarning(loggedInUserId, err);
                 reply({ status: "failure" });
             }              
         })
 
         if (err) {
-            Logger.logErrorAndWarning(err);
+            Logger.logErrorAndWarning(loggedInUserId, err);
             reply({ status: "failure" });
         }
         else {

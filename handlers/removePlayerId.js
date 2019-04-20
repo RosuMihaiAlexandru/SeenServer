@@ -1,10 +1,15 @@
 const User = require("../models/User");
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     var userId = request.payload.userId;
     var devicePlayerId = request.payload.devicePlayerId;
 
-    await User.findOne({ _id: userId}).then(user => {
+    await User.findOne({ _id: userId}, function(error, user) {
+        if (error) {
+            Logger.logErrorAndWarning(userId, error);
+        }
+        
         if (user && user.playerIds.includes(devicePlayerId)) {
             user.playerIds.splice(user.playerIds.indexOf(devicePlayerId), 1);
             user.save(function (err) {

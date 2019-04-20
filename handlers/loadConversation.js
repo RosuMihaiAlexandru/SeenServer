@@ -1,5 +1,6 @@
 const Boom=require('boom');
 const Conversation=require ('../models/MembersChat');
+const Logger = require("../helpers/Logger");
 
 var id1='5bc25f985284a0186c6bff6b',
     id2='5bbd17cf23d76f2974697db8';
@@ -8,8 +9,12 @@ module.exports= async function (request, reply) {
   var member1=request.query.members[0];
   var member2=request.query.members[1];
   console.log(request.query);
-  await Conversation.findOne({members:{ $all: [ member2, member1 ]}}).then(
-    (conversation) => {
+  await Conversation.findOne({members:{ $all: [ member2, member1 ]}},
+    function(error, conversation) {
+      if (error) {
+        Logger.logErrorAndWarning(member1, error);
+      }
+      
       if (conversation) {
         var messages = conversation.messages;
         if(messages.length > 20){
@@ -26,6 +31,6 @@ module.exports= async function (request, reply) {
       } else {
         reply(Boom.notFound('Cannot find conversations'));
       }
-    },
+    }
   );
 }

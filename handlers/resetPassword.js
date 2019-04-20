@@ -3,6 +3,7 @@ const User = require("../models/User");
 var crypto = require("crypto");
 const generatePassword = require("../helpers/passwordGenerator");
 const bcrypt=require('bcryptjs');
+const Logger = require("../helpers/Logger");
 
 const getHashedPassword = (password) => {
     var saltRounds = bcrypt.genSaltSync(10);
@@ -14,7 +15,7 @@ module.exports = async function(request, reply) {
   var token = request.payload.token;
   await User.findOne({
         resetPasswordToken: token
-  }).then(user => {
+  }, function(error, user) {
     if (user) {
         if(user.resetPasswordExpires > Date.now()){
             var newPassword = generatePassword(8);
@@ -23,6 +24,7 @@ module.exports = async function(request, reply) {
             user.userPassword = newPasswordHashed;
             user.save(function(err){
                 if(err){
+                    Logger.logErrorAndWarning(user._id, err);
                     reply({
                         status: 'failure',
                         reason: err

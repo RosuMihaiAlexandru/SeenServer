@@ -7,7 +7,7 @@ module.exports = async function (request, reply) {
 
     await Match.findOne({_id: conversationId}, function(err, conversation) {
         if (err) {
-            Logger.logErrorAndWarning(err);
+            Logger.logErrorAndWarning(loggedInUserId, err);
             reply({ status: "failure" });
         } else if (conversation) {
             if (conversation.members[0]._id.toString() == loggedInUserId) {
@@ -18,7 +18,7 @@ module.exports = async function (request, reply) {
 
             conversation.save(function(err) {
                 if (err) {
-                    Logger.logErrorAndWarning(err);
+                    Logger.logErrorAndWarning(loggedInUserId, err);
                     reply({ status: "failure" });
                 }
             })

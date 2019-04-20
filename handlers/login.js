@@ -15,26 +15,25 @@ module.exports = function login({
   payload: { email, password },
 },
   reply) {
-  User.findOne({ email }).then(
-    (user) => {
-      if (!user) {
-        return reply(Boom.notFound('Wrong email or password'));
-      }
+  User.findOne({ email }, function(error, user) {
+    if (!user) {
+      return reply(Boom.notFound('Wrong email or password'));
+    }
 
-      const passwordMatch = bcrypt.compareSync(password, user.userPassword);
-      if (!passwordMatch) {
-        return reply(Boom.unauthorized('Wrong email or password'));
-      }
+    const passwordMatch = bcrypt.compareSync(password, user.userPassword);
+    if (!passwordMatch) {
+      return reply(Boom.unauthorized('Wrong email or password'));
+    }
 
-      SettingsAndPreferences.findOne({ memberId: user._id }, function (err, settingsAndPreferences) {
-        if (!err) {
-          const token = JWT.sign({ email: user.email }, secret, { expiresIn });
-          return reply({ token, user: user, appSettings: settingsAndPreferences });
-        }
-        else {
-          Logger.logErrorAndWarning(err);
-          reply({ status: "failure" });
-        }
-      })
-    });
+    SettingsAndPreferences.findOne({ memberId: user._id }, function (err, settingsAndPreferences) {
+      if (!err) {
+        const token = JWT.sign({ email: user.email }, secret, { expiresIn });
+        return reply({ token, user: user, appSettings: settingsAndPreferences });
+      }
+      else {
+        Logger.logErrorAndWarning(user._id, err);
+        reply({ status: "failure" });
+      }
+    })
+  });
 }

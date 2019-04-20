@@ -2,6 +2,7 @@ const Boom = require("boom");
 const User = require("../models/User");
 const SettingsAndPreferences = require("../models/SettingsAndPreferences");
 const fs = require("fs");
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
@@ -37,12 +38,14 @@ module.exports = async function (request, reply) {
                 user.gender = gender;
                 user.save(function (err) {
                     if (err) {
+                        Logger.logErrorAndWarning(loggedInUserId, err);
                         reply(Boom.notFound("Error updating the User")).code(500);
                     }
                 });
 
                 await SettingsAndPreferences.findOne({ memberId: loggedInUserId }, function (err, settingsAndPreferences) {
                     if (err) {
+                        Logger.logErrorAndWarning(loggedInUserId, err);
                         reply(err);
                     }
 
@@ -53,6 +56,7 @@ module.exports = async function (request, reply) {
 
                     settingsAndPreferences.save(function (err) {
                         if (err) {
+                            Logger.logErrorAndWarning(loggedInUserId, err);
                             reply(Boom.notFound("Error updating the SettingsAndPreferences"));
                         }
                     });
@@ -60,12 +64,15 @@ module.exports = async function (request, reply) {
 
 
             } catch (error) {
+                Logger.logErrorAndWarning(loggedInUserId, error);
                 reply({ error: error });
                 return;
             }
 
             reply({ matchingData: user.matchingData, uploadedImageUrl: uploadedImage, status: "success" });
         }
+    }).catch(error => {
+        Logger.logErrorAndWarning(loggedInUserId, error);
     })
 }
 

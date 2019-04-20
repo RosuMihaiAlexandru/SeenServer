@@ -1,13 +1,18 @@
 const Boom = require('boom');
 const Conversation = require('../models/MembersChat');
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     var member1=request.query.members[0];
     var member2=request.query.members[1];
     var loadMoreCounter = 20 * request.query.members[2];
     var msgSentWhileMountedCounter = request.query.members[3];
-    await Conversation.findOne({ members: { $all: [member2, member1] } }).then(
-        (conversation) => {
+    await Conversation.findOne({ members: { $all: [member2, member1] } },
+        function(error, conversation) {
+            if (error) {
+                Logger.logErrorAndWarning(member1, error);
+            }
+
             if (conversation) {
                 var count = conversation.messages.length;
                 var messages = [];    
@@ -23,6 +28,6 @@ module.exports = async function (request, reply) {
             } else {
                 reply(Boom.notFound('Cannot find conversations'));
             }
-        },
+        }
     );
 }

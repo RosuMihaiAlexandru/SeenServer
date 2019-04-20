@@ -1,5 +1,6 @@
 const Boom = require("boom");
 const Match = require("../models/MembersChat");
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     var _id = request.payload.conversationId;
@@ -7,23 +8,29 @@ module.exports = async function (request, reply) {
     var member2 = request.payload.member2;
     var userBlocked = request.payload.userBlocked;
 
-     return await Match.findOne({ _id: _id }).then(match => {
-
-        if (match) {
-            if (match.members[0]._id.toString() === member1) {
-                match.user1Blocked = userBlocked;
-            } else if (match.members[1]._id.toString() === member1) {
-                match.user2Blocked = userBlocked;
+    return await Match.findOne({ _id: _id },
+        function(error, match){
+            if(error) {
+                Logger.logErrorAndWarning(member1, error);
+                reply({status: 'failure'});
             }
 
-            match.save(function (err) {
-                if (err) {
-                    reply({status: 'failure'});
+            if (match) {
+                if (match.members[0]._id.toString() === member1) {
+                    match.user1Blocked = userBlocked;
+                } else if (match.members[1]._id.toString() === member1) {
+                    match.user2Blocked = userBlocked;
                 }
-                else
-                reply({status: 'confirmed'})
-            });
+    
+                match.save(function (err) {
+                    if (err) {
+                        Logger.logErrorAndWarning(member1, err);
+                        reply({status: 'failure'});
+                    }
+                    else
+                    reply({status: 'confirmed'})
+                });
+            }
         }
-    }
     );
 };

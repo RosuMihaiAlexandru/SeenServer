@@ -8,7 +8,7 @@ module.exports = async function (request, reply) {
 
     return User.findOne({ _id: loggedInUserId }, function (err, user) {
         if (err) {
-            Logger.logErrorAndWarning(err);
+            Logger.logErrorAndWarning(loggedInUserId, err);
             reply(err);
         }
 
@@ -17,6 +17,7 @@ module.exports = async function (request, reply) {
             user.paymentInfo.receipts.push(receipt);
             user.save(function (err) {
                 if (err) {
+                    Logger.logErrorAndWarning(loggedInUserId, err);
                     reply({ status: "failure" });
                 } else {
                     reply({ status: "success" });

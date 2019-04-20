@@ -1,6 +1,7 @@
 const Boom = require('boom');
 const User = require('../models/User');
 const mongoose = require("mongoose");
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.params.loggedInUserId.toString();
@@ -124,6 +125,10 @@ module.exports = async function (request, reply) {
             }
         ],
         function (err, users) {
+            if (err) {
+                Logger.logErrorAndWarning(loggedInUserId, err);
+            }
+            
             for (var i = 0, len = users.length; i < len; i++) {
                 if (users[i].Chat.length > 0) {
                     if (users[i].Chat[0].messages.length > 20) {

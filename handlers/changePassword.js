@@ -3,6 +3,7 @@ const Boom=require('boom');
 const JWT=require('jsonwebtoken');
 const  User=require('../models/User');
 const config=require('../config');
+const Logger=require("../helpers/Logger");
 const secret = config.jwt.secret;
 const expiresIn = config.jwt.expiresIn;
 
@@ -13,13 +14,18 @@ const getHashedPassword = (password) => {
 };
 
 module.exports= async function (request, reply) {
-  await User.findOne({ _id: request.payload.loggedInUserId }).then(
-    (user) => {
+  const loggedInUserId = request.payload.loggedInUserId;
+  await User.findOne({ _id: loggedInUserId },
+    function(error, user){
+      if(error) {
+        Logger.logErrorAndWarning(loggedInUserId, error);
+      }
+
       if (user) {
         const hashedPassword = getHashedPassword(request.payload.password);
         user.userPassword = hashedPassword;
         user.save((err, user) => {
-          console.log(err);
+          Logger.logErrorAndWarning(loggedInUserId, error);
         });
         const token = JWT.sign({ email: user.email }, secret, { expiresIn });
         reply({ token });

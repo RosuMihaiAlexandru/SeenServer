@@ -1,16 +1,15 @@
 var EmailSender = require('../helpers/EmailSender');
 const User = require('../models/User');
 var crypto = require('crypto');
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     var body = 'Hello from Seen';
     var sendTo = request.payload.email;
     var subject = "Password reset";
     
-    await User.findOne({ email: sendTo }).then(
-        (user) => {
+    await User.findOne({ email: sendTo }, function(error, user) {
         if(user){
-
             var token = crypto.randomBytes(20).toString('hex');
             var html = '<!DOCTYPE html>' +
             '<html><head><title>Please verify your email to secure your acount</title>' +
@@ -29,6 +28,7 @@ module.exports = async function (request, reply) {
                     user.resetPasswordExpires = Date.now() + 360000;
                     user.save(function (err) {
                         if (err) {
+                            Logger.logErrorAndWarning(user._id, err);
                             reply({
                                 status: 'failure',
                                 reason: err

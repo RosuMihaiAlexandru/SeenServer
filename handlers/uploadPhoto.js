@@ -1,6 +1,6 @@
 const Boom = require("boom");
 const User = require("../models/User");
-
+const Logger = require("../helpers/Logger");
 const fs = require("fs");
 
 module.exports = async function(request, reply) {
@@ -8,7 +8,11 @@ module.exports = async function(request, reply) {
   var base64PhotoString = request.payload.base64PhotoString;
   var type = request.payload.type;
 
-  await User.findOne({ _id: loggedInUserId }).then(user => {
+  await User.findOne({ _id: loggedInUserId }, function(error, user) {
+    if(error) {
+      Logger.logErrorAndWarning(loggedInUserId, error);
+    }
+
     if (user) {
       var objToReturn = {};
       
@@ -52,12 +56,14 @@ module.exports = async function(request, reply) {
           objToReturn = user.coverImage;
         }
       } catch (error) {
+        Logger.logErrorAndWarning(loggedInUserId, error);
         reply({ error: error });
         return;
       }
 
       user.save(function(err) {
         if (err) {
+          Logger.logErrorAndWarning(loggedInUserId, err);
           reply(Boom.notFound("Error updating the User")).code(500);
         }
       });

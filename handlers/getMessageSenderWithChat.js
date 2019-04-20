@@ -1,6 +1,7 @@
 const Boom = require("boom");
 const User = require("../models/User");
 const mongoose = require("mongoose");
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (userSenderId, userReceiverId) {
     return User.aggregate([
@@ -46,9 +47,10 @@ module.exports = async function (userSenderId, userReceiverId) {
         },
         
     ], function(err, users){
+        if(err) {
+            Logger.logErrorAndWarning(userSenderId, err);
+        }
 
-        console.log(err);
-    }).then(users => {
         if (users) {
             var msgs = [];
             var isFirstMember = users[0].Chat.members[0]._id == userReceiverId;

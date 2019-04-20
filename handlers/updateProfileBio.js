@@ -1,6 +1,6 @@
 const Boom = require("boom");
 const User = require("../models/User");
-
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
@@ -15,7 +15,11 @@ module.exports = async function (request, reply) {
     var height = request.payload.height;
     var city = request.payload.city;
 
-    await User.findOne({ _id: loggedInUserId}).then(user => {
+    await User.findOne({ _id: loggedInUserId}, function(error, user) {
+        if (error) {
+            Logger.logErrorAndWarning(loggedInUserId, error);
+        }
+
         if (user) {        
             user.userName = userName;
             user.occupation = occupation;
@@ -30,6 +34,7 @@ module.exports = async function (request, reply) {
 
             user.save(function (err) {
                 if (err) {
+                    Logger.logErrorAndWarning(loggedInUserId, err);
                     reply(Boom.notFound("Error updating the User")).code(500);
                     return;
                 }
