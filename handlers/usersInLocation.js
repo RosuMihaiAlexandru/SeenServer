@@ -4,15 +4,15 @@ const mongoose = require("mongoose");
 const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
-    var loggedInUserId = request.params.loggedInUserId.toString();
-    var longitude = parseFloat(request.params.long);
-    var latitude = parseFloat(request.params.lat);
-    var isShowMen = request.params.isShowMen === "true";
-    var isShowWomen = request.params.isShowWomen === "true";
+    var loggedInUserId = request.query.loggedInUserId.toString();
+    var longitude = parseFloat(request.query.long);
+    var latitude = parseFloat(request.query.lat);
+    var isShowMen = request.query.isShowMen === "true";
+    var isShowWomen = request.query.isShowWomen === "true";
 
-    var ageRangeStart = parseInt(request.params.ageRangeStart);
-    var ageRangeStop = parseInt(request.params.ageRangeStop);
-    var locationRangeStop = parseInt(request.params.locationRangeStop);
+    var ageRangeStart = parseInt(request.query.ageRangeStart);
+    var ageRangeStop = parseInt(request.query.ageRangeStop);
+    var locationRangeStop = parseInt(request.query.locationRangeStop);
     var showGenderExpr = undefined;
 
     if (isShowMen && isShowWomen) {

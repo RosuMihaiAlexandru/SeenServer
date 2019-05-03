@@ -43,7 +43,7 @@ module.exports = [
   {
     //get users in specific locations
     method: "GET",
-    path: "/usersInLocation/{loggedInUserId}&{long}&{lat}&{isShowMen}&{isShowWomen}&{ageRangeStart}&{ageRangeStop}&{locationRangeStop}",
+    path: "/usersInLocation",
     handler: handlers.usersInLocation,
     config: {
       auth: false //'jwt'
