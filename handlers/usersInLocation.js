@@ -13,7 +13,9 @@ module.exports = async function (request, reply) {
     var ageRangeStart = parseInt(request.query.ageRangeStart);
     var ageRangeStop = parseInt(request.query.ageRangeStop);
     var locationRangeStop = parseInt(request.query.locationRangeStop);
+    var isFromSawSomeone = request.query.isFromSawSomeone === "1";
     var showGenderExpr = undefined;
+    var locationRangeStopKm = meterConversion.mToKm(locationRangeStop);
 
     if (isShowMen && isShowWomen) {
         showGenderExpr = {
@@ -47,7 +49,7 @@ module.exports = async function (request, reply) {
                         "coordinates": [longitude, latitude]
                     },
                     "distanceField": "dist",
-                    "maxDistance": locationRangeStop,
+                    "maxDistance": isFromSawSomeone ? 200 : locationRangeStopKm,
                     "spherical": true
                 }
             },
@@ -140,3 +142,18 @@ module.exports = async function (request, reply) {
         }
     );
 }
+
+var meterConversion = (function() {
+    var mToKm = function(distance) {
+        return parseFloat(distance * 1.6);
+    };
+    var kmToM = function(distance) {
+        return parseFloat(distance / 1.6);
+    };
+    
+    return {
+        mToKm : mToKm,
+        kmToM : kmToM
+    };
+})();
+
