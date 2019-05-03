@@ -16,6 +16,7 @@ module.exports = async function (request, reply) {
     var isFromSawSomeone = request.query.isFromSawSomeone === "1";
     var showGenderExpr = undefined;
     var locationRangeStopKm = meterConversion.mToKm(locationRangeStop);
+    var page = parseInt(request.query.page); 
 
     if (isShowMen && isShowWomen) {
         showGenderExpr = {
@@ -50,7 +51,8 @@ module.exports = async function (request, reply) {
                     },
                     "distanceField": "dist",
                     "maxDistance": isFromSawSomeone ? 200 : locationRangeStopKm,
-                    "spherical": true
+                    "spherical": true,
+                    limit: page * 100 + 1
                 }
             },
 
@@ -112,6 +114,7 @@ module.exports = async function (request, reply) {
                     }]
                 }
             },
+            { $skip : page * 100 - 100 },
             {
                 $lookup: {
                     from: "MembersChat",
@@ -130,6 +133,12 @@ module.exports = async function (request, reply) {
             if (err) {
                 Logger.logErrorAndWarning(loggedInUserId, err);
             }
+
+            var hasNext = false;
+            if (users.length > 100) {
+              users.pop();
+              hasNext = true;
+            }
             
             for (var i = 0, len = users.length; i < len; i++) {
                 if (users[i].Chat.length > 0) {
@@ -138,7 +147,7 @@ module.exports = async function (request, reply) {
                     }
                 }
             }
-            reply(users);
+            reply({ data: users, hasNext: hasNext });
         }
     );
 }
@@ -150,7 +159,7 @@ var meterConversion = (function() {
     var kmToM = function(distance) {
         return parseFloat(distance / 1.6);
     };
-    
+
     return {
         mToKm : mToKm,
         kmToM : kmToM

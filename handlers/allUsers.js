@@ -4,17 +4,17 @@ const mongoose = require("mongoose");
 const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
-    var loggedInUserId = request.params.loggedInUserId.toString();
-    var longitude = parseFloat(request.params.long);
-    var latitude = parseFloat(request.params.lat);
-    var isShowMen = request.params.isShowMen === "true";
-    var isShowWomen = request.params.isShowWomen === "true";
+    var loggedInUserId = request.query.loggedInUserId.toString();
+    var longitude = parseFloat(request.query.long);
+    var latitude = parseFloat(request.query.lat);
+    var isShowMen = request.query.isShowMen === "1";
+    var isShowWomen = request.query.isShowWomen === "1";
 
-    var ageRangeStart = parseInt(request.params.ageRangeStart);
-    var ageRangeStop = parseInt(request.params.ageRangeStop);
-    var locationRangeStop = parseInt(request.params.locationRangeStop);
+    var ageRangeStart = parseInt(request.query.ageRangeStart);
+    var ageRangeStop = parseInt(request.query.ageRangeStop);
+    var locationRangeStop = parseInt(request.query.locationRangeStop);
     var showGenderExpr = undefined;
-    var page = parseInt(request.params.page);
+    var page = parseInt(request.query.page);
 
     if (isShowMen && isShowWomen) {
         showGenderExpr = {
@@ -49,7 +49,7 @@ module.exports = async function (request, reply) {
                 "distanceField": "dist",
                 "maxDistance": 120000,
                 "spherical": true,
-                "limit":  page * 100 + page,
+                "limit":  page * 100 + 1,
             }
         },
 
@@ -131,6 +131,12 @@ module.exports = async function (request, reply) {
             reply([]);
         }
 
+        var hasNext = false;
+        if (users.length > 100) {
+          users.pop();
+          hasNext = true;
+        }
+
         if (users) {
             for (var i = 0, len = users.length; i < len; i++) {
                 if (users[i].Chat.length > 0) {
@@ -139,7 +145,7 @@ module.exports = async function (request, reply) {
                     }
                 }
             }
-            reply(users);
+            reply({ data: users, hasNext: hasNext });
 
         } else {
             reply([]);
