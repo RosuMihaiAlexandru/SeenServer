@@ -52,7 +52,7 @@ module.exports = async function (request, reply) {
                     "distanceField": "dist",
                     "maxDistance": isFromSawSomeone ? 200 : locationRangeStopKm,
                     "spherical": true,
-                    limit: page * 100 + 1
+                    "limit": 10000
                 }
             },
 
@@ -114,7 +114,8 @@ module.exports = async function (request, reply) {
                     }]
                 }
             },
-            { $skip : page * 100 - 100 },
+            { $limit: page * 100 + 2 },
+            { $skip: page * 100 - 100 },
             {
                 $lookup: {
                     from: "MembersChat",

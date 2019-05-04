@@ -23,6 +23,10 @@ const ConversationSchema = new mongoose.Schema({
     matchDate: Date,
     user1LastSeenDate: Date,
     user2LastSeenDate: Date,
+    isFromSawSomeone: {
+        type: Boolean,
+        default: false
+    },
     user1Liked: {
         type: Boolean,
         default: false

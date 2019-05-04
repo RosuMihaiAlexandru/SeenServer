@@ -36,7 +36,7 @@ module.exports = async function (request, reply) {
                     members: match.members,
                     matchDate: match.matchDate,
                     user1Liked: match.user1Liked,
-                    user2Liked: match.user2Liked
+                    user2Liked: match.user2Liked                   
                 });
             } else {
                 var newMatch = {

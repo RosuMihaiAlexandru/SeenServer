@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
-    var loggedInUserId = request.query.loggedInUserId.toString();
+    var     loggedInUserId = request.query.loggedInUserId.toString();
     var longitude = parseFloat(request.query.long);
     var latitude = parseFloat(request.query.lat);
     var isShowMen = request.query.isShowMen === "1";
@@ -49,7 +49,7 @@ module.exports = async function (request, reply) {
                 "distanceField": "dist",
                 "maxDistance": 120000,
                 "spherical": true,
-                "limit":  page * 100 + 1,
+                "limit": 10000
             }
         },
 
@@ -111,7 +111,8 @@ module.exports = async function (request, reply) {
                 }]
             }
         },
-        { $skip : page * 100 - 100 },
+        { $limit: page * 100 + 2 },
+        { $skip: page * 100 - 100 },
         {
             $lookup: {
                 from: "MembersChat",
