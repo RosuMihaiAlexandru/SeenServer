@@ -23,15 +23,19 @@ const ConversationSchema = new mongoose.Schema({
     matchDate: Date,
     user1LastSeenDate: Date,
     user2LastSeenDate: Date,
-    isFromSawSomeone: {
-        type: Boolean,
-        default: false
-    },
     user1Liked: {
         type: Boolean,
         default: false
     },
     user2Liked: {
+        type: Boolean,
+        default: false
+    },
+    user1SawTheOther: {
+        type: Boolean,
+        default: false
+    },
+    user2SawTheOther: {
         type: Boolean,
         default: false
     },
