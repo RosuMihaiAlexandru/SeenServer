@@ -256,4 +256,13 @@ module.exports = [
       auth: false //'jwt'
     }
   },
+  {
+    //updates user coordinates when moving
+    method: "POST",
+    path: "/locationChanged",
+    handler: handlers.onLocationChanged,
+    config: {
+      auth: false //'jwt'
+    }
+  },
 ];
