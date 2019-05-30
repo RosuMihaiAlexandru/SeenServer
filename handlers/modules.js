@@ -43,4 +43,5 @@ module.exports = {
   updateUserRegisterInfo: require("./updateUserRegisterInfo"),
   updateAnswers: require("./updateAnswers"),
   importVenues: require("./importVenues"),
+  onLocationChanged: require("./onLocationChanged")
 };

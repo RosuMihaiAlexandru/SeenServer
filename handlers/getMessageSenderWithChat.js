@@ -3,8 +3,8 @@ const User = require("../models/User");
 const mongoose = require("mongoose");
 const Logger = require("../helpers/Logger");
 
-module.exports = async function (userSenderId, userReceiverId) {
-    return User.aggregate([
+module.exports = async function (userSenderId, userReceiverId, reply) {
+    await User.aggregate([
         {
             $match: {
                 _id: {
@@ -64,7 +64,7 @@ module.exports = async function (userSenderId, userReceiverId) {
                 }
             });
             users[0].Chat.messages = msgs; 
-            return users[0];
+            reply(users[0]);
         } else {
         }
     });

@@ -1,6 +1,5 @@
 const createMessage = require("../createMessage");
 const NotificationsProcessor = require("../../notifications/NotificationsProcessor");
-const getMessageSenderWithChat = require("../../handlers/getMessageSenderWithChat");
 const PushMessage = require("../../models/PushMessage");
 
 module.exports = async function (messageRequest, reply) {
