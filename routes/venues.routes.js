@@ -20,6 +20,15 @@ module.exports = [
         }
     },
     {
+        //get venues from logged in user area range(ex: 10 km range)
+        method: "POST",
+        path: "/deleteVenues",
+        handler: handlers.deleteVenues,
+        config: {
+            auth: false //'jwt'
+        }
+    },
+    {
         //imports venues from csv file
         method: "POST",
         path: "/importVenues",

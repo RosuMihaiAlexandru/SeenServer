@@ -75,7 +75,9 @@ module.exports = async function(request, reply) {
               }
             });
           }).catch(
-
+            (error) => {
+              reply({ status: "failure", error: error, index: index });
+          }
         )
     })
     .on("end", () => {
