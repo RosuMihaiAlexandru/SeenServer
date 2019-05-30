@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
-    var     loggedInUserId = request.query.loggedInUserId.toString();
+    var loggedInUserId = request.query.loggedInUserId.toString();
     var longitude = parseFloat(request.query.long);
     var latitude = parseFloat(request.query.lat);
     var isShowMen = request.query.isShowMen === "1";
