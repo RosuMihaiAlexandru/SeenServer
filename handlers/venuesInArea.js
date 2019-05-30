@@ -34,7 +34,7 @@ module.exports = function(request, reply) {
           $geoNear: {
             near: {
               type: "Point",
-              coordinates: [longitude, latitude]
+              coordinates: [latitude, longitude]
             },
             distanceField: "dist",
             maxDistance: maxDistance,
@@ -63,7 +63,7 @@ module.exports = function(request, reply) {
           $geoNear: {
             near: {
               type: "Point",
-              coordinates: [longitude, latitude]
+              coordinates: [latitude, longitude]
             },
             distanceField: "dist",
             maxDistance: maxDistance,
