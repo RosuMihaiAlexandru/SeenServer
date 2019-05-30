@@ -10,6 +10,7 @@ module.exports = async function(request, reply) {
   var member2Name = request.payload.member2Name;
   var member1Id = request.payload.member1;
   var member2Id = request.payload.member2;
+  var userSawTheOther = request.payload.userSawTheOther;
 
   if (match.user1Liked && match.user2Liked) {
     var message1 = {
