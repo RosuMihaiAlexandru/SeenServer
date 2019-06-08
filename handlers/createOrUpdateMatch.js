@@ -56,17 +56,19 @@ module.exports = async function(request, reply) {
         var newMatch = {
           members: [member1, member2],
           user1Liked: userLiked,
-          user1SawTheOther: userSawTheOther
+          user2Liked: false,
+          user1SawTheOther: userSawTheOther,
+          user2SawTheOther: false
         };
-        Match.create(newMatch);
-
-        resolve({
-          members: newMatch.members,
-          matchDate: newMatch.matchDate,
-          user1Liked: newMatch.user1Liked,
-          user2Liked: newMatch.user2Liked,
-          user1SawTheOther: match.user1SawTheOther,
-          user2SawTheOther: match.user2SawTheOther
+        Match.create(newMatch).then(function() {
+          resolve({
+            members: newMatch.members,
+            matchDate: newMatch.matchDate,
+            user1Liked: newMatch.user1Liked,
+            user2Liked: newMatch.user2Liked,
+            user1SawTheOther: newMatch.user1SawTheOther,
+            user2SawTheOther: newMatch.user2SawTheOther
+          });
         });
       }
     });
