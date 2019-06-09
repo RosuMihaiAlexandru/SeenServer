@@ -12,7 +12,7 @@ module.exports = async function(request, reply) {
         {
           $match: {
             _id: {
-              $eq: mongoose.Types.ObjectId(loggedInUserId)
+              $ne: mongoose.Types.ObjectId(loggedInUserId)
             }
           }
         },
@@ -39,7 +39,7 @@ module.exports = async function(request, reply) {
                 },
                 {
                   $let: {
-                    vars: { second: { $arrayElemAt: ["$Chat.members", 1] } },
+                    vars: { second: { $arrayElemAt: ["$Chat.members", 0] } },
                     in: {
                       $eq: ["$$second", mongoose.Types.ObjectId(loggedInUserId)]
                     }
