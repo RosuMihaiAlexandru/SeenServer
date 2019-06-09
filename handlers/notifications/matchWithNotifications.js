@@ -1,11 +1,11 @@
 const createOrUpdateMatch = require("../createOrUpdateMatch");
-const getPeopleWhoLikeMeWithoutChats = require("../getPeopleWhoLikeMeWithoutChats");
+const getPeopleWhoILikeNumberWithoutChats = require("../getPeopleWhoILikeNumberWithoutChats");
 const NotificationsProcessor = require("../../notifications/NotificationsProcessor");
 const PushMessage = require("../../models/PushMessage");
 
 module.exports = async function(request, reply) {
   const match = await createOrUpdateMatch(request, reply);
-  var totalLikesNumber = await getPeopleWhoLikeMeWithoutChats(request, reply);
+  var totalLikesNumber = await getPeopleWhoILikeNumberWithoutChats(request, reply);
   var member1PlayerIds = request.payload.member1PlayerIds;
   var member2PlayerIds = request.payload.member2PlayerIds;
   var member1Name = request.payload.member1Name;

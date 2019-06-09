@@ -12,7 +12,7 @@ module.exports = async function(request, reply) {
         {
           $match: {
             _id: {
-              $ne: mongoose.Types.ObjectId(loggedInUserId)
+              $eq: mongoose.Types.ObjectId(loggedInUserId)
             }
           }
         },
