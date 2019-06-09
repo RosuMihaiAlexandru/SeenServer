@@ -1,9 +1,11 @@
 const createOrUpdateMatch = require("../createOrUpdateMatch");
+const getPeopleWhoLikeMeWithoutChats = require("../getPeopleWhoLikeMeWithoutChats");
 const NotificationsProcessor = require("../../notifications/NotificationsProcessor");
 const PushMessage = require("../../models/PushMessage");
 
 module.exports = async function(request, reply) {
   const match = await createOrUpdateMatch(request, reply);
+  var totalLikesNumber = await getPeopleWhoLikeMeWithoutChats(request, reply);
   var member1PlayerIds = request.payload.member1PlayerIds;
   var member2PlayerIds = request.payload.member2PlayerIds;
   var member1Name = request.payload.member1Name;
@@ -12,6 +14,7 @@ module.exports = async function(request, reply) {
   var member2Id = request.payload.member2;
   var userSawTheOther = request.payload.userSawTheOther;
 
+  match.totalLikesNumber = totalLikesNumber;
   if (match.user1Liked && match.user2Liked) {
     var message1 = {
       app_id: "e8d3a93c-398c-407d-9219-8131322767a0",
