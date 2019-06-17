@@ -1,6 +1,5 @@
 const User = require("../models/User");
 const Logger = require("../helpers/Logger");
-const userSubscriptionTypes = require("../constants/userSubscriptionTypes");
 
 module.exports = async function(request, reply) {
   var loggedInUserId = request.payload.loggedInUserId;
@@ -14,11 +13,7 @@ module.exports = async function(request, reply) {
     }
 
     if (user) {
-      if (userSubscriptionType === userSubscriptionTypes.gold) {
-        user.userSubscriptionType = userSubscriptionType.gold;
-      } else if (userSubscriptionType === userSubscriptionTypes.platinum) {
-        user.userSubscriptionType = userSubscriptionType.platinum;
-      }
+      user.userSubscriptionType = userSubscriptionType;
 
       user.paymentInfo.receipts.push(receipt);
       user.save(function(err) {
