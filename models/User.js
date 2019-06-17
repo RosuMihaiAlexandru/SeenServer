@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const userSubscriptionType = require('../constants/userSubscriptionTypes');
 const pointSchema = new mongoose.Schema({
     location: {
         type: { type: String },
@@ -16,7 +16,10 @@ const UserSchema = new mongoose.Schema({
     userName: String,
     userPassword: String,
     accountIsHidden: Boolean,
-    isGoldMember: Boolean,
+    userSubscriptionType: {
+        type: String,
+        default: userSubscriptionType.basic,
+    },
     paymentInfo: {
         receipts: []
     },

@@ -1,13 +1,14 @@
 const Venues = require("../models/Venues");
+const userSubscriptionTypes = require("../constants/userSubscriptionTypes");
 
 module.exports = function(request, reply) {
   var latitude = parseFloat(request.query.lat);
   var longitude = parseFloat(request.query.long);
   var page = parseInt(request.query.page);
-  var isGoldMember = request.query.isGoldMember === "true";
+  var isPremiumUser = request.query.userSubscriptionType === userSubscriptionTypes.gold || request.query.userSubscriptionType === userSubscriptionTypes.platinum;
   var filterTag = request.query.filterTag;
   var searchKeyword = request.query.searchKeyword;
-  var maxDistance = isGoldMember ? 50000 : 10000;
+  var maxDistance = isPremiumUser ? 50000 : 10000;
 
   if (filterTag !== "" || searchKeyword !== "") {
     var filterTagSynonym = undefined;

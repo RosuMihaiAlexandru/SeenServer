@@ -241,8 +241,8 @@ module.exports = [
   },
   {
     method: "PUT",
-    path: "/becomeGoldMember",
-    handler: handlers.becomeGoldMember,
+    path: "/becomePremiumMember",
+    handler: handlers.becomePremiumMember,
     config: {
       auth: false
     }

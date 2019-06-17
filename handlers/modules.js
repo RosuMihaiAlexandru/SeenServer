@@ -38,7 +38,7 @@ module.exports = {
   sendRecoverPasswordEmail: require("./sendRecoverPasswordEmail"),
   resetPassword: require("./resetPassword"),
   deleteUser: require("./deleteUser"),
-  becomeGoldMember: require("./becomeGoldMember"),
+  becomePremiumMember: require("./becomePremiumMember"),
   removePlayerId: require("./removePlayerId"),
   logicalDeleteConversation: require("./logicalDeleteConversation"),
   updateUserRegisterInfo: require("./updateUserRegisterInfo"),

@@ -4,7 +4,7 @@ const config = require('../config');
 const sanitizeUser = require('../helpers/sanitizeUser');
 const Logger = require("../helpers/Logger");
 const SettingsAndPreferences = require("../models/SettingsAndPreferences");
-
+const userSubscriptionTypes = require("../constants/userSubscriptionTypes");
 const secret = config.jwt.secret;
 const expiresIn = config.jwt.expiresIn;
 
@@ -31,7 +31,7 @@ module.exports = async function login({
           userName: name,
           email: email,
           accountIsHidden: false,
-          isGoldMember: false,
+          userSubscriptionType: userSubscriptionTypes.basic,
           paymentInfo: {
             receipts: []
           },
