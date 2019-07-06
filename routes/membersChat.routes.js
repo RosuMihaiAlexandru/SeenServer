@@ -79,5 +79,14 @@ module.exports = [
         auth: false,
     }
  },
+ {
+    //get media images count for conversation
+    method: 'GET',
+    path: '/getChatMediaCount/{conversationId}',
+    handler: handlers.getChatMediaCount,
+    config: {
+        auth: false,
+    }
+ },
 ];
 

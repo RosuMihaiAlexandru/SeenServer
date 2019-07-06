@@ -2,6 +2,7 @@ const Boom = require("boom");
 const User = require("../models/User");
 const Logger = require("../helpers/Logger");
 const fs = require("fs");
+const userSubscriptionType = require('../constants/userSubscriptionTypes');
 
 module.exports = async function(request, reply) {
   var loggedInUserId = request.payload.loggedInUserId;
@@ -20,7 +21,7 @@ module.exports = async function(request, reply) {
         var imageBuffer = new Buffer(base64PhotoString, "base64");
         var userDirectory = "../../../mnt/seenblockstorage/" + user.email;
         if (!fs.existsSync(userDirectory)) {
-          fs.mkdirSync(userDirectory);
+         fs.mkdirSync(userDirectory);
         }
 
         if (type === "profile") {
@@ -34,17 +35,23 @@ module.exports = async function(request, reply) {
             fileName;
           objToReturn = user.profileImage;
         } else if (type === "normal") {
-          var fileName = getFormattedDate() + ".jpg";
-          fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
-          user.userImages.push({
-            contentType: "image/jpg",
-            media:
-              "http://167.99.200.101/seenblockstorage/" +
-              user.email +
-              "/" +
-              fileName
-          });
+          //allow to upload more than 6 photos only if the user upgraded from basic
+          if (user.userSubscriptionType === userSubscriptionType.basic && user.userImages.length >= 6) {
+            throw 'photoLimitExceeded';
+          } else {
+            var fileName = getFormattedDate() + ".jpg";
+            fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
+            user.userImages.push({
+              contentType: "image/jpg",
+              media:
+                "http://167.99.200.101/seenblockstorage/" +
+                user.email +
+                "/" +
+                fileName
+            });
+          
           objToReturn = user.userImages[user.userImages.length - 1];
+          }
         } else if (type === "cover") {
           var fileName = getFormattedDate() + ".jpg";
           fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
