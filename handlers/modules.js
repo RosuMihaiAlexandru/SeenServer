@@ -45,5 +45,6 @@ module.exports = {
   updateAnswers: require("./updateAnswers"),
   importVenues: require("./importVenues"),
   onLocationChanged: require("./onLocationChanged"),
-  getBigFiveData: require("./getBigFiveData")
+  getBigFiveData: require("./getBigFiveData"),
+  getChatMediaCount: require("./getChatMediaCount")
 };
