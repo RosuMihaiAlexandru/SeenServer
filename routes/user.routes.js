@@ -264,5 +264,5 @@ module.exports = [
     config: {
       auth: false //'jwt'
     }
-  },
+  }
 ];

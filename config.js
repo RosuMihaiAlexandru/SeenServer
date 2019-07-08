@@ -17,7 +17,8 @@ module.exports={
         MembersChat: 'MembersChat',
         Venues: 'Venues',
         SettingsAndPreferences: 'SettingsAndPreferences',
-        LogInfo: 'LogInfo'
+        LogInfo: 'LogInfo',
+        BigFive: 'BigFive'
     },
     //secret token used for hapi auth
     jwt:{
