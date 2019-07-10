@@ -89,7 +89,7 @@ module.exports = async function login({
               }
               else {
                 const token = JWT.sign({ email: newUser.email }, secret, { expiresIn });
-                return reply({ token, user: newUser, appSettings: newSettingsAndPreferences });
+                return reply({ token, user: newUser, appSettings: newSettingsAndPreferences, isNewUser: true });
               }
             })
           }
