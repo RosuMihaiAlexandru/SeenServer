@@ -5,7 +5,7 @@ const BigFiveSchema = new mongoose.Schema({
     keyed: [],
     domain: String,
     facet: String,
-    num: Boolean,
+    num: Number,
     choices: []
 });
 

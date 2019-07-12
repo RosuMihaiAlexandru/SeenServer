@@ -1,4 +1,4 @@
-[
+module.exports = [
   {
     text: "Worry about things",
     keyed: "plus",
