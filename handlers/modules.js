@@ -46,5 +46,6 @@ module.exports = {
   importVenues: require("./importVenues"),
   onLocationChanged: require("./onLocationChanged"),
   getBigFiveData: require("./getBigFiveData"),
-  getChatMediaCount: require("./getChatMediaCount")
+  getChatMediaCount: require("./getChatMediaCount"),
+  calculateBigFiveScore: require("./calculateBigFiveScore")
 };

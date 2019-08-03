@@ -12,6 +12,8 @@
   "license": "MIT",
   "dependencies": {
     "@alheimsins/b5-johnson-120-ipip-neo-pi-r": "^2.1.5",
+    "@alheimsins/b5-result-text": "^1.7.1",
+    "b5-calculate-score": "^1.0.4",
     "babel-core": "^6.25.0",
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-polyfill": "^6.23.0",

@@ -10,5 +10,14 @@ module.exports = [
     config: {
       auth: false
     }
-  }
+  },
+  {
+    //get all the questions and data required for the big five personality test
+    method: "GET",
+    path: "/calculateBigFiveScore",
+    handler: handlers.calculateBigFiveScore,
+    config: {
+      auth: false
+    }
+  },
 ];
