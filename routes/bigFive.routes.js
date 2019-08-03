@@ -13,7 +13,7 @@ module.exports = [
   },
   {
     //get all the questions and data required for the big five personality test
-    method: "GET",
+    method: "POST",
     path: "/calculateBigFiveScore",
     handler: handlers.calculateBigFiveScore,
     config: {
