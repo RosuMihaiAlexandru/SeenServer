@@ -264,5 +264,14 @@ module.exports = [
     config: {
       auth: false //'jwt'
     }
+  },
+  {
+    //check if user exists in db
+    method: "GET",
+    path: "/checkIfUserExists",
+    handler: handlers.checkIfUserExists,
+    config: {
+      auth: false //'jwt'
+    }
   }
 ];

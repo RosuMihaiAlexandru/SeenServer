@@ -47,5 +47,6 @@ module.exports = {
   onLocationChanged: require("./onLocationChanged"),
   getBigFiveData: require("./getBigFiveData"),
   getChatMediaCount: require("./getChatMediaCount"),
-  calculateBigFiveScore: require("./calculateBigFiveScore")
+  calculateBigFiveScore: require("./calculateBigFiveScore"),
+  checkIfUserExists: require("./checkIfUserExists")
 };
