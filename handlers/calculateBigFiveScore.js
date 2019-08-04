@@ -3,9 +3,9 @@ const getResult = require('@alheimsins/b5-result-text')
 
 module.exports = async function (request, reply) {
     try {
-        const { answers } = await request.payload.answers;
-        const scores = calculateScore(answers);
-        reply({ data: getResult({ scores, lang: data.lang || 'en' }) });
+        const result =  { answers: JSON.parse(request.payload.answers) };
+        const scores = calculateScore(result);
+        reply({ data: getResult({ scores, lang: 'en' }) });
     } catch (error) {
         throw error
     }
