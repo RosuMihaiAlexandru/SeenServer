@@ -30,7 +30,8 @@ const UserSchema = new mongoose.Schema({
                 question: String,
                 answer: String,
                 tag: String
-            }]
+            }],
+        bigFiveResult:{}
     },
     gender: String,
     email: String,

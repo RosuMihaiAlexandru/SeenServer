@@ -37,7 +37,8 @@ module.exports = async function login({
           },
           matchingData:{
             lastDateAnswered: Date.now(),
-            questions: []
+            questions: [],
+            bigFiveResult:{}
           },
           userPassword: '',
           gender: '',

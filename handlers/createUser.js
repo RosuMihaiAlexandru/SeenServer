@@ -44,7 +44,8 @@ module.exports = async function (request, reply) {
           },
           matchingData:{
             lastDateAnswered: Date.now(),
-            questions: []
+            questions: [],
+            bigFiveResult:{}
           },
           gender: '',
           birthDate: request.payload.birthDate,
