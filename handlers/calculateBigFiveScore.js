@@ -25,8 +25,7 @@ async function saveBigFiveResult(loggedInUserId, data) {
     
             if (user) {
                 user.matchingData.bigFiveResult.lastDateAnswered = Date.now();
-                user.matchingData.bigFiveResult.data = [];
-                Array.prototype.push.apply(user.matchingData.bigFiveResult.data, data);
+                user.matchingData.bigFiveResult.data = JSON.stringify(data);
                 user.markModified('matchingData');
                 user.save(function (err) {
                     if (err) {
