@@ -22,7 +22,7 @@ function saveBigFiveResult(loggedInUserId, data) {
 
         if (user) {
             user.matchingData.bigFiveResult = data;
-
+            user.matchingData.bigFiveResult.lastDateTest = Date.now();
             user.save(function (err) {
                 if (err) {
                     Logger.logErrorAndWarning(loggedInUserId, err);
