@@ -2,6 +2,18 @@
 # yarn lockfile v1
 
 
+"@alheimsins/b5-johnson-120-ipip-neo-pi-r@^2.1.5":
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/@alheimsins/b5-johnson-120-ipip-neo-pi-r/-/b5-johnson-120-ipip-neo-pi-r-2.1.7.tgz#e7d1847194c9e37604c88dd7a3b4288a7cd2697e"
+  integrity sha512-0JzxNaXy05DEYwK0kupQxI1merA4j3WnfyNsg1cacz3cPJYbKCuumKL3dluepMZXRt2NH4wHm+iVZO0z9w7Oyw==
+  dependencies:
+    knuth-shuffle "1.0.8"
+
+"@alheimsins/b5-result-text@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@alheimsins/b5-result-text/-/b5-result-text-1.7.1.tgz#16897b227d868c5d1ffadc1c58ca032087c523a6"
+  integrity sha512-SHA2dg5csoFqY61xEbLqWsBAJ+oKepw9xR9yT3z/qyZcTX63v+ELZqq7/qgXAlGyMI5z6s3EJOsV2yuexEqfRQ==
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -137,6 +149,11 @@ atob@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
+
+b5-calculate-score@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/b5-calculate-score/-/b5-calculate-score-1.0.4.tgz#6e43ce38719b5f8d99b89ef7f25398b730487cb0"
+  integrity sha512-O9XhnMJnBH6TQP1CsPnyys0wNEy4LUGyhPIWZrMAFRJITcbjvsq6phrYBQ06lKm0RIM/01vAeiBcp+t2C51P+g==
 
 b64@3.x.x:
   version "3.0.3"
@@ -2155,6 +2172,11 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
   integrity sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==
+
+knuth-shuffle@1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/knuth-shuffle/-/knuth-shuffle-1.0.8.tgz#929a467b0efd8d297bdcf318ca988a9f1037f80d"
+  integrity sha512-IdC4Hpp+mx53zTt6VAGsAtbGM0g4BV9fP8tTcviCosSwocHcRDw9uG5Rnv6wLWckF4r72qeXFoK9NkvV1gUJCQ==
 
 latest-version@^3.0.0:
   version "3.1.0"
