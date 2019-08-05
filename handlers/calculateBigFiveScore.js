@@ -1,5 +1,7 @@
 const calculateScore = require('b5-calculate-score');
 const getResult = require('@alheimsins/b5-result-text')
+const User = require("../models/User");
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     try {
@@ -7,31 +9,37 @@ module.exports = async function (request, reply) {
         var loggedInUserId = request.payload.loggedInUserId;
         const scores = calculateScore(result);
         const bigFiveResult = getResult({ scores, lang: 'en' });
-        saveBigFiveResult(loggedInUserId, bigFiveResult);
+        var succeeded = await saveBigFiveResult(loggedInUserId, bigFiveResult);
         reply({ data: getResult({ scores, lang: 'en' }), status: "success" });
     } catch (error) {
         throw error
     }
 }
 
-function saveBigFiveResult(loggedInUserId, data) {
-    User.findOne({ _id: loggedInUserId }, function (error, user) {
-        if (error) {
-            Logger.logErrorAndWarning(loggedInUserId, error);
-        }
-
-        if (user) {
-            user.matchingData.bigFiveResult = data;
-            user.matchingData.bigFiveResult.lastDateTest = Date.now();
-            user.save(function (err) {
-                if (err) {
-                    Logger.logErrorAndWarning(loggedInUserId, err);
-                    reply(Boom.notFound("Error updating the User")).code(500);
-                    return false;
-                }
-
-                else return true;
-            });
-        }
-    });
+async function saveBigFiveResult(loggedInUserId, data) {
+    try {
+        await User.findOne({ _id: loggedInUserId }, function (error, user) {
+            if (error) {
+                Logger.logErrorAndWarning(loggedInUserId, error);
+            }
+    
+            if (user) {
+                user.matchingData.bigFiveResult.lastDateAnswered = Date.now();
+                user.matchingData.bigFiveResult.data = [];
+                Array.prototype.push.apply(user.matchingData.bigFiveResult.data, data);
+                user.markModified('matchingData');
+                user.save(function (err) {
+                    if (err) {
+                        Logger.logErrorAndWarning(loggedInUserId, err);
+                        reply(Boom.notFound("Error updating the User")).code(500);
+                        return false;
+                    }
+    
+                    else return true;
+                });
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
 }
