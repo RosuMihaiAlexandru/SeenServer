@@ -15,6 +15,7 @@ module.exports = async function (request, reply) {
             try {
                 user.matchingData.questions = newQuestions;
                 user.matchingData.lastDateAnswered = Date.now();
+                user.matchingData.bigFiveResult = {};
                 user.save(function (err) {
                     if (err) {
                         Logger.logErrorAndWarning(loggedInUserId, err);

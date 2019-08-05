@@ -35,6 +35,7 @@ module.exports = async function (request, reply) {
             }
                 Array.prototype.push.apply(user.matchingData.questions, questions);
                 user.matchingData.lastDateAnswered = Date.now();
+                user.matchingData.bigFiveResult = {};
                 user.gender = gender;
                 user.save(function (err) {
                     if (err) {
