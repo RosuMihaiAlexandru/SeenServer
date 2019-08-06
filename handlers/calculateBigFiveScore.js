@@ -8,14 +8,14 @@ module.exports = async function (request, reply) {
         const result = { answers: JSON.parse(request.payload.answers) };
         var loggedInUserId = request.payload.loggedInUserId;
         const scores = calculateScore(result);
-        const bigFiveResult = getResult({ scores, lang: 'en' });
-        var succeeded = await saveBigFiveResult(loggedInUserId, JSON.stringify(bigFiveResult), reply);
+        const dataArray = getResult({ scores, lang: 'en' });
+        var succeeded = await saveBigFiveResult(loggedInUserId, JSON.stringify(dataArray), reply);
     } catch (error) {
         throw error
     }
 }
 
-async function saveBigFiveResult(loggedInUserId, bigFiveResult, reply) {
+async function saveBigFiveResult(loggedInUserId, dataArray, reply) {
     try {
         await User.findOne({ _id: loggedInUserId }, function (error, user) {
             if (error) {
@@ -24,7 +24,7 @@ async function saveBigFiveResult(loggedInUserId, bigFiveResult, reply) {
     
             if (user) {
                 user.matchingData.bigFiveResult.lastDateAnswered = Date.now();
-                user.matchingData.bigFiveResult.data = bigFiveResult;
+                user.matchingData.bigFiveResult.data = dataArray;
                 user.markModified('matchingData');
                 user.save(function (err) {
                     if (err) {
