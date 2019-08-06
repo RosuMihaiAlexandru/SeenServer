@@ -9,7 +9,7 @@ module.exports = async function (request, reply) {
         var loggedInUserId = request.payload.loggedInUserId;
         const scores = calculateScore(result);
         const bigFiveResult = getResult({ scores, lang: 'en' });
-        var succeeded = await saveBigFiveResult(loggedInUserId, bigFiveResult, reply);
+        var succeeded = await saveBigFiveResult(loggedInUserId, JSON.stringify(bigFiveResult), reply);
     } catch (error) {
         throw error
     }
@@ -24,7 +24,7 @@ async function saveBigFiveResult(loggedInUserId, bigFiveResult, reply) {
     
             if (user) {
                 user.matchingData.bigFiveResult.lastDateAnswered = Date.now();
-                user.matchingData.bigFiveResult.data = JSON.stringify(bigFiveResult);
+                user.matchingData.bigFiveResult.data = bigFiveResult;
                 user.markModified('matchingData');
                 user.save(function (err) {
                     if (err) {
