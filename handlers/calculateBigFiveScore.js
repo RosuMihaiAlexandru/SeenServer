@@ -33,11 +33,13 @@ async function saveBigFiveResult(loggedInUserId, dataArray, reply) {
                         return false;
                     }
 
-                    reply({ data: bigFiveResult, lastDateAnswered: user.matchingData.bigFiveResult.lastDateAnswered, status: "success" });
+                    reply({ data: user.matchingData.bigFiveResult, lastDateAnswered: user.matchingData.bigFiveResult.lastDateAnswered, status: "success" });
     
                 });
             }
         });
+        reply({ status: "failure" });
+    
     } catch (error) {
         console.log(error);
     }
