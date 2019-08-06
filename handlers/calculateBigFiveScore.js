@@ -9,14 +9,13 @@ module.exports = async function (request, reply) {
         var loggedInUserId = request.payload.loggedInUserId;
         const scores = calculateScore(result);
         const bigFiveResult = getResult({ scores, lang: 'en' });
-        var succeeded = await saveBigFiveResult(loggedInUserId, bigFiveResult);
-        reply({ data: getResult({ scores, lang: 'en' }), status: "success" });
+        var succeeded = await saveBigFiveResult(loggedInUserId, bigFiveResult, reply);
     } catch (error) {
         throw error
     }
 }
 
-async function saveBigFiveResult(loggedInUserId, data) {
+async function saveBigFiveResult(loggedInUserId, bigFiveResult, reply) {
     try {
         await User.findOne({ _id: loggedInUserId }, function (error, user) {
             if (error) {
@@ -25,7 +24,7 @@ async function saveBigFiveResult(loggedInUserId, data) {
     
             if (user) {
                 user.matchingData.bigFiveResult.lastDateAnswered = Date.now();
-                user.matchingData.bigFiveResult.data = JSON.stringify(data);
+                user.matchingData.bigFiveResult.data = JSON.stringify(bigFiveResult);
                 user.markModified('matchingData');
                 user.save(function (err) {
                     if (err) {
@@ -33,8 +32,9 @@ async function saveBigFiveResult(loggedInUserId, data) {
                         reply(Boom.notFound("Error updating the User")).code(500);
                         return false;
                     }
+
+                    reply({ data: bigFiveResult, lastDateAnswered: user.matchingData.bigFiveResult.lastDateAnswered, status: "success" });
     
-                    else return true;
                 });
             }
         });
