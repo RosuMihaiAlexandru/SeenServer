@@ -8,6 +8,7 @@ module.exports = async function(request, reply) {
   var userLiked = request.payload.userLiked;
   var userSawTheOther = request.payload.userSawTheOther;
   var giftKey = request.payload.giftKey;
+  var messageText = request.payload.messageText;
 
   return new Promise(function(resolve, reject) {
     Match.findOne({ members: { $all: [member1, member2] } }, function(
@@ -26,7 +27,7 @@ module.exports = async function(request, reply) {
             match.user1SawTheOther = true;
           }
           if(giftKey !== ""){
-            match.user2ReceivedGifts.push(giftKey);
+            match.user2ReceivedGifts.push({giftKey :giftKey, messageText: messageText});
           }
         } else if (match.members[1]._id.toString() === member1) {
           match.user2Liked = userLiked;
@@ -34,7 +35,7 @@ module.exports = async function(request, reply) {
             match.user2SawTheOther = true;
           }
           if(giftKey !== ""){
-            match.user1ReceivedGifts.push(giftKey);
+            match.user1ReceivedGifts.push({giftKey :giftKey, messageText: messageText});
           }
         }
 
@@ -62,7 +63,7 @@ module.exports = async function(request, reply) {
           });
         });
       } else {
-        var user2ReceivedGifts = [giftKey];
+        var user2ReceivedGifts = [{giftKey :giftKey, messageText: messageText}];
         var newMatch = {
           members: [member1, member2],
           user1Liked: userLiked,
