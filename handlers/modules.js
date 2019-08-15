@@ -19,6 +19,7 @@ module.exports = {
   savePlayerId: require("./savePlayerId"),
   loadPlayerIds: require("./loadPlayerIds"),
   matchWithNotifications: require("./notifications/matchWithNotifications"),
+  giftsWithNotifications: require("./notifications/giftsWithNotifications"),
   facebookLogin: require("./facebookLogin"),
   getUnreadConversationsCount: require("./getUnreadConversationsCount"),
   updateProfileOrCoverPhoto: require("./updateProfileOrCoverPhoto"),

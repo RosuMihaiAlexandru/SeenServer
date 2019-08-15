@@ -55,6 +55,8 @@ const ConversationSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    user1ReceivedGifts: [],
+    user2ReceivedGifts: []
 });
 
 module.exports = mongoose.model('MembersChat', ConversationSchema, 'MembersChat');

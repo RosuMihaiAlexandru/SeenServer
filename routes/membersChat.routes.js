@@ -44,6 +44,15 @@ module.exports = [
     }
  },
  {
+    //updates or create a match between 2 users
+    method: 'PUT',
+    path: '/giftsWithNotifications',
+    handler: handlers.giftsWithNotifications,
+    config:{
+        auth: false,
+    }
+ },
+ {
     //get conversations with matches
     method: 'GET',
     path: '/conversations/{loggedInUserId}',
