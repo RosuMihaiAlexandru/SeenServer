@@ -81,7 +81,7 @@ module.exports = async function(request, reply) {
             user2Liked: newMatch.user2Liked,
             user1SawTheOther: newMatch.user1SawTheOther,
             user2SawTheOther: newMatch.user2SawTheOther,
-            user1ReceivedGifts: user1ReceivedGifts,
+            user1ReceivedGifts: [],
             user2ReceivedGifts: user2ReceivedGifts
           });
         });
