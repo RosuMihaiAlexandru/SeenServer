@@ -15,7 +15,7 @@ module.exports = async function (request, reply) {
 
     var giftMessage = {
         app_id: "e8d3a93c-398c-407d-9219-8131322767a0",
-        contents: { en: member1Name + " sent you a gift!" },
+        contents: { en: member1Name + " sent you a special AR gift!" },
         data: {
             notificationType: "ar-gift",
             senderId: member1Id,
