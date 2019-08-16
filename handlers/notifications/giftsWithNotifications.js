@@ -11,6 +11,7 @@ module.exports = async function (request, reply) {
     var member2Id = request.payload.member2;
     var giftKey = request.payload.giftKey;
     var messageText = request.payload.messageText;
+    var senderAvatar = request.payload.senderAvatar;
 
     var giftMessage = {
         app_id: "e8d3a93c-398c-407d-9219-8131322767a0",
@@ -19,7 +20,9 @@ module.exports = async function (request, reply) {
             notificationType: "ar-gift",
             senderId: member1Id,
             giftKey: giftKey,
-            messageText: messageText
+            messageText: messageText,
+            senderName: member1Name,
+            senderAvatar: senderAvatar
         },
         include_player_ids: member2PlayerIds
     };
