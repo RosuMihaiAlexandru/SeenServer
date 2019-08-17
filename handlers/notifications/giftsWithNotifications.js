@@ -1,6 +1,7 @@
 const createOrUpdateMatch = require("../createOrUpdateMatch");
 const NotificationsProcessor = require("../../notifications/NotificationsProcessor");
 const Logger = require("../../helpers/Logger");
+const User = require("../../models/User");
 
 module.exports = async function (request, reply) {
     const match = await createOrUpdateMatch(request, reply);
