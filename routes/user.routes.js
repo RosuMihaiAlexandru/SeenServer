@@ -248,6 +248,14 @@ module.exports = [
     }
   },
   {
+    method: "PUT",
+    path: "/buyArGifts",
+    handler: handlers.buyArGifts,
+    config: {
+      auth: false
+    }
+  },
+  {
     //delete player device id of an user
     method: "PUT",
     path: "/removePlayerId",

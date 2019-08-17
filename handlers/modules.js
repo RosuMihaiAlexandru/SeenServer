@@ -40,6 +40,7 @@ module.exports = {
   resetPassword: require("./resetPassword"),
   deleteUser: require("./deleteUser"),
   becomePremiumMember: require("./becomePremiumMember"),
+  buyArGifts: require("./buyArGifts"),
   removePlayerId: require("./removePlayerId"),
   logicalDeleteConversation: require("./logicalDeleteConversation"),
   updateUserRegisterInfo: require("./updateUserRegisterInfo"),
