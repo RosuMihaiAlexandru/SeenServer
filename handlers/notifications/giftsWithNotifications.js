@@ -1,8 +1,10 @@
 const createOrUpdateMatch = require("../createOrUpdateMatch");
 const NotificationsProcessor = require("../../notifications/NotificationsProcessor");
+const Logger = require("../../helpers/Logger");
 
 module.exports = async function (request, reply) {
     const match = await createOrUpdateMatch(request, reply);
+
     var member1PlayerIds = request.payload.member1PlayerIds;
     var member2PlayerIds = request.payload.member2PlayerIds;
     var member1Name = request.payload.member1Name;
@@ -12,6 +14,22 @@ module.exports = async function (request, reply) {
     var giftKey = request.payload.giftKey;
     var messageText = request.payload.messageText;
     var senderAvatar = request.payload.senderAvatar;
+
+    User.findOne({ _id: member1Id }, function(err, user) {
+        if (err) {
+          Logger.logErrorAndWarning(member1Id, err);
+        }
+    
+        if (user) {
+          user.arGiftsLeft = user.arGiftsLeft - 1;
+          // user.paymentInfo.receipts.push(receipt);
+          user.save(function(err) {
+            if (err) {
+              Logger.logErrorAndWarning(member1Id, err);
+            }
+          });
+        }
+      });
 
     var giftMessage = {
         app_id: "e8d3a93c-398c-407d-9219-8131322767a0",
