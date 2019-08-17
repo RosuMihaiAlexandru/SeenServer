@@ -65,6 +65,10 @@ const UserSchema = new mongoose.Schema({
     coverImage: {
         contentType: String,
         media: String
+    },
+    arGiftsLeft:{
+        type: Number,
+        default: 0,
     }
 });
 UserSchema.index({ "location": '2dsphere' });

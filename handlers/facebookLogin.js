@@ -60,7 +60,8 @@ module.exports = async function login({
           coverImage: {
             contentType: 'image/jpg',
             media: ''
-          }
+          },
+          arGiftsLeft: 0
         });
         await newUser.save(async (err) => {
           if (!err) {

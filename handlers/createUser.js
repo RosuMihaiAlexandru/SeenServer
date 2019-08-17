@@ -66,7 +66,8 @@ module.exports = async function (request, reply) {
           coverImage: {
             contentType: 'image/jpg',
             media: ''
-          }
+          },
+          arGiftsLeft: 0
         });
 
         newUser.save((err) => {
