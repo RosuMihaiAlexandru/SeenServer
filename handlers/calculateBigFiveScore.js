@@ -33,7 +33,7 @@ async function saveBigFiveResult(loggedInUserId, dataArray, reply) {
                         return false;
                     }
 
-                    reply({ data: user.matchingData.bigFiveResult, status: "success" });
+                    reply({ data: user.matchingData.bigFiveResult.data, status: "success" });
     
                 });
             }
