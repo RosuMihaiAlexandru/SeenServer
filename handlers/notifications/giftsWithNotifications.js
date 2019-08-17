@@ -16,7 +16,7 @@ module.exports = async function (request, reply) {
     var messageText = request.payload.messageText;
     var senderAvatar = request.payload.senderAvatar;
 
-    User.findOne({ _id: member1Id }, function(err, user) {
+    await User.findOne({ _id: member1Id }, function(err, user) {
         if (err) {
           Logger.logErrorAndWarning(member1Id, err);
         }
