@@ -16,21 +16,12 @@ module.exports = async function (request, reply) {
     var messageText = request.payload.messageText;
     var senderAvatar = request.payload.senderAvatar;
 
-    await User.findOne({ _id: member1Id }, function(err, user) {
+
+    User.findOneAndUpdate({ _id: member1Id }, { $inc: { arGiftsLeft: -1 } }, { new: true, useFindAndModify: false },function(err, response) {
         if (err) {
-          Logger.logErrorAndWarning(member1Id, err);
-        }
-    
-        if (user) {
-          user.arGiftsLeft = user.arGiftsLeft - 1;
-          // user.paymentInfo.receipts.push(receipt);
-          user.save(function(err) {
-            if (err) {
-              Logger.logErrorAndWarning(member1Id, err);
-            }
-          });
-        }
-      });
+            Logger.logErrorAndWarning(member1Id, err);
+       }
+    }) 
 
     var giftMessage = {
         app_id: "e8d3a93c-398c-407d-9219-8131322767a0",
