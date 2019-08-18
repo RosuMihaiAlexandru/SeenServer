@@ -17,13 +17,11 @@ module.exports = async function (request, reply) {
     var senderAvatar = request.payload.senderAvatar;
 
 
-    User.findOneAndUpdate({ _id: member1Id }, { $inc: { arGiftsLeft: -1 } }, { new: true, useFindAndModify: false },function(err, response) {
+    User.findOneAndUpdate({ _id: member1Id }, { $inc: { arGiftsLeft: -1 } }, { useFindAndModify: false },function(err, response) {
         if (err) {
             Logger.logErrorAndWarning(member1Id, err);
        }
-    }) 
-
-    var giftMessage = {
+       var giftMessage = {
         app_id: "e8d3a93c-398c-407d-9219-8131322767a0",
         contents: { en: member1Name + " sent you a special AR gift!" },
         data: {
@@ -39,4 +37,5 @@ module.exports = async function (request, reply) {
 
     NotificationsProcessor.process(giftMessage);
     reply(match);
+    }) 
 };
