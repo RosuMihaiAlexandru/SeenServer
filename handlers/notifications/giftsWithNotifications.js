@@ -17,7 +17,7 @@ module.exports = async function (request, reply) {
   var senderAvatar = request.payload.senderAvatar;
 
 
-  User.findOneAndUpdate({ _id: member1Id }, { $inc: { arGiftsLeft: -1 } }, { new: true }, function (err, response) {
+  await User.findOneAndUpdate({ _id: member1Id }, { $inc: { arGiftsLeft: -1 } }, { new: true }, function (err, response) {
     if (err) {
       reply(err);
     } var giftMessage = {
