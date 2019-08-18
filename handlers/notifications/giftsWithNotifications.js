@@ -28,6 +28,7 @@ module.exports = async function (request, reply) {
           user.save(function(err) {
             if (err) {
               Logger.logErrorAndWarning(member1Id, err);
+              reply(err);
             }
 
             var giftMessage = {
