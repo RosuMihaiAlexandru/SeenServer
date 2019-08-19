@@ -21,7 +21,10 @@ module.exports = async function(request, reply) {
       contents: { en: member2Name + " likes you too!" },
       data: {
         notificationType: "match",
-        senderId: member2Id
+        senderId: member2Id,
+        messageText: member2Name + " likes you too!",
+        senderName: member2Name,
+        senderAvatar: senderAvatar
       },
       include_player_ids: member1PlayerIds
     };
@@ -31,7 +34,10 @@ module.exports = async function(request, reply) {
       contents: { en: member1Name + " likes you too!" },
       data: {
         notificationType: "match",
-        senderId: member1Id
+        senderId: member1Id,
+        messageText: member1Name + " likes you too!",
+        senderName: member1Name,
+        senderAvatar: senderAvatar
       },
       include_player_ids: member2PlayerIds
     };
