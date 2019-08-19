@@ -67,8 +67,8 @@ const UserSchema = new mongoose.Schema({
         media: String
     },
     arGiftsLeft:{
-        type: String,
-        default: "0",
+        type: Number,
+        default: 0,
     }
 });
 UserSchema.index({ "location": '2dsphere' });

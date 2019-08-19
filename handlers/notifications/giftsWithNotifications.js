@@ -23,7 +23,7 @@ module.exports = async function (request, reply) {
         }
     
         if (user) {
-          user.arGiftsLeft = (Number.parseInt(user.arGiftsLeft) - 1) + "";
+          user.arGiftsLeft = user.arGiftsLeft - 1;
           // user.paymentInfo.receipts.push(receipt);
           user.save(function(err) {
           

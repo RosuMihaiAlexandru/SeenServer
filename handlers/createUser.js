@@ -67,7 +67,7 @@ module.exports = async function (request, reply) {
             contentType: 'image/jpg',
             media: ''
           },
-          arGiftsLeft: "0"
+          arGiftsLeft: 0
         });
 
         newUser.save((err) => {
