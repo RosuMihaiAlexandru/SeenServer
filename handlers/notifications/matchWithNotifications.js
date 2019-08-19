@@ -38,7 +38,8 @@ module.exports = async function(request, reply) {
         senderId: member1Id,
         messageText: member1Name + " likes you too!",
         senderName: member1Name,
-        senderAvatar: senderAvatar
+        senderAvatar: senderAvatar,
+        shouldIncrementBadge: true
       },
       include_player_ids: member2PlayerIds
     };
