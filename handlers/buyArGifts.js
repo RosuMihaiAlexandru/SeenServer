@@ -12,7 +12,7 @@ module.exports = async function(request, reply) {
     }
 
     if (user) {
-      user.arGiftsLeft = 15;
+      user.arGiftsLeft = "15";
       // user.paymentInfo.receipts.push(receipt);
       user.save(function(err) {
         if (err) {
