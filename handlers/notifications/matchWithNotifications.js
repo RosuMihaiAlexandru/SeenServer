@@ -13,6 +13,7 @@ module.exports = async function(request, reply) {
   var member1Id = request.payload.member1;
   var member2Id = request.payload.member2;
   var userSawTheOther = request.payload.userSawTheOther;
+  var senderAvatar = request.payload.senderAvatar;
 
   match.totalLikesNumber = totalLikesNumber;
   if (match.user1Liked && match.user2Liked) {
