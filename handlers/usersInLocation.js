@@ -91,7 +91,7 @@ module.exports = async function (request, reply) {
                     playerIds: 1,
                     unreadConversations: 1,
                     dist: 1,
-                    arGiftsLeft: 1
+                    arData: 1
                 }
             },
             {

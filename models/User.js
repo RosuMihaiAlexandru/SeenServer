@@ -31,7 +31,7 @@ const UserSchema = new mongoose.Schema({
                 answer: String,
                 tag: String
             }],
-        bigFiveResult:{}
+        bigFiveResult: {}
     },
     gender: String,
     email: String,
@@ -66,9 +66,12 @@ const UserSchema = new mongoose.Schema({
         contentType: String,
         media: String
     },
-    arGiftsLeft:{
-        type: Number,
-        default: 0,
+    arData: {
+        arGiftsLeft: {
+            type: Number,
+            default: 0,
+        },
+        receipts: []
     }
 });
 UserSchema.index({ "location": '2dsphere' });

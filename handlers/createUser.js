@@ -67,7 +67,10 @@ module.exports = async function (request, reply) {
             contentType: 'image/jpg',
             media: ''
           },
-          arGiftsLeft: 0
+          arData: {
+            arGiftsLeft: 0,
+            receipts: []
+          }
         });
 
         newUser.save((err) => {

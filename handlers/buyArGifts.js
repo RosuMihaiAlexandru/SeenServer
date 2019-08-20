@@ -12,14 +12,14 @@ module.exports = async function(request, reply) {
     }
 
     if (user) {
-      user.arGiftsLeft = 15;
-      // user.paymentInfo.receipts.push(receipt);
+      user.arData.arGiftsLeft = 15;
+       user.arData.receipts.push(receipt);
       user.save(function(err) {
         if (err) {
           Logger.logErrorAndWarning(loggedInUserId, err);
           reply({ status: "failure" });
         } else {
-          reply({ status: "success", data: user.arGiftsLeft });
+          reply({ status: "success", data: user.arData.arGiftsLeft });
         }
       });
     }

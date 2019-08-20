@@ -61,7 +61,10 @@ module.exports = async function login({
             contentType: 'image/jpg',
             media: ''
           },
-          arGiftsLeft: 0
+          arData: {
+            arGiftsLeft: 0,
+            receipts: []
+          }
         });
         await newUser.save(async (err) => {
           if (!err) {

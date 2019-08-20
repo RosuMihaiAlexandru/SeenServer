@@ -16,15 +16,13 @@ module.exports = async function (request, reply) {
     var messageText = request.payload.messageText;
     var senderAvatar = request.payload.senderAvatar;
 
-
     await User.findOne({ _id: member1Id }, function(err, user) {
         if (err) {
           Logger.logErrorAndWarning(member1Id, err);
         }
     
         if (user) {
-          user.arGiftsLeft = user.arGiftsLeft - 1;
-          // user.paymentInfo.receipts.push(receipt);
+          user.arData.arGiftsLeft = user.arData.arGiftsLeft - 1;
           user.save(function(err) {
           
             if (err) {
