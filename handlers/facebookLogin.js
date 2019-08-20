@@ -62,7 +62,7 @@ module.exports = async function login({
             media: ''
           },
           arData: {
-            arGiftsLeft: 0,
+            arGiftsLeft: 10,
             receipts: []
           }
         });

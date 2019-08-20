@@ -68,7 +68,7 @@ module.exports = async function (request, reply) {
             media: ''
           },
           arData: {
-            arGiftsLeft: 0,
+            arGiftsLeft: 10,
             receipts: []
           }
         });
