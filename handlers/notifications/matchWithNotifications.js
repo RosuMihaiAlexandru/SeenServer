@@ -54,7 +54,8 @@ module.exports = async function(request, reply) {
       contents: { en: contents },
       data: {
         notificationType: "like",
-        senderId: member1Id
+        senderId: member1Id,
+        messageText: contents
       },
       include_player_ids: member2PlayerIds
     };
@@ -68,7 +69,8 @@ module.exports = async function(request, reply) {
       contents: { en: contents },
       data: {
         notificationType: "like",
-        senderId: member2Id
+        senderId: member2Id,
+        messageText: contents
       },
       include_player_ids: member1PlayerIds
     };
