@@ -16,25 +16,27 @@ module.exports = async function (request, reply) {
         var uploadedImage = {};
         if (user) {
             try {
-                if(!isFacebookLogin){ 
-                var base64PhotoString = request.payload.base64PhotoString;          
-                var imageBuffer = new Buffer(base64PhotoString, "base64");
-                var userDirectory = "../../../mnt/seenblockstorage/" + user.email;
-                if (!fs.existsSync(userDirectory)) {
-                    fs.mkdirSync(userDirectory);
+                if (!isFacebookLogin) {
+                    var base64PhotoString = request.payload.base64PhotoString;
+                    var imageBuffer = new Buffer(base64PhotoString, "base64");
+                    var userDirectory = "../../../mnt/seenblockstorage/" + user.email;
+                    if (!fs.existsSync(userDirectory)) {
+                        fs.mkdirSync(userDirectory);
+                    }
+
+                    var fileName = getFormattedDate() + ".jpg";
+                    fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
+
+                    user.profileImage.media =
+                        "http://167.99.200.101/seenblockstorage/" +
+                        user.email +
+                        "/" +
+                        fileName;
+                    uploadedImage = user.profileImage;
                 }
-
-                var fileName = getFormattedDate() + ".jpg";
-                fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
-
-                user.profileImage.media =
-                    "http://167.99.200.101/seenblockstorage/" +
-                    user.email +
-                    "/" +
-                    fileName;
-                uploadedImage = user.profileImage;
-                user.location.coordinates = [location.latitude, location.longitude];
-            }
+                if (isFacebookLogin) {
+                    user.location.coordinates = [location.latitude, location.longitude];
+                }
                 Array.prototype.push.apply(user.matchingData.questions, questions);
                 user.matchingData.lastDateAnswered = Date.now();
                 user.matchingData.bigFiveResult = {};
@@ -82,12 +84,12 @@ module.exports = async function (request, reply) {
 function getFormattedDate() {
     var date = new Date();
     var nowDate =
-      date.getFullYear() +
-      "" +
-      (date.getMonth() + 1) +
-      date.getDate() +
-      date.getHours() +
-      date.getMinutes() +
-      date.getSeconds();
+        date.getFullYear() +
+        "" +
+        (date.getMonth() + 1) +
+        date.getDate() +
+        date.getHours() +
+        date.getMinutes() +
+        date.getSeconds();
     return nowDate;
-  }
+}
