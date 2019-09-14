@@ -27,8 +27,8 @@ module.exports = async function (request, reply) {
           location: {
             type: 'Point',
             coordinates: [
-              request.payload.location.latitude,
-              request.payload.location.longitude
+              request.payload.location.latitude !== undefined ? request.payload.location.latitude : 51.5194657,
+              request.payload.location.longitude !== undefined ? request.payload.location.longitude : -0.102699
             ]
           },
           unreadConversations: [],
