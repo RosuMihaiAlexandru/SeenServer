@@ -3,7 +3,7 @@ const User = require("../models/User");
 const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
-    var loggedInUserId = request.params.loggedInUserId.toString();
+    var loggedInUserId = mongoose.Types.ObjectId(request.params.loggedInUserId.toString());
 
     return User.findOne({ _id: loggedInUserId },
         function(error, user) {
