@@ -5,7 +5,7 @@ const Logger = require("../helpers/Logger");
 module.exports = async function (request, reply) {
     var loggedInUserId = request.params.loggedInUserId.toString();
 
-    await User.findOne({ _id: loggedInUserId },
+    return User.findOne({ _id: loggedInUserId },
         function(error, user) {
             if (error) {
                 Logger.logErrorAndWarning(loggedInUserId, error);
