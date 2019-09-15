@@ -1,6 +1,7 @@
 const Boom = require("boom");
 const User = require("../models/User");
 const Logger = require("../helpers/Logger");
+const mongoose = require("mongoose");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = mongoose.Types.ObjectId(request.params.loggedInUserId.toString());
