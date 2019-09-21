@@ -17,6 +17,7 @@ module.exports = {
   deleteVenues: require("./deleteVenues"),
   loadConversations: require("./loadConversations"),
   savePlayerId: require("./savePlayerId"),
+  saveUserTransactionReceipts: require("./saveUserTransactionReceipts"),
   loadPlayerIds: require("./loadPlayerIds"),
   matchWithNotifications: require("./notifications/matchWithNotifications"),
   giftsWithNotifications: require("./notifications/giftsWithNotifications"),
