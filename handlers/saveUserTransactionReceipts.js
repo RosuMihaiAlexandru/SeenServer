@@ -13,7 +13,7 @@ module.exports = async function (request, reply) {
         }
 
         if (user) {
-            user.paymentInfo.receipts.push(transactionReceipt);
+            user.paymentInfo.purchases.push(transactionReceipt);
             user.save(function (err) {
                 if (err) {
                     reply(Boom.notFound("Error updating the User")).code(500);

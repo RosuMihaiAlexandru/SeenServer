@@ -13,7 +13,7 @@ module.exports = async function(request, reply) {
 
     if (user) {
       user.arData.arGiftsLeft = 15;
-       user.arData.receipts.push(receipt);
+       user.arData.purchases.push(receipt);
       user.save(function(err) {
         if (err) {
           Logger.logErrorAndWarning(loggedInUserId, err);

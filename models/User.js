@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
         default: userSubscriptionType.basic,
     },
     paymentInfo: {
-        receipts: []
+        purchases: []
     },
     matchingData: {
         lastDateAnswered: Date,
@@ -71,7 +71,7 @@ const UserSchema = new mongoose.Schema({
             type: Number,
             default: 10,
         },
-        receipts: []
+        purchases: []
     }
 });
 UserSchema.index({ "location": '2dsphere' });

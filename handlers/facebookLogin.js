@@ -33,7 +33,7 @@ module.exports = async function login({
           accountIsHidden: false,
           userSubscriptionType: userSubscriptionTypes.basic,
           paymentInfo: {
-            receipts: []
+            purchases: []
           },
           matchingData:{
             lastDateAnswered: Date.now(),
@@ -63,7 +63,7 @@ module.exports = async function login({
           },
           arData: {
             arGiftsLeft: 10,
-            receipts: []
+            purchases: []
           }
         });
         await newUser.save(async (err) => {

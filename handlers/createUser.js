@@ -40,7 +40,7 @@ module.exports = async function (request, reply) {
           accountIsHidden: false,
           userSubscriptionType: userSubscriptionTypes.basic,
           paymentInfo: {
-            receipts: []
+            purchases: []
           },
           matchingData:{
             lastDateAnswered: Date.now(),
@@ -69,7 +69,7 @@ module.exports = async function (request, reply) {
           },
           arData: {
             arGiftsLeft: 10,
-            receipts: []
+            purchases: []
           }
         });
 
