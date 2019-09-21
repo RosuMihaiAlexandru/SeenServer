@@ -45,7 +45,7 @@ module.exports = async function (request, reply) {
             };
         
             NotificationsProcessor.process(giftMessage);
-            reply({data: user.arGiftsLeft, status: "success"});
+            reply({data: user.arData.arGiftsLeft, status: "success"});
           });
         }
       });

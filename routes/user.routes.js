@@ -274,6 +274,15 @@ module.exports = [
     }
   },
   {
+    //updates user coordinates when moving
+    method: "PUT",
+    path: "/deleteAllUsers",
+    handler: handlers.deleteAllUsers,
+    config: {
+      auth: false //'jwt'
+    }
+  },
+  {
     //check if user exists in db
     method: "GET",
     path: "/checkIfUserExists",
