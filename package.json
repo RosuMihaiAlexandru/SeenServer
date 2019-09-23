@@ -24,6 +24,7 @@
     "csv-parser": "^2.2.0",
     "hapi": "^16.4.1",
     "hapi-auth-jwt2": "^7.2.4",
+    "iap": "^1.1.0",
     "image-to-base64": "^2.0.1",
     "joi": "^10.5.2",
     "jsonwebtoken": "^7.4.1",
