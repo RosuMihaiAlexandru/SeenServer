@@ -3,8 +3,7 @@ const Logger = require("../helpers/Logger");
 
 module.exports = async function(request, reply) {
   var loggedInUserId = request.payload.loggedInUserId;
-  var userSubscriptionType = request.payload.userSubscriptionType;
-  //var purchase = JSON.parse(request.payload.purchase);
+  
 
   return User.findOne({ _id: loggedInUserId }, function(err, user) {
     if (err) {
@@ -13,7 +12,7 @@ module.exports = async function(request, reply) {
     }
 
     if (user) {
-      user.userSubscriptionType = userSubscriptionType;
+      user.userSubscriptionType = "basic";
       //user.paymentInfo.purchases.push(purchase);
 
       user.save(function(err) {

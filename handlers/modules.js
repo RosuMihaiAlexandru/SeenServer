@@ -42,6 +42,7 @@ module.exports = {
   deleteUser: require("./deleteUser"),
   deleteAllUsers: require("./deleteAllUsers"),
   becomePremiumMember: require("./becomePremiumMember"),
+  deactivatePremiumMembership: require("./deactivatePremiumMembership"),
   buyArGifts: require("./buyArGifts"),
   removePlayerId: require("./removePlayerId"),
   logicalDeleteConversation: require("./logicalDeleteConversation"),

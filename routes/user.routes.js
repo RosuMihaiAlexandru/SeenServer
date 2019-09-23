@@ -258,6 +258,14 @@ module.exports = [
   },
   {
     method: "PUT",
+    path: "/deactivatePremiumMembership",
+    handler: handlers.deactivatePremiumMembership,
+    config: {
+      auth: false
+    }
+  },
+  {
+    method: "PUT",
     path: "/buyArGifts",
     handler: handlers.buyArGifts,
     config: {
