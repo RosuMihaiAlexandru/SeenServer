@@ -31,7 +31,7 @@ module.exports = async function (request, reply) {
                 }
             });
 
-            iap.verifyPayment(platform, payment, function (error, response) {
+            iap.verifyPayment(purchase.platform, payment, function (error, response) {
                 /* your code */
                 if (error) {
 
