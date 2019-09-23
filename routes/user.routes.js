@@ -52,8 +52,8 @@ module.exports = [
   {
     //get users in specific locations
     method: "PUT",
-    path: "/saveUserTransactionReceipts",
-    handler: handlers.saveUserTransactionReceipts,
+    path: "/validateUserTransactionReceipt",
+    handler: handlers.validateUserTransactionReceipt,
     config: {
       auth: false //'jwt'
     }
