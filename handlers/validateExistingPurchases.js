@@ -8,12 +8,15 @@ var pub = google.androidpublisher('v2');
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
     var isSubscription = request.payload.isSubscription;
+    var deactivatePremiumMembership = false;
+    var error = null;
 
-    await User.findOne({ _id: loggedInUserId }, function (error, user) {
+    await User.findOne({ _id: loggedInUserId }, function (err, user) {
         if (error) {
-            Logger.logErrorAndWarning(loggedInUserId, error);
+            Logger.logErrorAndWarning(loggedInUserId, err);
+            error = err;
             reply({
-                status: "failure", error: error
+                status: "failure", error: err
             });
         }
 
@@ -33,12 +36,10 @@ module.exports = async function (request, reply) {
                         // required, if google
                     };
 
-                    iap.verifyPayment(purchase.platform, payment, function (error, response) {
+                    iap.verifyPayment(purchase.platform, payment, function (err, response) {
                         /* your code */
-                        if (error) {
-                            reply({
-                                status: "failure", error: error
-                            });
+                        if (err) {
+                            error = err;
                         }
 
                         else {
@@ -46,6 +47,7 @@ module.exports = async function (request, reply) {
                                 status: "success"
                             });
                         }
+
                     });
                 }
 
@@ -74,11 +76,9 @@ module.exports = async function (request, reply) {
                         ''
                     )
 
-                    authClient.authorize(function (error, response) {
+                    authClient.authorize(function (err, response) {
                         if (error) {
-                            reply({
-                                status: "failure", error: error
-                            });
+                            error = err;
                         }
                         pub.purchases.subscriptions.get({
                             auth: authClient,
@@ -87,20 +87,15 @@ module.exports = async function (request, reply) {
                             token: purchase.purchaseToken
                         }, function (err, response) {
                             if (err) {
-                                reply({
-                                    status: "failure", error: error
-                                });
+                                error = err;
                             }
                             else {
                                 if (parseInt(response.data.expiryTimeMillis) > Date.now()) {
-                                    reply({
-                                        status: "success"
-                                    });
+                                    reply({ status: "success" });
+                                    error = null;
                                 }
                                 else {
-                                    reply({
-                                        status: "failure", error: "Unfortunately your subscription has expired"
-                                    });
+                                    error = "Unfortunately your subscription has expired";
                                 }
                             }
                         })
@@ -108,6 +103,18 @@ module.exports = async function (request, reply) {
                 }
 
             });
+            if (deactivatePremiumMembership) {
+                user.userSubscriptionType = "basic";
+
+                user.save(function (err) {
+                    if (err) {
+                        Logger.logErrorAndWarning(loggedInUserId, err);
+                        reply({ status: "failure" });
+                    } else {
+                        reply({ status: "success" });
+                    }
+                });
+            }
         }
     });
 };
