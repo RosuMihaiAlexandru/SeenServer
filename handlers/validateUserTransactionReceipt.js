@@ -35,7 +35,7 @@ module.exports = async function (request, reply) {
                     packageName: purchase.packageName,
                     secret: 'e386c102803f4c44be909f47c10bf72e',
                     subscription: isSubscription,	// optional, if google play subscription
-                    keyObject: serviceAccountValidatorJson
+                    keyObject: {}
 
                     // required, if google
                 };

@@ -8,7 +8,6 @@ var pub = google.androidpublisher('v2');
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
     var isSubscription = request.payload.isSubscription;
-    var deactivatePremiumMembership = false;
     var error = null;
 
     await User.findOne({ _id: loggedInUserId }, function (err, user) {
@@ -31,7 +30,7 @@ module.exports = async function (request, reply) {
                         packageName: purchase.packageName,
                         secret: 'e386c102803f4c44be909f47c10bf72e',
                         subscription: isSubscription,	// optional, if google play subscription
-                        keyObject: serviceAccountValidatorJson
+                        keyObject: {}
 
                         // required, if google
                     };
@@ -103,18 +102,17 @@ module.exports = async function (request, reply) {
                 }
 
             });
-            if (deactivatePremiumMembership) {
-                user.userSubscriptionType = "basic";
+            user.userSubscriptionType = "basic";
 
-                user.save(function (err) {
-                    if (err) {
-                        Logger.logErrorAndWarning(loggedInUserId, err);
-                        reply({ status: "failure" });
-                    } else {
-                        reply({ status: "success" });
-                    }
-                });
-            }
+            user.save(function (err) {
+                if (err) {
+                    Logger.logErrorAndWarning(loggedInUserId, err);
+                    reply({ status: "failure" });
+                } else {
+                    reply({ status: "success" });
+                }
+            });
+
         }
     });
 };
