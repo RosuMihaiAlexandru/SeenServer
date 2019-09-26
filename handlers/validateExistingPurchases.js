@@ -43,7 +43,7 @@ module.exports = async function (request, reply) {
 
                         else {
                             reply({
-                                status: "success"
+                                status: "success", isValid: "true"
                             });
                         }
 
@@ -90,7 +90,7 @@ module.exports = async function (request, reply) {
                             }
                             else {
                                 if (parseInt(response.data.expiryTimeMillis) > Date.now()) {
-                                    reply({ status: "success" });
+                                    reply({ status: "success", isValid: true });
                                     error = null;
                                 }
                                 else {
