@@ -9,6 +9,7 @@ module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
     var purchase = JSON.parse(request.payload.purchase);
     var isSubscription = request.payload.isSubscription;
+    var userSubscriptionType = request.payload.userSubscriptionType;
 
     await User.findOne({ _id: loggedInUserId }, function (error, user) {
         if (error) {
@@ -22,11 +23,7 @@ module.exports = async function (request, reply) {
             if (!user.paymentInfo.purchases.some(e => e.transactionId === purchase.transactionId)) {
                 user.paymentInfo.purchases.push(purchase);
             }
-            user.save(function (err) {
-                if (err) {
-                    reply(Boom.notFound("Error updating the User")).code(500);
-                }
-            });
+
 
             if (purchase.platform === "apple") {
                 var payment = {
@@ -43,12 +40,19 @@ module.exports = async function (request, reply) {
                 iap.verifyPayment(purchase.platform, payment, function (error, response) {
                     /* your code */
                     if (error) {
+                        user.save(function (err) {
+                            if (err) {
+                                reply(Boom.notFound("Error updating the User")).code(500);
+                            }
+                        });
+
                         reply({
                             status: "failure", error: error
                         });
                     }
 
                     else {
+                        user.userSubscriptionType = userSubscriptionType;
                         reply({
                             status: "success"
                         });
@@ -83,6 +87,12 @@ module.exports = async function (request, reply) {
 
                 authClient.authorize(function (error, response) {
                     if (error) {
+                        user.save(function (err) {
+                            if (err) {
+                                reply(Boom.notFound("Error updating the User")).code(500);
+                            }
+                        });
+
                         reply({
                             status: "failure", error: error
                         });
@@ -94,17 +104,33 @@ module.exports = async function (request, reply) {
                         token: purchase.purchaseToken
                     }, function (err, response) {
                         if (err) {
+                            user.save(function (err) {
+                                if (err) {
+                                    reply(Boom.notFound("Error updating the User")).code(500);
+                                }
+                            });
                             reply({
                                 status: "failure", error: error
                             });
                         }
                         else {
                             if (parseInt(response.data.expiryTimeMillis) > Date.now()) {
+                                user.userSubscriptionType = userSubscriptionType;
+                                user.save(function (err) {
+                                    if (err) {
+                                        reply(Boom.notFound("Error updating the User")).code(500);
+                                    }
+                                });
                                 reply({
                                     status: "success"
                                 });
                             }
                             else {
+                                user.save(function (err) {
+                                    if (err) {
+                                        reply(Boom.notFound("Error updating the User")).code(500);
+                                    }
+                                });
                                 reply({
                                     status: "failure", error: "Unfortunately your subscription has expired"
                                 });
