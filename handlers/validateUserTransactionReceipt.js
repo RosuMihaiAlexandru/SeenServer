@@ -83,7 +83,9 @@ module.exports = async function (request, reply) {
 
                 authClient.authorize(function (error, response) {
                     if (error) {
-
+                        reply({
+                            status: "failure", error: error
+                        });
                     }
                     pub.purchases.subscriptions.get({
                         auth: authClient,

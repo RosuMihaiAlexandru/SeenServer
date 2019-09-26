@@ -61,6 +61,15 @@ module.exports = [
   {
     //get users in specific locations
     method: "PUT",
+    path: "/validateExistingPurchases",
+    handler: handlers.validateExistingPurchases,
+    config: {
+      auth: false //'jwt'
+    }
+  },
+  {
+    //get users in specific locations
+    method: "PUT",
     path: "/savePlayerId",
     handler: handlers.savePlayerId,
     config: {

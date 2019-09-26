@@ -18,6 +18,7 @@ module.exports = {
   loadConversations: require("./loadConversations"),
   savePlayerId: require("./savePlayerId"),
   validateUserTransactionReceipt: require("./validateUserTransactionReceipt"),
+  validateExistingPurchases: require("validateExistingPurchases"),
   loadPlayerIds: require("./loadPlayerIds"),
   matchWithNotifications: require("./notifications/matchWithNotifications"),
   giftsWithNotifications: require("./notifications/giftsWithNotifications"),
