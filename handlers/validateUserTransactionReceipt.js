@@ -13,6 +13,9 @@ module.exports = async function (request, reply) {
     await User.findOne({ _id: loggedInUserId }, function (error, user) {
         if (error) {
             Logger.logErrorAndWarning(loggedInUserId, error);
+            reply({
+                status: "failure", error: error
+            });
         }
 
         if (user) {
