@@ -8,7 +8,7 @@ var pub = google.androidpublisher('v2');
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
     var isSubscription = request.payload.isSubscription;
-    var purchase = request.payload.purchase;
+    var purchase = JSON.parse(request.payload.purchase);
     var userSubscriptionType = request.payload.userSubscriptionType;
     var error = null;
 
