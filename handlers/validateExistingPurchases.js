@@ -8,6 +8,8 @@ var pub = google.androidpublisher('v2');
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
     var isSubscription = request.payload.isSubscription;
+    var purchase = request.payload.purchase;
+    var userSubscriptionType = request.payload.userSubscriptionType;
     var error = null;
 
     await User.findOne({ _id: loggedInUserId }, function (err, user) {
@@ -20,6 +22,17 @@ module.exports = async function (request, reply) {
         }
 
         if (user) {
+            if (purchase && !user.paymentInfo.purchases.some(e => e.transactionId === purchase.transactionId)) {
+                user.paymentInfo.purchases.push(purchase);
+
+                user.save(function (err) {
+                    if (err) {
+                        Logger.logErrorAndWarning(loggedInUserId, err);
+                    } else {
+                    }
+                });
+            }
+
             user.paymentInfo.purchases.forEach(purchase => {
                 const isPurchasedFromApple = !purchase.dataAndroid;
                 const isPurchasedFromAndroid = purchase.dataAndroid;
