@@ -8,7 +8,7 @@ var pub = google.androidpublisher('v2');
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
     var isSubscription = request.payload.isSubscription;
-    var purchase = JSON.parse(request.payload.purchase);
+    var purchase = request.payload.purchase !== "undefined" ? JSON.parse(request.payload.purchase) : undefined;
     var userSubscriptionType = request.payload.userSubscriptionType;
     var error = null;
 
@@ -107,6 +107,7 @@ module.exports = async function (request, reply) {
                                     error = null;
                                 }
                                 else {
+                                    reply({ status: "success" });
                                     error = "Unfortunately your subscription has expired";
                                 }
                             }
