@@ -122,7 +122,6 @@ module.exports = async function (request, reply) {
                     Logger.logErrorAndWarning(loggedInUserId, err);
                     reply({ status: "failure" });
                 } else {
-                    reply({ status: "success" });
                 }
             });
 
