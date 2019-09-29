@@ -1,11 +1,11 @@
 const User = require("../models/User");
 const Logger = require("../helpers/Logger");
 
-module.exports = async function(request, reply) {
+module.exports = async function (request, reply) {
   var loggedInUserId = request.payload.loggedInUserId;
-  var receipt = JSON.parse(request.payload.receipt);
+  var receipt = request.payload.receipt ? JSON.parse(request.payload.receipt) : null;
 
-  return User.findOne({ _id: loggedInUserId }, function(err, user) {
+  return User.findOne({ _id: loggedInUserId }, function (err, user) {
     if (err) {
       Logger.logErrorAndWarning(loggedInUserId, err);
       reply(err);
@@ -13,8 +13,10 @@ module.exports = async function(request, reply) {
 
     if (user) {
       user.arData.arGiftsLeft = 15;
-       user.arData.purchases.push(receipt);
-      user.save(function(err) {
+      if (receipt) {
+        user.arData.purchases.push(receipt);
+      }
+      user.save(function (err) {
         if (err) {
           Logger.logErrorAndWarning(loggedInUserId, err);
           reply({ status: "failure" });
