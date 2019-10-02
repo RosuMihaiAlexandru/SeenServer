@@ -7,8 +7,8 @@ module.exports = async function (request, reply) {
     var loggedInUserId = request.query.loggedInUserId.toString();
     var longitude = parseFloat(request.query.long);
     var latitude = parseFloat(request.query.lat);
-    var isShowMen = request.query.isShowMen === "true";
-    var isShowWomen = request.query.isShowWomen === "true";
+    var isShowMen = request.query.isShowMen === "1";
+    var isShowWomen = request.query.isShowWomen === "1";
 
     var ageRangeStart = parseInt(request.query.ageRangeStart);
     var ageRangeStop = parseInt(request.query.ageRangeStop);
