@@ -33,9 +33,9 @@ module.exports = {
                         errorTime: Date.now()
                     }]
                 }
-            };
-            LogInfo.create(newLogInfo);
-            status = { status: "success" };
+                LogInfo.create(newLogInfo);
+                status = { status: "success" };
+            }
         })
         return status;
     },
@@ -72,9 +72,9 @@ module.exports = {
                         deleteTime: Date.now()
                     }]
                 }
+                LogInfo.create(newLogInfo);
+                status = { status: "success" };
             };
-            LogInfo.create(newLogInfo);
-            status = { status: "success" };
         })
         return status;
     },
@@ -113,9 +113,9 @@ module.exports = {
                     errorAndWarningsLog: [],
                     deleteLog: []
                 }
+                LogInfo.create(newLogInfo);
+                status = { "status": "success" };
             };
-            LogInfo.create(newLogInfo);
-            status = { "status": "success" };
         })
         return status;
     }
