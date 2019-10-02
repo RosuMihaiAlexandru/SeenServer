@@ -134,6 +134,7 @@ module.exports = async function (request, reply) {
         function (err, users) {
             if (err) {
                 Logger.logErrorAndWarning(loggedInUserId, err);
+                reply({data: [], hasNext: false});
             }
 
             var hasNext = false;
