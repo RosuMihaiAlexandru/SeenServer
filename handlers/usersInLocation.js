@@ -16,7 +16,7 @@ module.exports = async function (request, reply) {
     var isFromSawSomeone = request.query.isFromSawSomeone === "1";
     var showGenderExpr = undefined;
     var locationRangeStopKm = meterConversion.mToKm(locationRangeStop);
-    var page = parseInt(request.query.page); 
+    var page = parseInt(request.query.page);
 
     if (isShowMen && isShowWomen) {
         showGenderExpr = {
@@ -137,34 +137,39 @@ module.exports = async function (request, reply) {
             }
 
             var hasNext = false;
-            if (users.length > 100) {
-              users.pop();
-              hasNext = true;
+            if (users && users.length > 100) {
+                users.pop();
+                hasNext = true;
             }
-            
-            for (var i = 0, len = users.length; i < len; i++) {
-                if (users[i].Chat.length > 0) {
-                    if (users[i].Chat[0].messages.length > 20) {
-                        users[i].Chat[0].messages.splice(0, users[i].Chat[0].messages.length - 21);
+
+            if (users) {
+                for (var i = 0, len = users.length; i < len; i++) {
+                    if (users[i].Chat.length > 0) {
+                        if (users[i].Chat[0].messages.length > 20) {
+                            users[i].Chat[0].messages.splice(0, users[i].Chat[0].messages.length - 21);
+                        }
                     }
                 }
+                reply({ data: users, hasNext: hasNext });
             }
-            reply({ data: users, hasNext: hasNext });
+            else {
+                reply({ data: [], hasNext: hasNext });
+            }
         }
     );
 }
 
-var meterConversion = (function() {
-    var mToKm = function(distance) {
+var meterConversion = (function () {
+    var mToKm = function (distance) {
         return parseFloat(distance * 1.6);
     };
-    var kmToM = function(distance) {
+    var kmToM = function (distance) {
         return parseFloat(distance / 1.6);
     };
 
     return {
-        mToKm : mToKm,
-        kmToM : kmToM
+        mToKm: mToKm,
+        kmToM: kmToM
     };
 })();
 

@@ -134,7 +134,7 @@ module.exports = async function (request, reply) {
         }
 
         var hasNext = false;
-        if (users.length > 100) {
+        if (users && users.length > 100) {
           users.pop();
           hasNext = true;
         }
@@ -150,7 +150,7 @@ module.exports = async function (request, reply) {
             reply({ data: users, hasNext: hasNext });
 
         } else {
-            reply([]);
+            reply({data: [], hasNext: hasNext});
         }
     });
 };
