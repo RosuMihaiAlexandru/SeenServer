@@ -76,12 +76,12 @@ module.exports = function(request, reply) {
       ],
       function(err, venues) {
         var hasNext = false;
-        if (venues.length > 10) {
+        if (venues && venues.length > 10) {
           venues.pop();
           hasNext = true;
         }
 
-        reply({ data: venues, hasNext: hasNext });
+        reply({ data: venues ? venues: [], hasNext: hasNext });
       }
     );
   }
