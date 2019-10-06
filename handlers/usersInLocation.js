@@ -151,7 +151,7 @@ module.exports = async function (request, reply) {
                         }
                     }
                 }
-                if (!error) {
+                if (!err) {
                     reply({ data: users ? users : [], hasNext: hasNext });
                 }
             }

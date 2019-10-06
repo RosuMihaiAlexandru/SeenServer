@@ -1,5 +1,6 @@
 const Venues = require("../models/Venues");
 const userSubscriptionTypes = require("../constants/userSubscriptionTypes");
+const Logger = require("../helpers/Logger");
 
 module.exports = function(request, reply) {
   var latitude = parseFloat(request.query.lat);
@@ -10,6 +11,9 @@ module.exports = function(request, reply) {
   var searchKeyword = request.query.searchKeyword;
   var maxDistance = isPremiumUser ? 50000 : 10000;
 
+
+  try {
+      
   if (filterTag !== "" || searchKeyword !== "") {
     var filterTagSynonym = undefined;
     if (filterTag !== "") {
@@ -54,7 +58,9 @@ module.exports = function(request, reply) {
           hasNext = true;
         }
 
-        reply({ data: venues, hasNext: hasNext });
+        if(!err){
+          reply({ data: venues ? venues: [], hasNext: hasNext });
+        }
       }
     );
   } else {
@@ -81,11 +87,18 @@ module.exports = function(request, reply) {
           hasNext = true;
         }
 
-        reply({ data: venues ? venues: [], hasNext: hasNext });
+        if(!err){
+          reply({ data: venues ? venues: [], hasNext: hasNext });
+        }
       }
     );
   }
-};
+  } catch (error) {
+    Logger.logErrorAndWarning("venues"+ latitude + longitude, error.message);
+    reply({ data: [], hasNext: false });
+  }
+}
+  
 
 function GetMatchExpressionForFilterOrSearchKeyword(
   searchRegExp,
