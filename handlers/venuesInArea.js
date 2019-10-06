@@ -94,7 +94,6 @@ module.exports = function(request, reply) {
     );
   }
   } catch (error) {
-    Logger.logErrorAndWarning("venues"+ latitude + longitude, error.message);
     reply({ data: [], hasNext: false });
   }
 }
