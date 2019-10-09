@@ -79,7 +79,7 @@ module.exports = async function (request, reply) {
               isShowMen: true,
               memberId: newUser._id,
               isShowWomen: true,
-              ageRange: [16, 70],
+              ageRange: [18, 70],
               locationRange: [100],
               emailSettings: {
                 isReceiveNewMessages: true,
