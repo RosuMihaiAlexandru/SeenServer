@@ -21,11 +21,11 @@ module.exports = async function (request, reply) {
                     var imageBuffer = new Buffer(base64PhotoString, "base64");
                     var userDirectory = "../../../mnt/seenblockstorage/" + user.email;
                     if (!fs.existsSync(userDirectory)) {
-                        fs.mkdirSync(userDirectory);
+                        await fs.mkdir(userDirectory);
                     }
 
                     var fileName = getFormattedDate() + ".jpg";
-                    fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
+                    await fs.writeFile(userDirectory + "/" + fileName, imageBuffer);
 
                     user.profileImage.media =
                         "http://167.99.200.101/seenblockstorage/" +

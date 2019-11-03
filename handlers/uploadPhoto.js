@@ -9,7 +9,7 @@ module.exports = async function(request, reply) {
   var base64PhotoString = request.payload.base64PhotoString;
   var type = request.payload.type;
 
-  await User.findOne({ _id: loggedInUserId }, function(error, user) {
+  await User.findOne({ _id: loggedInUserId }, async function(error, user) {
     if(error) {
       Logger.logErrorAndWarning(loggedInUserId, error);
     }
@@ -21,12 +21,12 @@ module.exports = async function(request, reply) {
         var imageBuffer = new Buffer(base64PhotoString, "base64");
         var userDirectory = "../../../mnt/seenblockstorage/" + user.email;
         if (!fs.existsSync(userDirectory)) {
-         fs.mkdirSync(userDirectory);
+          await fs.mkdir(userDirectory);
         }
 
         if (type === "profile") {
           var fileName = getFormattedDate() + ".jpg";
-          fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
+          await fs.writeFile(userDirectory + "/" + fileName, imageBuffer);
 
           user.profileImage.media =
             "http://167.99.200.101/seenblockstorage/" +
@@ -40,7 +40,7 @@ module.exports = async function(request, reply) {
             throw 'photoLimitExceeded';
           } else {
             var fileName = getFormattedDate() + ".jpg";
-            fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
+            await fs.writeFile(userDirectory + "/" + fileName, imageBuffer);
             user.userImages.push({
               contentType: "image/jpg",
               media:
@@ -54,7 +54,7 @@ module.exports = async function(request, reply) {
           }
         } else if (type === "cover") {
           var fileName = getFormattedDate() + ".jpg";
-          fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
+          await fs.writeFile(userDirectory + "/" + fileName, imageBuffer);
           user.coverImage.media =
             "http://167.99.200.101/seenblockstorage/" +
             user.email +

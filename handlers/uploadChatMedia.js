@@ -6,10 +6,10 @@ module.exports = async function (base64PhotoString, conversationId) {
     var imageBuffer = new Buffer(base64PhotoString, "base64");
     var conversationDirectory = "../../../mnt/seenblockstorage/" + conversationId;
     if (!fs.existsSync(conversationDirectory)) {
-      fs.mkdirSync(conversationDirectory);
+      await fs.mkdir(conversationDirectory);
     }
     var fileName = getFormattedDate() + ".jpg";
-    await fs.writeFileSync(conversationDirectory + "/" + fileName, imageBuffer);
+    await fs.writeFile(conversationDirectory + "/" + fileName, imageBuffer);
   } catch (err) {
     ok = false;
   }
