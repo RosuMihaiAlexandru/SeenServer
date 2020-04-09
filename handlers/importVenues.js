@@ -10,7 +10,7 @@ const Logger = require("../helpers/Logger");
 module.exports = async function(request, reply) {
     var index = 0;
     try {
-        return fs.createReadStream("venues-iasi.csv")
+        return fs.createReadStream("bristolAll.csv")
     .pipe(csv())
     .on("data", row => {
         index++;
