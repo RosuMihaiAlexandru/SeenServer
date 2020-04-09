@@ -1,4 +1,5 @@
 const fs = require("fs");
+const Logger = require("../helpers/Logger");
 
 module.exports = async function (base64PhotoString, conversationId) {
   var ok = true;
@@ -6,10 +7,14 @@ module.exports = async function (base64PhotoString, conversationId) {
     var imageBuffer = new Buffer(base64PhotoString, "base64");
     var conversationDirectory = "../../../mnt/seenblockstorage/" + conversationId;
     if (!fs.existsSync(conversationDirectory)) {
-      await fs.mkdir(conversationDirectory);
+      await fs.mkdir(conversationDirectory, (err) => {
+        if (err) Logger.logErrorAndWarning(conversationId, err);
+      });
     }
     var fileName = getFormattedDate() + ".jpg";
-    await fs.writeFile(conversationDirectory + "/" + fileName, imageBuffer);
+    await fs.writeFile(conversationDirectory + "/" + fileName, imageBuffer, (err) => {
+      if (err) Logger.logErrorAndWarning(conversationId, err);
+    });
   } catch (err) {
     ok = false;
   }
