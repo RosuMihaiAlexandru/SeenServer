@@ -13,7 +13,7 @@ module.exports = async function (request, reply) {
         }
 
         if (user) {
-            user.location.coordinates = [coords.latitude, coords.longitude];
+            user.location.coordinates = [coords.longitude, coords.latitude];
             user.save(function(err) {
                 if (err) {
                     Logger.logErrorAndWarning(userId, err);

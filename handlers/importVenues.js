@@ -19,14 +19,13 @@ module.exports = async function(request, reply) {
                 imgUrl = "https:" + imgUrl;
         }
 
-        image2base64(imgUrl) // you can also to use url
+       image2base64(imgUrl) // you can also to use url
           .then(response => {
             var imageBuffer = new Buffer(response, "base64");
             var userDirectory =
               "../../../mnt/seenblockstorage/venues/" + row.Plus_Code.replace(/\s/g, "");
             if (!fs.existsSync(userDirectory)) {
               fs.mkdirSync(userDirectory);
-            }
 
             var fileName = getFormattedDate() + ".jpg";
             fs.writeFileSync(userDirectory + "/" + fileName, imageBuffer);
@@ -36,7 +35,7 @@ module.exports = async function(request, reply) {
                 newVenue = new Venues({
                   location: {
                     type: "Point",
-                    coordinates: [parseFloat(row.Lat), parseFloat(row.Lng)]
+                    coordinates: [ parseFloat(row.Lng), parseFloat(row.Lat)]
                   },
                   name: row.Name,
                   email: row.Email,
@@ -74,6 +73,7 @@ module.exports = async function(request, reply) {
                 reply(Boom.conflict("Venue already exists"));
               }
             });
+          }
           }).catch(
           //   (error) => {
           //     reply({ status: "failure", error: error, index: index });
@@ -81,8 +81,8 @@ module.exports = async function(request, reply) {
         )
     })
     .on("end", () => {
-        reply({ status: "success" });
-    });
+      reply({ status: "success" });
+  });
     } catch (error) {
         reply(error);
     }

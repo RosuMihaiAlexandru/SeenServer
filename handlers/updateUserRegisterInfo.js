@@ -35,7 +35,7 @@ module.exports = async function (request, reply) {
                     uploadedImage = user.profileImage;
                 }
                 if (isFacebookLogin) {
-                    user.location.coordinates = [location.latitude, location.longitude];
+                    user.location.coordinates = [location.longitude, location.latitude];
                 }
                 Array.prototype.push.apply(user.matchingData.questions, questions);
                 user.matchingData.lastDateAnswered = Date.now();

@@ -45,7 +45,7 @@ module.exports = async function (request, reply) {
                 "$geoNear": {
                     "near": {
                         "type": "Point",
-                        "coordinates": [latitude, longitude]
+                        "coordinates": [longitude, latitude]
                     },
                     "distanceField": "dist",
                     "maxDistance": 120000,
