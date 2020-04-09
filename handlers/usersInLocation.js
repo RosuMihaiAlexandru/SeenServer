@@ -51,11 +51,10 @@ module.exports = async function (request, reply) {
                         },
                         "distanceField": "dist",
                         "maxDistance": isFromSawSomeone ? 200 : locationRangeStopKm,
-                        "spherical": true,
-                        "limit": 10000
+                        "spherical": true
                     }
                 },
-
+                { $limit: 10000 },
                 {
                     $project: {
                         date: "$birthDate",
