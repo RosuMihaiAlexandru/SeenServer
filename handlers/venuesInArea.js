@@ -39,12 +39,11 @@ module.exports = function(request, reply) {
           $geoNear: {
             near: {
               type: "Point",
-              coordinates: [latitude, longitude]
+              coordinates: [longitude, latitude]
             },
             distanceField: "dist",
             maxDistance: maxDistance,
-            spherical: true,
-            limit: 10000
+            spherical: true
           }
         },
         tagExpr,
@@ -70,14 +69,14 @@ module.exports = function(request, reply) {
           $geoNear: {
             near: {
               type: "Point",
-              coordinates: [latitude, longitude]
+              coordinates: [longitude, latitude]
             },
             distanceField: "dist",
             maxDistance: maxDistance,
-            spherical: true,
-            limit: page * 10 + 1
+            spherical: true
           }
         },
+        { $limit: page * 10 + 1},
         { $skip: page * 10 - 10 }
       ],
       function(err, venues) {
