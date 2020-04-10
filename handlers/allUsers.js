@@ -49,11 +49,10 @@ module.exports = async function (request, reply) {
                     },
                     "distanceField": "dist",
                     "maxDistance": 120000,
-                    "spherical": true,
-                    "limit": 10000
+                    "spherical": true
                 }
             },
-    
+            { "$limit": 10000 },
             {
                 $project: {
                     date: "$birthDate",
