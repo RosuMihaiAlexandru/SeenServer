@@ -145,7 +145,7 @@ module.exports = async function (request, reply) {
                 var filteredUsers = [];
                 if (users) {
                     for (var i = 0, len = users.length; i < len; i++) {
-                        UsersFilter.filterUsersByLastAnsweredDate(filteredUsers, users[i]);
+                        UsersFilter.filterUsersByLastAnsweredDate(filteredUsers, users[i], loggedInUserId);
                     }
                 }
                 if (!err) {
