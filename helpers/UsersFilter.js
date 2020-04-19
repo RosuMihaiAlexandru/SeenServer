@@ -3,7 +3,7 @@ module.exports = {
         if (user.Chat.length > 0) {
             if (user.Chat[0].members[0] == loggedInUserId) {
                 if (user.Chat[0].user1Answered && !user.Chat[0].user1Liked) {
-                    var dateNow = Date.now();
+                    var dateNow = new Date();
                     var lastDateAnswered = new Date(user.Chat[0].user1AnsweredDate);
                     var lastAnsweredPassedDays = Math.floor((Date.UTC(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate()) -
                         Date.UTC(lastDateAnswered.getFullYear(), lastDateAnswered.getMonth(), lastDateAnswered.getDate())) / (1000 * 60 * 60 * 24));
@@ -29,7 +29,7 @@ module.exports = {
 
             else if (user.Chat[0].members[1] == loggedInUserId) {
                 if (user.Chat[0].user2Answered && !user.Chat[0].user2Liked) {
-                    var dateNow = Date.now();
+                    var dateNow = new Date();
                     var lastDateAnswered = new Date(user.Chat.user2AnsweredDate);
                     var lastAnsweredPassedDays = Math.floor((Date.UTC(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate()) -
                         Date.UTC(lastDateAnswered.getFullYear(), lastDateAnswered.getMonth(), lastDateAnswered.getDate())) / (1000 * 60 * 60 * 24));
