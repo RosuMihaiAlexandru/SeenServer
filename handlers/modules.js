@@ -38,6 +38,7 @@ module.exports = {
   createOrUpdatePushNotificationsSettings: require("./createOrUpdatePushNotificationsSettings"),
   toggleHideAccount: require("./toggleHideAccount"),
   logFeedback: require("./logFeedback"),
+  deleteAllLogInfo: require("./deleteAllLogInfo"),
   sendRecoverPasswordEmail: require("./sendRecoverPasswordEmail"),
   resetPassword: require("./resetPassword"),
   deleteUser: require("./deleteUser"),
@@ -54,5 +55,6 @@ module.exports = {
   getBigFiveData: require("./getBigFiveData"),
   getChatMediaCount: require("./getChatMediaCount"),
   calculateBigFiveScore: require("./calculateBigFiveScore"),
-  checkIfUserExists: require("./checkIfUserExists")
+  checkIfUserExists: require("./checkIfUserExists"),
+  deleteAllMatches: require("./deleteAllMatches")
 };
