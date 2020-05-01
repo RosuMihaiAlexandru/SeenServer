@@ -2,6 +2,7 @@ const Boom = require("boom");
 const User = require("../models/User");
 const mongoose = require("mongoose");
 const Logger = require("../helpers/Logger");
+const UsersFilter = require("../helpers/UsersFilter");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.query.loggedInUserId.toString();
@@ -48,12 +49,11 @@ module.exports = async function (request, reply) {
                         "coordinates": [longitude, latitude]
                     },
                     "distanceField": "dist",
-                    "maxDistance": 120000,//meters
-                    "spherical": true,
-                    "limit": 10000
+                    "maxDistance": 120000,
+                    "spherical": true
                 }
             },
-    
+            { "$limit": 10000 },
             {
                 $project: {
                     date: "$birthDate",
@@ -139,18 +139,15 @@ module.exports = async function (request, reply) {
               hasNext = true;
             }
     
+            var filteredUsers = [];
             if (users) {
                 for (var i = 0, len = users.length; i < len; i++) {
-                    if (users[i].Chat.length > 0) {
-                        if (users[i].Chat[0].messages.length > 20) {
-                            users[i].Chat[0].messages.splice(0, users[i].Chat[0].messages.length - 20);
-                        }
-                    }
+                    UsersFilter.filterUsersByLastAnsweredDate(filteredUsers, users[i], loggedInUserId);
                 }
     
             }
             if(!error){
-                reply({ data: users ? users: [], hasNext: hasNext });
+                reply({ data: filteredUsers ? filteredUsers: [], hasNext: hasNext });
             }
         });
     } catch (error) {
@@ -159,3 +156,5 @@ module.exports = async function (request, reply) {
     }
    
 };
+
+
