@@ -15,7 +15,8 @@ module.exports = async function (request, reply) {
     var locationRangeStop = parseInt(request.query.locationRangeStop);
     var isFromSawSomeone = request.query.isFromSawSomeone === "1";
     var showGenderExpr = undefined;
-    var locationRangeStopKm = meterConversion.mToKm(locationRangeStop);
+    var locationRangeStopMeters = 100 //meters
+    //meterConversion.mToKm(locationRangeStop) * 1000;
     var page = parseInt(request.query.page);
 
     if (isShowMen && isShowWomen) {
@@ -50,12 +51,11 @@ module.exports = async function (request, reply) {
                             "coordinates": [longitude, latitude]
                         },
                         "distanceField": "dist",
-                        "maxDistance": isFromSawSomeone ? 200 : locationRangeStopKm,
-                        "spherical": true,
-                        "limit": 10000
+                        "maxDistance": isFromSawSomeone ? 200 : locationRangeStopMeters, //meters
+                        "spherical": true
                     }
                 },
-
+                { $limit: 10000},
                 {
                     $project: {
                         date: "$birthDate",

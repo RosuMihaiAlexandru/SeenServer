@@ -48,7 +48,7 @@ module.exports = async function (request, reply) {
                         "coordinates": [longitude, latitude]
                     },
                     "distanceField": "dist",
-                    "maxDistance": 120000,
+                    "maxDistance": 120000,//meters
                     "spherical": true,
                     "limit": 10000
                 }
