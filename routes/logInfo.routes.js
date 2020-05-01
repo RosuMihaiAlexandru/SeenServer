@@ -10,6 +10,15 @@ module.exports = [
         config: {
             auth: false,
         }
+    },
+    {
+        //creates a feedback element inside feedback array from LogInfo document
+        method: 'POST',
+        path: '/deleteAllLogInfo',
+        handler: handlers.deleteAllLogInfo,
+        config: {
+            auth: false,
+        }
     }
 ];
 

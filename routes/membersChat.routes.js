@@ -97,5 +97,14 @@ module.exports = [
         auth: false,
     }
  },
+ {
+    //updates userDeleteDate
+    method: 'POST',
+    path: '/deleteAllMatches',
+    handler: handlers.deleteAllMatches,
+    config:{
+        auth: false,
+    }
+ },
 ];
 

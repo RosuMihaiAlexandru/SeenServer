@@ -4,6 +4,7 @@ const Match = require("../models/MembersChat");
 const fs = require('fs');
 const Logger = require("../helpers/Logger");
 const SettingsAndPreferences = require("../models/SettingsAndPreferences");
+const NotificationsProcessor = require("../notifications/NotificationsProcessor");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
@@ -69,6 +70,29 @@ module.exports = async function (request, reply) {
     )
 
     return await User.deleteOne({ _id: loggedInUserId }, function (err) {
+        Match.find({ _id: loggedInUserId }, function(matches, err){
+            if (err) {
+                Logger.logErrorAndWarning(loggedInUserId, err);
+                reply({ status: "failure" });
+            }
+
+            matches.forEach(match => {
+                if(match.user1Liked && match.user2Liked){
+                    
+                }
+                
+            var message1 = {
+                app_id: "e8d3a93c-398c-407d-9219-8131322767a0",
+                data: {
+                  notificationType: "deletedMember",
+                  senderId: member1Id
+                },
+                include_player_ids: member2PlayerIds
+              };
+              NotificationsProcessor.process(message1);
+            });
+
+        })
         
         Match.deleteMany({ members: loggedInUserId }, function (err) {
             if (err) {

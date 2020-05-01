@@ -31,6 +31,16 @@ const ConversationSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    user1Answered: {
+        type: Boolean,
+        default: false
+    },
+    user2Answered: {
+        type: Boolean,
+        default: false
+    },
+    user1AnsweredDate: Date,
+    user2AnsweredDate: Date,
     user1SawTheOther: {
         type: Boolean,
         default: false
