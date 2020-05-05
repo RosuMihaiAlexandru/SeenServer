@@ -66,9 +66,9 @@ module.exports = async function (request, reply) {
                     users[i].Chat.messages.splice(0, users[i].Chat.messages.length - 20);
                 }
             }
-            reply(users);
+            reply({data: users});
         } else {
-            reply([]);
+            reply({data: []});
         }
     });
 };
