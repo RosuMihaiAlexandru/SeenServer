@@ -13,12 +13,12 @@ module.exports = async function (request, reply) {
   var ageRangeStart = parseInt(request.payload.ageRangeStart);
   var ageRangeStop = parseInt(request.payload.ageRangeStop);
   var locationRangeStop = parseInt(request.payload.locationRangeStop);
-  var hideAccount = request.payload.hideAccount;
+  var accountIsHidden = request.payload.accountIsHidden;
 
-  if (hideAccount != null || hideAccount != undefined) {
+  if (accountIsHidden != null || accountIsHidden != undefined) {
     await User.findOne({ _id: loggedInUserId }).then(user => {
       if (user) {
-        user.accountIsHidden = hideAccount;
+        user.accountIsHidden = accountIsHidden;
         user.save(function (err) {
           if (err) {
               Logger.logErrorAndWarning(loggedInUserId, err);

@@ -5,7 +5,7 @@ const Logger = require("../helpers/Logger");
 
 module.exports = async function (request, reply) {
     var loggedInUserId = request.payload.loggedInUserId;
-    var hideAccount = request.payload.hideAccount;
+    var accountIsHidden = request.payload.accountIsHidden;
 
     await User.findOne({ _id: loggedInUserId }, function(error, user) {
         if (error) {
@@ -13,7 +13,7 @@ module.exports = async function (request, reply) {
         }
 
         if (user) {
-            user.accountIsHidden = hideAccount;
+            user.accountIsHidden = accountIsHidden;
             user.save(function (err) {
                 if (err) {
                     Logger.logErrorAndWarning(loggedInUserId, error);
