@@ -2,6 +2,8 @@ const LogInfo = require("../models/LogInfo");
 
 module.exports = {
     async logErrorAndWarning(loggedInUserId, errorMessage) {
+        if (!loggedInUserId)
+            return;
         var status = {};
         await LogInfo.findOne({ memberId: loggedInUserId }, function (err, logInfo) {
             if (err) {

@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const Boom = require('boom');
 const JWT = require('jsonwebtoken');
+const fs = require("fs");
 
 
 const User = require('../models/User');
@@ -20,8 +21,37 @@ const getHashedPassword = (password) => {
 
 module.exports = async function (request, reply) {
   let newUser, newSettingsAndPreferences;
-  await User.findOne({ email: request.payload.email }, function (err, user) {
-      if (!user) {
+  await User.findOne({ email: request.payload.email },async function (err, user) {
+    if (!user) {
+      const email = request.payload.email;
+      var profileImageUrl = "";
+
+      if (request.payload.facebookImageUrl) {
+        profileImageUrl = request.payload.facebookImageUrl;
+      } else {
+      var base64PhotoString = request.payload.base64PhotoString;
+      var imageBuffer = new Buffer(base64PhotoString, "base64");
+      //var userDirectory = "../../../mnt/seenblockstorage/" + email;
+      //for local tests
+      var userDirectory = "./" + email;
+      if (!fs.existsSync(userDirectory)) {
+        await fs.mkdir(userDirectory, (err) => {
+          if (err) Logger.logErrorAndWarning("", err);
+        });
+      }
+
+      var fileName = getFormattedDate() + ".jpg";
+      await fs.writeFile(userDirectory + "/" + fileName, imageBuffer, (err) => {
+        if (err) Logger.logErrorAndWarning("", err);
+      });
+
+      profileImageUrl =
+        "http://167.99.200.101/seenblockstorage/" +
+        email +
+        "/" +
+        fileName;
+      }
+
         const hashedPassword = getHashedPassword(request.payload.password);
         newUser = new User({
           location: {
@@ -44,10 +74,10 @@ module.exports = async function (request, reply) {
           },
           matchingData:{
             lastDateAnswered: Date.now(),
-            questions: [],
+            questions: request.payload.questions,
             bigFiveResult:{}
           },
-          gender: '',
+          gender: request.payload.gender,
           birthDate: request.payload.birthDate,
           city: '',
           height: '',
@@ -61,7 +91,7 @@ module.exports = async function (request, reply) {
           userImages: [],
           profileImage: {
             contentType: 'image/jpg',
-            media: ''
+            media: profileImageUrl
           },
           coverImage: {
             contentType: 'image/jpg',
@@ -76,9 +106,9 @@ module.exports = async function (request, reply) {
         newUser.save((err) => {
           if (!err) {
             newSettingsAndPreferences = new SettingsAndPreferences({
-              isShowMen: true,
+              isShowMen: request.payload.sexPreference.isMenPreference,
               memberId: newUser._id,
-              isShowWomen: true,
+              isShowWomen: request.payload.sexPreference.isWomenPreference,
               ageRange: [18, 70],
               locationRange: [100],
               emailSettings: {
@@ -117,4 +147,17 @@ module.exports = async function (request, reply) {
       }
     }
   )
+}
+
+function getFormattedDate() {
+  var date = new Date();
+  var nowDate =
+    date.getFullYear() +
+    "" +
+    (date.getMonth() + 1) +
+    date.getDate() +
+    date.getHours() +
+    date.getMinutes() +
+    date.getSeconds();
+  return nowDate;
 }

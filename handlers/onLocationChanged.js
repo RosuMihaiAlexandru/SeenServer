@@ -6,6 +6,9 @@ module.exports = async function (request, reply) {
     const userId = request.payload.userId;
     const coords = request.payload.location.coords;
 
+    if (!userId)
+        return;
+
     await User.findOne({ _id: userId }, function (err, user) {
         if (err) {
             Logger.logErrorAndWarning(userId, err);

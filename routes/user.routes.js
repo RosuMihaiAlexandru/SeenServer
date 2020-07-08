@@ -158,9 +158,14 @@ module.exports = [
         payload: {
           userName: Joi.string().required(),
           email: Joi.string().required(),
-          password: Joi.string().required(),
+          password: Joi.string().allow(""),
           birthDate: Joi.date().required(),
-          location: Joi.object().required()
+          location: Joi.object().required(),
+          questions: Joi.array().required(),
+          gender: Joi.string().required(),
+          sexPreference: Joi.object().required(),
+          base64PhotoString: Joi.string().allow(""),
+          facebookImageUrl: Joi.string().allow("")
         }
       }
     }
