@@ -31,9 +31,9 @@ module.exports = async function (request, reply) {
       } else {
       var base64PhotoString = request.payload.base64PhotoString;
       var imageBuffer = new Buffer(base64PhotoString, "base64");
-      //var userDirectory = "../../../mnt/seenblockstorage/" + email;
+      var userDirectory = "../../../mnt/seenblockstorage/" + email;
       //for local tests
-      var userDirectory = "./" + email;
+      //var userDirectory = "./" + email;
       if (!fs.existsSync(userDirectory)) {
         await fs.mkdir(userDirectory, (err) => {
           if (err) Logger.logErrorAndWarning("", err);
