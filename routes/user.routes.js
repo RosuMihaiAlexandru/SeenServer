@@ -224,6 +224,14 @@ module.exports = [
   },
   {
     method: "POST",
+    path: "/sendRealEstateEmail",
+    handler: handlers.sendRealEstateEmail,
+    config: {
+      auth: false
+    }
+  },
+  {
+    method: "POST",
     path: "/contactUs",
     handler: handlers.contactUs,
     config: {
