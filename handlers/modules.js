@@ -31,7 +31,6 @@ module.exports = {
   loadMoreMessages: require("./loadMoreMessages"),
   blockConversation: require("./blockConversation"),
   sendReportMail: require("./sendReportMail"),
-  sendRealEstateEmail: require("./sendRealEstateEmail"),
   getChatMedia: require("./getChatMedia"),
   createOrUpdateAppSettings: require("./createOrUpdateAppSettings"),
   loadSettingsAndPreferences: require("./loadSettingsAndPreferences"),
