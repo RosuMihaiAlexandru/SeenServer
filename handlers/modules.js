@@ -56,5 +56,6 @@ module.exports = {
   getChatMediaCount: require("./getChatMediaCount"),
   calculateBigFiveScore: require("./calculateBigFiveScore"),
   checkIfUserExists: require("./checkIfUserExists"),
-  deleteAllMatches: require("./deleteAllMatches")
+  deleteAllMatches: require("./deleteAllMatches"),
+  uploadFile: require("./uploadFile")
 };

@@ -85,6 +85,7 @@ module.exports = async function (request, reply) {
                     userImages: 1,
                     profileImage: 1,
                     coverImage: 1,
+                    recordingIntro: 1,
                     arData: 1,
                     __v: 1,
                     playerIds: 1,

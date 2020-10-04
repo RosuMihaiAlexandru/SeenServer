@@ -321,5 +321,20 @@ module.exports = [
     config: {
       auth: false //'jwt'
     }
+  },
+  {
+    //file upload
+    method: "POST",
+    path: "/uploadFile",
+    handler: handlers.uploadFile,
+    config: {
+      auth: false, //'jwt'
+      payload: {
+        output: 'stream',
+        parse: true,
+        allow: 'multipart/form-data'
+      }
+    },
+    
   }
 ];

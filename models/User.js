@@ -66,6 +66,10 @@ const UserSchema = new mongoose.Schema({
         contentType: String,
         media: String
     },
+    recordingIntro: {
+        type: String,
+        default: ""
+    },
     arData: {
         arGiftsLeft: {
             type: Number,
